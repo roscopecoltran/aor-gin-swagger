@@ -2,7 +2,12 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "title": "admin-on-rest entity APIs"
+    "title": "admin-on-rest entity APIs",
+    "description": "An extensible database abstraction browser\n",
+    "contact": {
+      "name": "Rosco Pecoltran",
+      "email": "rosco_pecoltran@msn.com"
+    }
   },
   "host": "localhost:7000",
   "basePath": "/",
@@ -251,16 +256,16 @@
         ],
         "parameters": [
           {
-            "name": "entity",
+            "name": "id",
             "in": "path",
-            "description": "entity",
+            "description": "id",
             "required": true,
             "type": "string"
           },
           {
-            "name": "id",
+            "name": "entity",
             "in": "path",
-            "description": "id",
+            "description": "entity",
             "required": true,
             "type": "string"
           }
@@ -300,16 +305,16 @@
         ],
         "parameters": [
           {
-            "name": "entity",
+            "name": "id",
             "in": "path",
-            "description": "entity",
+            "description": "id",
             "required": true,
             "type": "string"
           },
           {
-            "name": "id",
+            "name": "entity",
             "in": "path",
-            "description": "id",
+            "description": "entity",
             "required": true,
             "type": "string"
           },
@@ -361,16 +366,16 @@
         ],
         "parameters": [
           {
-            "name": "entity",
+            "name": "id",
             "in": "path",
-            "description": "entity",
+            "description": "id",
             "required": true,
             "type": "string"
           },
           {
-            "name": "id",
+            "name": "entity",
             "in": "path",
-            "description": "id",
+            "description": "entity",
             "required": true,
             "type": "string"
           }
@@ -2097,13 +2102,15 @@
       "type": "object",
       "properties": {
         "email": {
-          "type": "string"
+          "type": "string",
+          "format": "email"
         },
         "mobile": {
           "type": "string"
         },
         "password": {
-          "type": "string"
+          "type": "string",
+          "format": "password"
         },
         "username": {
           "type": "string"
@@ -2124,6 +2131,9 @@
     "DataSource": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string"
+        },
         "clusterName": {
           "type": "string"
         },
@@ -2131,9 +2141,6 @@
           "type": "boolean"
         },
         "dbName": {
-          "type": "string"
-        },
-        "id": {
           "type": "string"
         },
         "indexName": {
@@ -2146,7 +2153,8 @@
           "type": "string"
         },
         "password": {
-          "type": "string"
+          "type": "string",
+          "format": "password"
         },
         "type": {
           "type": "string",
@@ -2154,7 +2162,17 @@
             "mongo",
             "mysql",
             "cds",
-            "es"
+            "es",
+            "postgres",
+            "boltdb",
+            "bleve",
+            "dgraph",
+            "neo4j",
+            "arrangodb",
+            "tidedb",
+            "rocksdb",
+            "leveldb",
+            "sqlite3"
           ]
         },
         "username": {
@@ -2165,16 +2183,13 @@
     "Entity": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string"
+        },
         "crud": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "c",
-              "r",
-              "u",
-              "d"
-            ]
+            "$ref": "#/definitions/CrudOptions"
           }
         },
         "fields": {
@@ -2182,9 +2197,6 @@
           "items": {
             "$ref": "#/definitions/Field"
           }
-        },
-        "id": {
-          "type": "string"
         },
         "label": {
           "type": "string"
@@ -2236,16 +2248,16 @@
             "Text"
           ]
         },
-        "dataSourceId": {
-          "type": "string"
-        },
-        "defaultValue": {
+        "id": {
           "type": "string"
         },
         "eid": {
           "type": "string"
         },
-        "id": {
+        "dataSourceId": {
+          "type": "string"
+        },
+        "defaultValue": {
           "type": "string"
         },
         "inputType": {
@@ -2320,7 +2332,8 @@
       "type": "object",
       "properties": {
         "password": {
-          "type": "string"
+          "type": "string",
+          "format": "password"
         },
         "username": {
           "type": "string"
@@ -2337,7 +2350,8 @@
           }
         },
         "email": {
-          "type": "string"
+          "type": "string",
+          "format": "email"
         },
         "enabled": {
           "type": "boolean"
@@ -2347,7 +2361,7 @@
         }
       }
     },
-    "Permission": {
+    "CrudOptions": {
       "type": "object",
       "properties": {
         "c": {
@@ -2356,11 +2370,28 @@
         "d": {
           "type": "boolean"
         },
+        "r": {
+          "type": "boolean"
+        },
+        "u": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Permission": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
         "eid": {
           "type": "string"
         },
-        "id": {
-          "type": "string"
+        "c": {
+          "type": "boolean"
+        },
+        "d": {
+          "type": "boolean"
         },
         "r": {
           "type": "boolean"
@@ -2474,21 +2505,23 @@
     "User": {
       "type": "object",
       "properties": {
-        "email": {
+        "id": {
           "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
         },
         "enabled": {
           "type": "boolean"
-        },
-        "id": {
-          "type": "string"
         },
         "lastPasswordResetDate": {
           "type": "string",
           "format": "date-time"
         },
         "password": {
-          "type": "string"
+          "type": "string",
+          "format": "password"
         },
         "roles": {
           "type": "array",

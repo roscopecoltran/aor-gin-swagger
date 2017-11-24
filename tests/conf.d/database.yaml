@@ -1,0 +1,5 @@
+db:
+  adapter: sqlite
+  name: admin_on_rest_entities
+  user: root
+  prefix_path: ./tests/data/

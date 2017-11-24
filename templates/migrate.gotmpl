@@ -1,4 +1,4 @@
-package {{ .APIPackage }}
+package main
 
 import (
 	{{range .DefaultImports}}{{printf "%q" .}}
@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	RestApiTables = []interface{}{
+	swaggerGeneratedModels = []interface{}{
 	{{range .Models}}&models.{{ pascalize .Name }}{},
 	{{end}}
 	}

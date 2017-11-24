@@ -17,7 +17,7 @@ import (
 type User struct {
 
 	// email
-	Email string `json:"email,omitempty"`
+	Email strfmt.Email `json:"email,omitempty"`
 
 	// enabled
 	Enabled bool `json:"enabled,omitempty"`
@@ -29,7 +29,7 @@ type User struct {
 	LastPasswordResetDate strfmt.DateTime `json:"lastPasswordResetDate,omitempty"`
 
 	// password
-	Password string `json:"password,omitempty"`
+	Password strfmt.Password `json:"password,omitempty"`
 
 	// roles
 	Roles UserRoles `json:"roles"`

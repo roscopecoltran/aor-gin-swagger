@@ -1,16 +1,16 @@
 .PHONY: build test generate clean
 
-EXAMPLE_NAME ?= aor-entity-example
-EXAMPLE_SPECS ?= ./tests/swagger.json
-EXAMPLE_DIR ?= $(CURDIR)/generated/$(EXAMPLE_NAME)
+EXAMPLE_NAME 	?= aor-entity-example
+EXAMPLE_SPECS 	?= $(CURDIR)/tests/swagger.json
+EXAMPLE_DIR 	?= $(CURDIR)/generated/$(EXAMPLE_NAME)
 
-BINARY_DIR   ?= $(CURDIR)/bin
-BINARY_NAME  ?= gin-swagger-aor
-SOURCES      = $(shell find . -name '*.go')
-GOPKGS       = $(shell go list ./... | grep -v /vendor/)
-TEMPLATES    = $(shell find templates/ -type f -name '*.gotmpl')
-BUILD_FLAGS  ?= -v
-LDFLAGS      ?= -X main.version=$(VERSION) -w -s
+BINARY_DIR   	?= $(CURDIR)/bin
+BINARY_NAME  	?= gin-swagger-aor
+SOURCES      	= $(shell find . -name '*.go')
+GOPKGS       	= $(shell go list ./... | grep -v /vendor/)
+TEMPLATES    	= $(shell find templates/ -type f -name '*.gotmpl')
+BUILD_FLAGS  	?= -v
+LDFLAGS      	?= -X main.version=$(VERSION) -w -s
 
 default: build
 
@@ -38,10 +38,17 @@ install:
 
 build: $(BINARY_NAME)
 
-$(BINARY): bindata.go $(SOURCES)
+$(BINARY_NAME): bindata.go $(SOURCES)
 	CGO_ENABLED=0 go build -o $(BINARY_DIR)/$(BINARY_NAME) $(BUILD_FLAGS) -ldflags "$(LDFLAGS)"
+
+quick-example: example example-bin example-run
 
 example:
 	rm -fR $(EXAMPLE_DIR)
-	./$(BINARY_NAME) --application $(EXAMPLE_NAME) -f $(EXAMPLE_SPECS) --output-dir $(EXAMPLE_DIR)
-	go build -o $(BINARY_DIR)/$(EXAMPLE_NAME) $(EXAMPLE_DIR)/cmd/$(EXAMPLE_NAME)-server/
+	$(BINARY_DIR)/$(BINARY_NAME) --application $(EXAMPLE_NAME) -f $(EXAMPLE_SPECS) --output-dir $(EXAMPLE_DIR)
+
+example-bin:
+	cd $(EXAMPLE_DIR)/cmd/$(EXAMPLE_NAME)-server && go build -o $(BINARY_DIR)/$(EXAMPLE_NAME)
+
+example-run:
+	./bin/$(EXAMPLE_NAME) --insecure-http

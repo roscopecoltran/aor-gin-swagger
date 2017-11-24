@@ -20,7 +20,7 @@ type JwtUser struct {
 	Authorities JwtUserAuthorities `json:"authorities"`
 
 	// email
-	Email string `json:"email,omitempty"`
+	Email strfmt.Email `json:"email,omitempty"`
 
 	// enabled
 	Enabled bool `json:"enabled,omitempty"`

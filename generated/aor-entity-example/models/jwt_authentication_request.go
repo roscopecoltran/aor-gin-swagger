@@ -17,7 +17,7 @@ import (
 type JwtAuthenticationRequest struct {
 
 	// password
-	Password string `json:"password,omitempty"`
+	Password strfmt.Password `json:"password,omitempty"`
 
 	// username
 	Username string `json:"username,omitempty"`

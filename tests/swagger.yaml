@@ -164,14 +164,14 @@ paths:
       produces:
         - '*/*'
       parameters:
-        - name: entity
-          in: path
-          description: entity
-          required: true
-          type: string
         - name: id
           in: path
           description: id
+          required: true
+          type: string
+        - name: entity
+          in: path
+          description: entity
           required: true
           type: string
       responses:
@@ -197,14 +197,14 @@ paths:
       produces:
         - '*/*'
       parameters:
-        - name: entity
-          in: path
-          description: entity
-          required: true
-          type: string
         - name: id
           in: path
           description: id
+          required: true
+          type: string
+        - name: entity
+          in: path
+          description: entity
           required: true
           type: string
         - in: body
@@ -238,14 +238,14 @@ paths:
       produces:
         - '*/*'
       parameters:
-        - name: entity
-          in: path
-          description: entity
-          required: true
-          type: string
         - name: id
           in: path
           description: id
+          required: true
+          type: string
+        - name: entity
+          in: path
+          description: entity
           required: true
           type: string
       responses:
@@ -1383,10 +1383,12 @@ definitions:
     properties:
       email:
         type: string
+        format: email
       mobile:
         type: string
       password:
         type: string
+        format: password
       username:
         type: string
   ChoiceItem:
@@ -1399,13 +1401,13 @@ definitions:
   DataSource:
     type: object
     properties:
+      id:
+        type: string
       clusterName:
         type: string
       current:
         type: boolean
       dbName:
-        type: string
-      id:
         type: string
       indexName:
         type: string
@@ -1415,6 +1417,7 @@ definitions:
         type: string
       password:
         type: string
+        format: password
       type:
         type: string
         enum:
@@ -1422,26 +1425,38 @@ definitions:
           - mysql
           - cds
           - es
+          - postgres
+          - boltdb
+          - bleve
+          - dgraph
+          - neo4j
+          - arrangodb
+          - tidedb
+          - rocksdb
+          - leveldb
+          - sqlite3
       username:
         type: string
   Entity:
     type: object
     properties:
+      id:
+        type: string
       crud:
         type: array
         items:
-          type: string
-          enum:
-            - c
-            - r
-            - u
-            - d
+          $ref: '#/definitions/CrudOptions'
+        # type: string
+        # type: array
+        # enum:
+        # - c
+        # - r
+        # - u
+        # - d
       fields:
         type: array
         items:
           $ref: '#/definitions/Field'
-      id:
-        type: string
       label:
         type: string
       name:
@@ -1481,13 +1496,13 @@ definitions:
           - SelectArray
           - Select
           - Text
-      dataSourceId:
-        type: string
-      defaultValue:
+      id:
         type: string
       eid:
         type: string
-      id:
+      dataSourceId:
+        type: string
+      defaultValue:
         type: string
       inputType:
         type: string
@@ -1539,6 +1554,7 @@ definitions:
     properties:
       password:
         type: string
+        format: password
       username:
         type: string
   JwtUser:
@@ -1550,21 +1566,35 @@ definitions:
           $ref: '#/definitions/GrantedAuthority'
       email:
         type: string
+        format: email
       enabled:
         type: boolean
       username:
         type: string
-  Permission:
+  CrudOptions:
     type: object
     properties:
       c:
         type: boolean
       d:
         type: boolean
-      eid:
-        type: string
+      r:
+        type: boolean
+      u:
+        type: boolean
+      d:
+        type: boolean
+  Permission:
+    type: object
+    properties:
       id:
         type: string
+      eid:
+        type: string
+      c:
+        type: boolean
+      d:
+        type: boolean
       r:
         type: boolean
       roleId:
@@ -1660,17 +1690,19 @@ definitions:
   User:
     type: object
     properties:
-      email:
-        type: string
-      enabled:
-        type: boolean
       id:
         type: string
+      email:
+        type: string
+        format: email
+      enabled:
+        type: boolean
       lastPasswordResetDate:
         type: string
         format: date-time
       password:
         type: string
+        format: password
       roles:
         type: array
         items:

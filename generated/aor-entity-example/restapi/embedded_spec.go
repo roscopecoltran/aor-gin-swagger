@@ -20,7 +20,12 @@ func init() {
   ],
   "swagger": "2.0",
   "info": {
+    "description": "An extensible database abstraction browser\n",
     "title": "admin-on-rest entity APIs",
+    "contact": {
+      "name": "Rosco Pecoltran",
+      "email": "rosco_pecoltran@msn.com"
+    },
     "version": "1.0"
   },
   "host": "localhost:7000",
@@ -194,15 +199,15 @@ func init() {
         "parameters": [
           {
             "type": "string",
-            "description": "entity",
-            "name": "entity",
+            "description": "id",
+            "name": "id",
             "in": "path",
             "required": true
           },
           {
             "type": "string",
-            "description": "id",
-            "name": "id",
+            "description": "entity",
+            "name": "entity",
             "in": "path",
             "required": true
           }
@@ -243,15 +248,15 @@ func init() {
         "parameters": [
           {
             "type": "string",
-            "description": "entity",
-            "name": "entity",
+            "description": "id",
+            "name": "id",
             "in": "path",
             "required": true
           },
           {
             "type": "string",
-            "description": "id",
-            "name": "id",
+            "description": "entity",
+            "name": "entity",
             "in": "path",
             "required": true
           },
@@ -304,15 +309,15 @@ func init() {
         "parameters": [
           {
             "type": "string",
-            "description": "entity",
-            "name": "entity",
+            "description": "id",
+            "name": "id",
             "in": "path",
             "required": true
           },
           {
             "type": "string",
-            "description": "id",
-            "name": "id",
+            "description": "entity",
+            "name": "entity",
             "in": "path",
             "required": true
           }
@@ -2039,13 +2044,15 @@ func init() {
       "type": "object",
       "properties": {
         "email": {
-          "type": "string"
+          "type": "string",
+          "format": "email"
         },
         "mobile": {
           "type": "string"
         },
         "password": {
-          "type": "string"
+          "type": "string",
+          "format": "password"
         },
         "username": {
           "type": "string"
@@ -2060,6 +2067,23 @@ func init() {
         },
         "name": {
           "type": "string"
+        }
+      }
+    },
+    "CrudOptions": {
+      "type": "object",
+      "properties": {
+        "c": {
+          "type": "boolean"
+        },
+        "d": {
+          "type": "boolean"
+        },
+        "r": {
+          "type": "boolean"
+        },
+        "u": {
+          "type": "boolean"
         }
       }
     },
@@ -2088,7 +2112,8 @@ func init() {
           "type": "string"
         },
         "password": {
-          "type": "string"
+          "type": "string",
+          "format": "password"
         },
         "type": {
           "type": "string",
@@ -2096,7 +2121,17 @@ func init() {
             "mongo",
             "mysql",
             "cds",
-            "es"
+            "es",
+            "postgres",
+            "boltdb",
+            "bleve",
+            "dgraph",
+            "neo4j",
+            "arrangodb",
+            "tidedb",
+            "rocksdb",
+            "leveldb",
+            "sqlite3"
           ]
         },
         "username": {
@@ -2110,13 +2145,7 @@ func init() {
         "crud": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "c",
-              "r",
-              "u",
-              "d"
-            ]
+            "$ref": "#/definitions/CrudOptions"
           }
         },
         "fields": {
@@ -2262,7 +2291,8 @@ func init() {
       "type": "object",
       "properties": {
         "password": {
-          "type": "string"
+          "type": "string",
+          "format": "password"
         },
         "username": {
           "type": "string"
@@ -2279,7 +2309,8 @@ func init() {
           }
         },
         "email": {
-          "type": "string"
+          "type": "string",
+          "format": "email"
         },
         "enabled": {
           "type": "boolean"
@@ -2417,7 +2448,8 @@ func init() {
       "type": "object",
       "properties": {
         "email": {
-          "type": "string"
+          "type": "string",
+          "format": "email"
         },
         "enabled": {
           "type": "boolean"
@@ -2430,7 +2462,8 @@ func init() {
           "format": "date-time"
         },
         "password": {
-          "type": "string"
+          "type": "string",
+          "format": "password"
         },
         "roles": {
           "type": "array",

@@ -17,13 +17,13 @@ import (
 type Apply struct {
 
 	// email
-	Email string `json:"email,omitempty"`
+	Email strfmt.Email `json:"email,omitempty"`
 
 	// mobile
 	Mobile string `json:"mobile,omitempty"`
 
 	// password
-	Password string `json:"password,omitempty"`
+	Password strfmt.Password `json:"password,omitempty"`
 
 	// username
 	Username string `json:"username,omitempty"`

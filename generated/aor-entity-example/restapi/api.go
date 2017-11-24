@@ -12,10 +12,8 @@ import (
 
 	"golang.org/x/oauth2"
 
-	"github.com/fatih/structs"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
-	"github.com/jinzhu/gorm"
 
 	ginoauth2 "github.com/zalando/gin-oauth2"
 
@@ -29,7 +27,7 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	// DefaultImports
-	"github.com/roscopecoltran/aor-gin-swagger/generated/aor-entity-example/models"
+
 	"github.com/roscopecoltran/aor-gin-swagger/generated/aor-entity-example/restapi/operations/apply_controller"
 	"github.com/roscopecoltran/aor-gin-swagger/generated/aor-entity-example/restapi/operations/authentication_rest_controller"
 	"github.com/roscopecoltran/aor-gin-swagger/generated/aor-entity-example/restapi/operations/data_controller"
@@ -519,10 +517,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.AddFieldUsingPOST.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
 
-		routes.AddFieldUsingPOST.RouterGroup.Use(routes.AddFieldUsingPOST.Auth)
-
-		routes.AddFieldUsingPOST.RouterGroup.Use(routes.AddFieldUsingPOST.Auth)
-
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -536,6 +530,10 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.AddFieldUsingPOST.RouterGroup.Use(routes.AddFieldUsingPOST.Auth)
 
+		routes.AddFieldUsingPOST.RouterGroup.Use(routes.AddFieldUsingPOST.Auth)
+
+		routes.AddFieldUsingPOST.RouterGroup.Use(routes.AddFieldUsingPOST.Auth)
+
 	}
 	routes.AddFieldUsingPOST.Post = routes.AddFieldUsingPOST.Group("")
 	routes.AddFieldUsingPOST.Post.POST(ginizePath("/schemas/_fields"), schema_controller.BusinessLogicAddFieldUsingPOST(service.AddFieldUsingPOST))
@@ -543,6 +541,10 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.AddPermissionUsingOPTIONS.RouterGroup = routes.Group("")
 	routes.AddPermissionUsingOPTIONS.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
+
+		routes.AddPermissionUsingOPTIONS.RouterGroup.Use(routes.AddPermissionUsingOPTIONS.Auth)
+
+		routes.AddPermissionUsingOPTIONS.RouterGroup.Use(routes.AddPermissionUsingOPTIONS.Auth)
 
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
@@ -557,10 +559,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.AddPermissionUsingOPTIONS.RouterGroup.Use(routes.AddPermissionUsingOPTIONS.Auth)
 
-		routes.AddPermissionUsingOPTIONS.RouterGroup.Use(routes.AddPermissionUsingOPTIONS.Auth)
-
-		routes.AddPermissionUsingOPTIONS.RouterGroup.Use(routes.AddPermissionUsingOPTIONS.Auth)
-
 	}
 	routes.AddPermissionUsingOPTIONS.Post = routes.AddPermissionUsingOPTIONS.Group("")
 	routes.AddPermissionUsingOPTIONS.Post.OPTIONS(ginizePath("/permission/_permission"), permission_controller.BusinessLogicAddPermissionUsingOPTIONS(service.AddPermissionUsingOPTIONS))
@@ -568,6 +566,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.AddPermissionUsingPOST.RouterGroup = routes.Group("")
 	routes.AddPermissionUsingPOST.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
+
+		routes.AddPermissionUsingPOST.RouterGroup.Use(routes.AddPermissionUsingPOST.Auth)
 
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
@@ -579,8 +579,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 				TokenURL: routeTokenURL,
 			},
 		)
-
-		routes.AddPermissionUsingPOST.RouterGroup.Use(routes.AddPermissionUsingPOST.Auth)
 
 		routes.AddPermissionUsingPOST.RouterGroup.Use(routes.AddPermissionUsingPOST.Auth)
 
@@ -621,6 +619,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.AddRoleUsingPOST.RouterGroup.Use(routes.AddRoleUsingPOST.Auth)
 
+		routes.AddRoleUsingPOST.RouterGroup.Use(routes.AddRoleUsingPOST.Auth)
+
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -634,8 +634,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.AddRoleUsingPOST.RouterGroup.Use(routes.AddRoleUsingPOST.Auth)
 
-		routes.AddRoleUsingPOST.RouterGroup.Use(routes.AddRoleUsingPOST.Auth)
-
 	}
 	routes.AddRoleUsingPOST.Post = routes.AddRoleUsingPOST.Group("")
 	routes.AddRoleUsingPOST.Post.POST(ginizePath("/role/_roles"), role_controller.BusinessLogicAddRoleUsingPOST(service.AddRoleUsingPOST))
@@ -643,8 +641,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.AddUserUsingOPTIONS.RouterGroup = routes.Group("")
 	routes.AddUserUsingOPTIONS.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
-
-		routes.AddUserUsingOPTIONS.RouterGroup.Use(routes.AddUserUsingOPTIONS.Auth)
 
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
@@ -661,6 +657,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.AddUserUsingOPTIONS.RouterGroup.Use(routes.AddUserUsingOPTIONS.Auth)
 
+		routes.AddUserUsingOPTIONS.RouterGroup.Use(routes.AddUserUsingOPTIONS.Auth)
+
 	}
 	routes.AddUserUsingOPTIONS.Post = routes.AddUserUsingOPTIONS.Group("")
 	routes.AddUserUsingOPTIONS.Post.OPTIONS(ginizePath("/user/_users"), user_controller.BusinessLogicAddUserUsingOPTIONS(service.AddUserUsingOPTIONS))
@@ -668,6 +666,10 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.AddUserUsingPOST.RouterGroup = routes.Group("")
 	routes.AddUserUsingPOST.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
+
+		routes.AddUserUsingPOST.RouterGroup.Use(routes.AddUserUsingPOST.Auth)
+
+		routes.AddUserUsingPOST.RouterGroup.Use(routes.AddUserUsingPOST.Auth)
 
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
@@ -682,10 +684,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.AddUserUsingPOST.RouterGroup.Use(routes.AddUserUsingPOST.Auth)
 
-		routes.AddUserUsingPOST.RouterGroup.Use(routes.AddUserUsingPOST.Auth)
-
-		routes.AddUserUsingPOST.RouterGroup.Use(routes.AddUserUsingPOST.Auth)
-
 	}
 	routes.AddUserUsingPOST.Post = routes.AddUserUsingPOST.Group("")
 	routes.AddUserUsingPOST.Post.POST(ginizePath("/user/_users"), user_controller.BusinessLogicAddUserUsingPOST(service.AddUserUsingPOST))
@@ -693,8 +691,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.ApplyUsingOPTIONS.RouterGroup = routes.Group("")
 	routes.ApplyUsingOPTIONS.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
-
-		routes.ApplyUsingOPTIONS.RouterGroup.Use(routes.ApplyUsingOPTIONS.Auth)
 
 		routes.ApplyUsingOPTIONS.RouterGroup.Use(routes.ApplyUsingOPTIONS.Auth)
 
@@ -708,6 +704,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 				TokenURL: routeTokenURL,
 			},
 		)
+
+		routes.ApplyUsingOPTIONS.RouterGroup.Use(routes.ApplyUsingOPTIONS.Auth)
 
 		routes.ApplyUsingOPTIONS.RouterGroup.Use(routes.ApplyUsingOPTIONS.Auth)
 
@@ -771,6 +769,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.CreateAuthenticationTokenUsingPOST.RouterGroup.Use(routes.CreateAuthenticationTokenUsingPOST.Auth)
 
+		routes.CreateAuthenticationTokenUsingPOST.RouterGroup.Use(routes.CreateAuthenticationTokenUsingPOST.Auth)
+
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -781,8 +781,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 				TokenURL: routeTokenURL,
 			},
 		)
-
-		routes.CreateAuthenticationTokenUsingPOST.RouterGroup.Use(routes.CreateAuthenticationTokenUsingPOST.Auth)
 
 		routes.CreateAuthenticationTokenUsingPOST.RouterGroup.Use(routes.CreateAuthenticationTokenUsingPOST.Auth)
 
@@ -846,6 +844,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.DataMutationUsingPOST.RouterGroup.Use(routes.DataMutationUsingPOST.Auth)
 
+		routes.DataMutationUsingPOST.RouterGroup.Use(routes.DataMutationUsingPOST.Auth)
+
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -859,8 +859,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.DataMutationUsingPOST.RouterGroup.Use(routes.DataMutationUsingPOST.Auth)
 
-		routes.DataMutationUsingPOST.RouterGroup.Use(routes.DataMutationUsingPOST.Auth)
-
 	}
 	routes.DataMutationUsingPOST.Post = routes.DataMutationUsingPOST.Group("")
 	routes.DataMutationUsingPOST.Post.POST(ginizePath("/api/{entity}"), data_controller.BusinessLogicDataMutationUsingPOST(service.DataMutationUsingPOST))
@@ -868,8 +866,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.DataMutationUsingPUT.RouterGroup = routes.Group("")
 	routes.DataMutationUsingPUT.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
-
-		routes.DataMutationUsingPUT.RouterGroup.Use(routes.DataMutationUsingPUT.Auth)
 
 		routes.DataMutationUsingPUT.RouterGroup.Use(routes.DataMutationUsingPUT.Auth)
 
@@ -886,12 +882,18 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.DataMutationUsingPUT.RouterGroup.Use(routes.DataMutationUsingPUT.Auth)
 
+		routes.DataMutationUsingPUT.RouterGroup.Use(routes.DataMutationUsingPUT.Auth)
+
 	}
 	routes.DataMutationUsingPUT.Post = routes.DataMutationUsingPUT.Group("")
 	routes.DataMutationUsingPUT.Post.PUT(ginizePath("/api/{entity}/{id}"), data_controller.BusinessLogicDataMutationUsingPUT(service.DataMutationUsingPUT))
 
 	routes.DataQueryUsingGET.RouterGroup = routes.Group("")
 	if enableAuth {
+
+		routes.DataQueryUsingGET.RouterGroup.Use(routes.DataQueryUsingGET.Auth)
+
+		routes.DataQueryUsingGET.RouterGroup.Use(routes.DataQueryUsingGET.Auth)
 
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
@@ -903,10 +905,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 				TokenURL: routeTokenURL,
 			},
 		)
-
-		routes.DataQueryUsingGET.RouterGroup.Use(routes.DataQueryUsingGET.Auth)
-
-		routes.DataQueryUsingGET.RouterGroup.Use(routes.DataQueryUsingGET.Auth)
 
 		routes.DataQueryUsingGET.RouterGroup.Use(routes.DataQueryUsingGET.Auth)
 
@@ -968,6 +966,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.EditFieldUsingPUT.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
 
+		routes.EditFieldUsingPUT.RouterGroup.Use(routes.EditFieldUsingPUT.Auth)
+
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -978,8 +978,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 				TokenURL: routeTokenURL,
 			},
 		)
-
-		routes.EditFieldUsingPUT.RouterGroup.Use(routes.EditFieldUsingPUT.Auth)
 
 		routes.EditFieldUsingPUT.RouterGroup.Use(routes.EditFieldUsingPUT.Auth)
 
@@ -1045,6 +1043,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.EditRoleUsingPUT.RouterGroup.Use(routes.EditRoleUsingPUT.Auth)
 
+		routes.EditRoleUsingPUT.RouterGroup.Use(routes.EditRoleUsingPUT.Auth)
+
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -1058,14 +1058,14 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.EditRoleUsingPUT.RouterGroup.Use(routes.EditRoleUsingPUT.Auth)
 
-		routes.EditRoleUsingPUT.RouterGroup.Use(routes.EditRoleUsingPUT.Auth)
-
 	}
 	routes.EditRoleUsingPUT.Post = routes.EditRoleUsingPUT.Group("")
 	routes.EditRoleUsingPUT.Post.PUT(ginizePath("/role/_roles/put/{id}"), role_controller.BusinessLogicEditRoleUsingPUT(service.EditRoleUsingPUT))
 
 	routes.FindAllFieldsUsingGET.RouterGroup = routes.Group("")
 	if enableAuth {
+
+		routes.FindAllFieldsUsingGET.RouterGroup.Use(routes.FindAllFieldsUsingGET.Auth)
 
 		routes.FindAllFieldsUsingGET.RouterGroup.Use(routes.FindAllFieldsUsingGET.Auth)
 
@@ -1079,8 +1079,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 				TokenURL: routeTokenURL,
 			},
 		)
-
-		routes.FindAllFieldsUsingGET.RouterGroup.Use(routes.FindAllFieldsUsingGET.Auth)
 
 		routes.FindAllFieldsUsingGET.RouterGroup.Use(routes.FindAllFieldsUsingGET.Auth)
 
@@ -1117,6 +1115,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.FindOneFieldUsingGET.RouterGroup.Use(routes.FindOneFieldUsingGET.Auth)
 
+		routes.FindOneFieldUsingGET.RouterGroup.Use(routes.FindOneFieldUsingGET.Auth)
+
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -1127,8 +1127,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 				TokenURL: routeTokenURL,
 			},
 		)
-
-		routes.FindOneFieldUsingGET.RouterGroup.Use(routes.FindOneFieldUsingGET.Auth)
 
 		routes.FindOneFieldUsingGET.RouterGroup.Use(routes.FindOneFieldUsingGET.Auth)
 
@@ -1187,8 +1185,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.FindRoleUsingGET1.RouterGroup = routes.Group("")
 	if enableAuth {
 
-		routes.FindRoleUsingGET1.RouterGroup.Use(routes.FindRoleUsingGET1.Auth)
-
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -1199,6 +1195,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 				TokenURL: routeTokenURL,
 			},
 		)
+
+		routes.FindRoleUsingGET1.RouterGroup.Use(routes.FindRoleUsingGET1.Auth)
 
 		routes.FindRoleUsingGET1.RouterGroup.Use(routes.FindRoleUsingGET1.Auth)
 
@@ -1285,8 +1283,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.GetAuthenticatedUserUsingGET.RouterGroup.Use(routes.GetAuthenticatedUserUsingGET.Auth)
 
-		routes.GetAuthenticatedUserUsingGET.RouterGroup.Use(routes.GetAuthenticatedUserUsingGET.Auth)
-
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -1297,6 +1293,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 				TokenURL: routeTokenURL,
 			},
 		)
+
+		routes.GetAuthenticatedUserUsingGET.RouterGroup.Use(routes.GetAuthenticatedUserUsingGET.Auth)
 
 		routes.GetAuthenticatedUserUsingGET.RouterGroup.Use(routes.GetAuthenticatedUserUsingGET.Auth)
 
@@ -1477,8 +1475,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.SyncSchemasUsingPUT.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
 
-		routes.SyncSchemasUsingPUT.RouterGroup.Use(routes.SyncSchemasUsingPUT.Auth)
-
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -1489,6 +1485,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 				TokenURL: routeTokenURL,
 			},
 		)
+
+		routes.SyncSchemasUsingPUT.RouterGroup.Use(routes.SyncSchemasUsingPUT.Auth)
 
 		routes.SyncSchemasUsingPUT.RouterGroup.Use(routes.SyncSchemasUsingPUT.Auth)
 
@@ -1593,264 +1591,5 @@ func (a *API) RunWithSigHandler(shutdown ...func() error) error {
 
 	return nil
 }
-
-// VARS DEBUG
-// Name: AorEntityExample
-// Name: AorEntityExample
-// Name: AorEntityExample
-// Name: AorEntityExample
-// Name: AorEntityExample
-// Name: AorEntityExample
-// Name: AorEntityExample
-// Name: AorEntityExample
-
-// CUSTOM_FILE START - service.go
-
-func CreateOrUpdateJwtToken(db *gorm.DB, jwtUser *models.JwtUser) (bool, error) {
-	// Get existing by remote ID and service ID
-	var existing models.JwtUser
-	if db.Where("user_name = ? AND email = ?", jwtUser.Username, jwtUser.Email).First(&existing).RecordNotFound() {
-		err := db.Create(jwtUser).Error
-		return err == nil, err
-	}
-	jwtUser.ID = existing.ID
-	jwtUser.CreatedAt = existing.CreatedAt
-	return false, db.Save(jwtUser).Error
-}
-
-type AorEntityExampleServer struct {
-	Health bool
-}
-
-func (s *AorEntityExampleServer) Healthy() bool {
-	return s.Health
-}
-
-func (s *addDataSourceUsingOPTIONSServer) AddDataSourceUsingOPTIONS(ctx *gin.Context, params *data_source_controller.AddDataSourceUsingOPTIONSParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *addDataSourceUsingPOSTServer) AddDataSourceUsingPOST(ctx *gin.Context, params *data_source_controller.AddDataSourceUsingPOSTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *addEntityUsingOPTIONSServer) AddEntityUsingOPTIONS(ctx *gin.Context, params *schema_controller.AddEntityUsingOPTIONSParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *addEntityUsingPOSTServer) AddEntityUsingPOST(ctx *gin.Context, params *schema_controller.AddEntityUsingPOSTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *addFieldUsingOPTIONSServer) AddFieldUsingOPTIONS(ctx *gin.Context, params *schema_controller.AddFieldUsingOPTIONSParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *addFieldUsingPOSTServer) AddFieldUsingPOST(ctx *gin.Context, params *schema_controller.AddFieldUsingPOSTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *addPermissionUsingOPTIONSServer) AddPermissionUsingOPTIONS(ctx *gin.Context, params *permission_controller.AddPermissionUsingOPTIONSParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *addPermissionUsingPOSTServer) AddPermissionUsingPOST(ctx *gin.Context, params *permission_controller.AddPermissionUsingPOSTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *addRoleUsingOPTIONSServer) AddRoleUsingOPTIONS(ctx *gin.Context, params *role_controller.AddRoleUsingOPTIONSParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *addRoleUsingPOSTServer) AddRoleUsingPOST(ctx *gin.Context, params *role_controller.AddRoleUsingPOSTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *addUserUsingOPTIONSServer) AddUserUsingOPTIONS(ctx *gin.Context, params *user_controller.AddUserUsingOPTIONSParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *addUserUsingPOSTServer) AddUserUsingPOST(ctx *gin.Context, params *user_controller.AddUserUsingPOSTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *applyUsingOPTIONSServer) ApplyUsingOPTIONS(ctx *gin.Context, params *apply_controller.ApplyUsingOPTIONSParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *applyUsingPOSTServer) ApplyUsingPOST(ctx *gin.Context, params *apply_controller.ApplyUsingPOSTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *createAuthenticationTokenUsingOPTIONSServer) CreateAuthenticationTokenUsingOPTIONS(ctx *gin.Context, params *authentication_rest_controller.CreateAuthenticationTokenUsingOPTIONSParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *createAuthenticationTokenUsingPOSTServer) CreateAuthenticationTokenUsingPOST(ctx *gin.Context, params *authentication_rest_controller.CreateAuthenticationTokenUsingPOSTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *dataMutationUsingDELETEServer) DataMutationUsingDELETE(ctx *gin.Context, params *data_controller.DataMutationUsingDELETEParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *dataMutationUsingOPTIONSServer) DataMutationUsingOPTIONS(ctx *gin.Context, params *data_controller.DataMutationUsingOPTIONSParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *dataMutationUsingPOSTServer) DataMutationUsingPOST(ctx *gin.Context, params *data_controller.DataMutationUsingPOSTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *dataMutationUsingPUTServer) DataMutationUsingPUT(ctx *gin.Context, params *data_controller.DataMutationUsingPUTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *dataQueryUsingGETServer) DataQueryUsingGET(ctx *gin.Context, params *data_controller.DataQueryUsingGETParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *editDataSourceUsingPUTServer) EditDataSourceUsingPUT(ctx *gin.Context, params *data_source_controller.EditDataSourceUsingPUTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *editEntityUsingPUTServer) EditEntityUsingPUT(ctx *gin.Context, params *schema_controller.EditEntityUsingPUTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *editFieldUsingPUTServer) EditFieldUsingPUT(ctx *gin.Context, params *schema_controller.EditFieldUsingPUTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *editFieldUsingPUT_1Server) EditFieldUsingPUT1(ctx *gin.Context, params *user_controller.EditFieldUsingPUT1Params) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *editPermissionUsingPUTServer) EditPermissionUsingPUT(ctx *gin.Context, params *permission_controller.EditPermissionUsingPUTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *editRoleUsingPUTServer) EditRoleUsingPUT(ctx *gin.Context, params *role_controller.EditRoleUsingPUTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *findAllFieldsUsingGETServer) FindAllFieldsUsingGET(ctx *gin.Context, params *schema_controller.FindAllFieldsUsingGETParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *findEntityFieldsUsingGETServer) FindEntityFieldsUsingGET(ctx *gin.Context, params *schema_controller.FindEntityFieldsUsingGETParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *findOneFieldUsingGETServer) FindOneFieldUsingGET(ctx *gin.Context, params *schema_controller.FindOneFieldUsingGETParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *findOneUsingGETServer) FindOneUsingGET(ctx *gin.Context, params *data_controller.FindOneUsingGETParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *findRoleUsingGETServer) FindRoleUsingGET(ctx *gin.Context, params *data_source_controller.FindRoleUsingGETParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *findRoleUsingGET_1Server) FindRoleUsingGET1(ctx *gin.Context, params *role_controller.FindRoleUsingGET1Params) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *findSchemaEntityGETServer) FindSchemaEntityGET(ctx *gin.Context, params *schema_controller.FindSchemaEntityGETParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *findUserUsingGETServer) FindUserUsingGET(ctx *gin.Context, params *permission_controller.FindUserUsingGETParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *findUserUsingGET_1Server) FindUserUsingGET1(ctx *gin.Context, params *user_controller.FindUserUsingGET1Params) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *getAuthenticatedUserUsingGETServer) GetAuthenticatedUserUsingGET(ctx *gin.Context) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *getRolesServer) GetRoles(ctx *gin.Context) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *getSchemasUsingGETServer) GetSchemasUsingGET(ctx *gin.Context) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *listUsersGETServer) ListUsersGET(ctx *gin.Context) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *listUsingGETServer) ListUsingGET(ctx *gin.Context) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *listUsingGET_1Server) ListUsingGET1(ctx *gin.Context, params *permission_controller.ListUsingGET1Params) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *refreshAndGetAuthenticationTokenUsingGETServer) RefreshAndGetAuthenticationTokenUsingGET(ctx *gin.Context) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *resetCurrentDsUsingPUTServer) ResetCurrentDsUsingPUT(ctx *gin.Context, params *schema_controller.ResetCurrentDsUsingPUTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *syncSchemasUsingPUTServer) SyncSchemasUsingPUT(ctx *gin.Context, params *schema_controller.SyncSchemasUsingPUTParams) *api.Response {
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-// CUSTOM_FILE END - service.go
-
-// CUSTOM_FILE START - migrate.go
-
-var (
-	DefaultTables = []interface{}{
-		&models.Apply{},
-		&models.Entity{},
-		&models.JwtUser{},
-		&models.JwtAuthenticationRequest{},
-		&models.Field{},
-		&models.User{},
-		&models.ResponseEntity{},
-		&models.FindAllFieldsUsingGETOKBody{},
-		&models.Role{},
-		&models.ListUsersGETOKBody{},
-		&models.IChoiceItem{},
-		&models.Permission{},
-		&models.JwtUserAuthorities{},
-		&models.UserRoles{},
-		&models.DataSource{},
-		&models.GetRolesOKBody{},
-		&models.ListUsingGETOKBody{},
-		&models.GetSchemasUsingGETOKBody{},
-		&models.ChoiceItem{},
-		&models.ListUsingGET1OKBody{},
-		&models.FindEntityFieldsUsingGETOKBody{},
-		&models.GrantedAuthority{},
-		&models.EntityFields{},
-		&models.RoleUsers{},
-	}
-)
-
-func CreateTables(isTruncate bool, tables ...interface{}) {
-	for _, table := range tables {
-		if isTruncate {
-			if err := DB.DropTableIfExists(table).Error; err != nil {
-				panic(err)
-			}
-		}
-		fmt.Printf("AutoMigrate, table: %s\n", structs.Name(table))
-		DB.AutoMigrate(table)
-	}
-}
-
-// CUSTOM_FILE - migrate.go
 
 // vim: ft=go

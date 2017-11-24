@@ -1,6 +1,7 @@
 package main
 
 import (
+	// "flag"
 	"fmt"
 	"log"
 
@@ -11,9 +12,12 @@ import (
 
 var (
 	apiConfig restapi.Config
+	// configFile string
 )
 
 func main() {
+
+	// configFile := flag.String("conf", "config.yml", "configuration file")
 
 	if config.Config.Debug {
 		fmt.Printf("Listening on: %v\n", config.Config.Port)
@@ -25,9 +29,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	database.CreateTables(true, database.DefaultTables...)
+	database.CreateTables(true, swaggerGeneratedModels...)
 	svc := &AorEntityExampleServer{Health: false}
-
 	api := restapi.NewAPI(svc, &apiConfig)
 
 	err = api.RunWithSigHandler()

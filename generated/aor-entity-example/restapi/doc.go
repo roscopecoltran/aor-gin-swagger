@@ -2,6 +2,9 @@
 
 /*
 Package restapi admin-on-rest entity APIs
+An extensible database abstraction browser
+
+
 
     Schemes:
       http
@@ -9,6 +12,7 @@ Package restapi admin-on-rest entity APIs
     Host: localhost:7000
     BasePath: /
     Version: 1.0
+    Contact: Rosco Pecoltran<rosco_pecoltran@msn.com>
 
     Consumes:
     - application/json

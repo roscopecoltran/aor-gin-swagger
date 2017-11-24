@@ -6,3 +6,7 @@ vendor/
 ./gin-swagger-aor
 ./bin/gin-swagger-aor
 ./bin/*
+./gin-swagger-aor
+./bin/gin-swagger-aor*
+
+./generated/

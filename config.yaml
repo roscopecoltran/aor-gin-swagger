@@ -19,7 +19,8 @@ layout:
       file_name: "main.go"
     - name: migrate
       source: "{{ .TmpDir }}/templates/migrate.gotmpl"
-      target: "{{`{{ joinFilePath .Target .ServerPackage }}`}}"
+      target: "{{`{{ joinFilePath .Target \"cmd\" (dasherize (pascalize .Name)) }}-server`}}"      
+      # target: "{{`{{ joinFilePath .Target .ServerPackage }}`}}"
       file_name: "migrate.go"
     - name: service
       source: "{{ .TmpDir }}/templates/service.gotmpl"

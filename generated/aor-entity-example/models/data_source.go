@@ -41,7 +41,7 @@ type DataSource struct {
 	MySQLDbName string `json:"mySqlDbName,omitempty"`
 
 	// password
-	Password string `json:"password,omitempty"`
+	Password strfmt.Password `json:"password,omitempty"`
 
 	// type
 	Type string `json:"type,omitempty"`
@@ -69,7 +69,7 @@ var dataSourceTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["mongo","mysql","cds","es"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["mongo","mysql","cds","es","postgres","boltdb","bleve","dgraph","neo4j","arrangodb","tidedb","rocksdb","leveldb","sqlite3"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -86,6 +86,26 @@ const (
 	DataSourceTypeCds string = "cds"
 	// DataSourceTypeEs captures enum value "es"
 	DataSourceTypeEs string = "es"
+	// DataSourceTypePostgres captures enum value "postgres"
+	DataSourceTypePostgres string = "postgres"
+	// DataSourceTypeBoltdb captures enum value "boltdb"
+	DataSourceTypeBoltdb string = "boltdb"
+	// DataSourceTypeBleve captures enum value "bleve"
+	DataSourceTypeBleve string = "bleve"
+	// DataSourceTypeDgraph captures enum value "dgraph"
+	DataSourceTypeDgraph string = "dgraph"
+	// DataSourceTypeNeo4j captures enum value "neo4j"
+	DataSourceTypeNeo4j string = "neo4j"
+	// DataSourceTypeArrangodb captures enum value "arrangodb"
+	DataSourceTypeArrangodb string = "arrangodb"
+	// DataSourceTypeTidedb captures enum value "tidedb"
+	DataSourceTypeTidedb string = "tidedb"
+	// DataSourceTypeRocksdb captures enum value "rocksdb"
+	DataSourceTypeRocksdb string = "rocksdb"
+	// DataSourceTypeLeveldb captures enum value "leveldb"
+	DataSourceTypeLeveldb string = "leveldb"
+	// DataSourceTypeSqlite3 captures enum value "sqlite3"
+	DataSourceTypeSqlite3 string = "sqlite3"
 )
 
 // prop value enum

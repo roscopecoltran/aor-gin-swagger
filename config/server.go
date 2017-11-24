@@ -3,6 +3,7 @@ package config
 type ApiConfig struct {
 	Enabled bool         `env:"SERVER_API_DISABLED" default:"true" json:"enabled" yaml:"enabled" toml:"enabled"`
 	Port    uint         `env:"SERVER_API_PORT" default:"7000" json:"port" yaml:"port" toml:"port"`
+	CORS    CorsConfig   `json:"cors" yaml:"cors" toml:"cors"`
 	RPC     RpcConfig    `json:"rpc" yaml:"rpc" toml:"rpc"`
 	JWT     JwtConfig    `json:"jwt" yaml:"jwt" toml:"jwt"`
 	OAuth2  OAuth2Config `json:"oauth2" yaml:"oauth2" toml:"oauth2"`

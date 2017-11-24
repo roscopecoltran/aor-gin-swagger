@@ -8,7 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-openapi/errors"
-	"github.com/roscopecoltran/gin-swagger/api"
+	"github.com/roscopecoltran/aor-gin-swagger/api"
 	// DefaultImports
 	// Imports
 )

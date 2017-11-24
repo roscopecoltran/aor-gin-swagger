@@ -21,14 +21,15 @@ import (
 )
 
 func CreateOrUpdateJwtToken(db *gorm.DB, jwtUser *models.JwtUser) (bool, error) {
-	// Get existing by remote ID and service ID
 	var existing models.JwtUser
 	if db.Where("user_name = ? AND email = ?", jwtUser.Username, jwtUser.Email).First(&existing).RecordNotFound() {
 		err := db.Create(jwtUser).Error
 		return err == nil, err
 	}
-	jwtUser.ID = existing.ID
-	jwtUser.CreatedAt = existing.CreatedAt
+	jwtUser.Username = existing.Username
+	jwtUser.Email = existing.Email
+	// jwtUser.ID = existing.ID
+	// jwtUser.CreatedAt = existing.CreatedAt
 	return false, db.Save(jwtUser).Error
 }
 
