@@ -12,3 +12,6 @@ vendor/
 
 *.db
 *.boltdb
+
+bin/gin-swagger-aor
+bin/aor-entity-example
