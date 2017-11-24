@@ -15,7 +15,7 @@ import (
 	"github.com/gin-gonic/gin"
 	jwt_lib "github.com/dgrijalva/jwt-go"
 	"github.com/jinzhu/gorm"
-	// "github.com/k0kubun/pp"
+	"github.com/k0kubun/pp"
 )
 
 func CreateOrUpdateJwtToken(db *gorm.DB, jwtUser *models.JwtUser) (bool, error) {
@@ -41,6 +41,94 @@ func (s *{{ .Name }}Server) Healthy() bool {
 
 	{{range .Operations}}
 func (s *{{ $.Name }}Server) {{ pascalize .Name }}(ctx *gin.Context{{ if .Params }},  params *{{.Package}}.{{ pascalize .Name }}Params{{ end }}) *api.Response {
+
+	// debug - tmpl vars
+
+		// Method: {{ .Method }}
+		// HasQueryParams: {{ .HasQueryParams }}
+		// HasFormParams: {{ .HasFormParams }}
+		// HasFormValueParams: {{ .HasFormValueParams }}
+		// HasFileParams: {{ .HasFileParams }}
+		// HasStreamingResponse: {{ .HasStreamingResponse }}
+		// WithContext: {{ .WithContext }}
+		// HasFileParams: {{ .HasFileParams }}
+		// Tags: {{ .Tags }}
+
+		// Package: {{ .Package }}
+		// BasePath: {{ .BasePath }}
+		// Path: {{ .Path }}
+		// RootPackage: {{ .RootPackage }}
+		// Authorized: {{ .Authorized }}
+
+		// Name: {{ .Name }}
+		// StrContains "findAll"? {{ str_contains .Name "findAll" }}
+		// StrContains "findOne"? {{ str_contains .Name "findOne" }}
+		// StrContains "WithID"? {{ str_contains .Name "WithID" }}
+
+		// StrContains "refresh"? {{ str_contains .Name "refresh" }}
+		// StrContains "sync"? {{ str_contains .Name "sync" }}
+		// StrContains "update"? {{ str_contains .Name "update" }}
+		// StrContains "edit"? {{ str_contains .Name "edit" }}
+		// StrContains "create"? {{ str_contains .Name "create" }}
+		// StrContains "add"? {{ str_contains .Name "add" }}
+		// StrContains "list"? {{ str_contains .Name "list" }}
+		// StrContains "get"? {{ str_contains .Name "get" }}
+
+		// HasPrefix "refresh"? {{ has_prefix .Name "refresh" }}
+		// HasPrefix "update"? {{ has_prefix .Name "update" }}
+		// HasPrefix "edit"? {{ has_prefix .Name "edit" }}
+		// HasPrefix "sync"? {{ has_prefix .Name "sync" }}
+		// HasPrefix "create"? {{ has_prefix .Name "create" }}
+		// HasPrefix "add"? {{ has_prefix .Name "add" }}
+		// HasPrefix "list"? {{ has_prefix .Name "list" }}
+		// HasPrefix "get"? {{ has_prefix .Name "get" }}
+		// HasPrefix "delete"? {{ has_prefix .Name "delete" }}
+
+		// HasSuffix "{{ .Method }}"? {{ has_suffix .Name .Method }}
+
+		// ExtractString "add" "Using": {{ str_extract .Name "add" "Using" }}
+		// ExtractString "list" "Using": {{ str_extract .Name "list" "Using" }}
+		// ExtractString "get" "Using": {{ str_extract .Name "get" "Using" }}
+
+		{{range .Params}}
+		// ID: {{ .ID }}
+		// ModelsPackage: {{ .ModelsPackage }}
+		// Name: {{ .Name }}
+
+	pp.Println("params: ", params)
+	response := make(map[string]string)
+	var {{ .Name }} models.{{ .ID }}
+	var queryRes []models.{{ .ID }}
+	db := ctx.MustGet("db").(*gorm.DB)
+	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+	if queryRes.DbName != "" {
+		response["status"] = "error"
+		response["msg"] = "Duplicate resource."
+	} else {
+		db.Create(&dataSource)
+		response["status"] = "success"
+	}
+
+	{{end}}
+
+	// QueryParams: {{ .QueryParams }}
+	// PathParams: {{ .PathParams }}
+	// HeaderParams: {{ .HeaderParams }}
+	// FormParams: {{ .FormParams }}
+
+	/*
+	db := ctx.MustGet("db").(*gorm.DB)
+	var results []models.User
+	response := make(map[string]interface{})
+	if err := db.Select("*").Find(&results).Error; err != nil {
+		response["error"] = err.Error()
+		return &api.Response{Code: 400, Body: response}
+	}
+	response["results"] = results
+	response["status"] = "success"
+	return &api.Response{Code: http.StatusOK, Body: response}
+	*/
+
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 {{end}}

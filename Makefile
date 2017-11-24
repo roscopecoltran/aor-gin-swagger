@@ -29,7 +29,7 @@ install-go-bindata:
 	which go-bindata 2>/dev/null  || go get -v github.com/jteeuwen/go-bindata/go-bindata
 
 deps: glide
-	go get -v -u github.com/go-swagger/go-swagger/cmd/swagger
+	go get -v -u github.com/roscopecoltran/go-swagger/cmd/swagger
 	go get -v github.com/Masterminds/glide
 	go get -v github.com/gin-contrib/pprof
 

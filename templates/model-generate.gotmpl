@@ -1,0 +1,103 @@
+// ref. https://github.com/kyawmyintthein/revel_gorm/blob/master/generate_model.go
+package {{packageName}}
+import (
+	"{{databasePkg}}"
+	"github.com/jinzhu/gorm"
+	"errors"
+	{{timePkg}}
+	"github.com/revel/revel"
+)
+{{modelStruct}}
+func (m *{{modelStructName}}) BeforeCreate(scope *gorm.Scope) error {
+ // Do something before create
+  return nil
+}
+func (m *{{modelStructName}}) BeforeUpdate(scope *gorm.Scope) error {
+ // Do something before create
+  return nil
+}
+func (m *{{modelStructName}}) AfterUpdate(scope *gorm.Scope) error {
+ // Do something before create
+  return nil
+}
+// Add{{modelStructName}} insert a new {{modelStructName}} into database and returns
+// last inserted {{modelObjectName}} on success.
+func Add{{modelStructName}}(m {{modelStructName}}) ({{modelStructName}}, error) {
+	var err error
+	if !database.DB.NewRecord(m) {
+		return m, errors.New("primary key should be blank")
+	} 
+	tx := database.DB.Begin()
+	if err = tx.Create(&m).Error; err != nil {
+     	tx.Rollback()
+     	return m, err
+  	}
+	tx.Commit()
+	return m, err
+}
+// Update{{modelStructName}} update a {{modelStructName}} into database and returns
+// last nil on success.
+func (m {{modelStructName}}) Update{{modelStructName}}() ({{modelStructName}}, error){
+	var err error
+	if database.DB.NewRecord(m) {
+		return m, errors.New("primary key should not be blank")
+	} 
+	tx := database.DB.Begin()
+	if err = tx.Save(&m).Error; err != nil {
+     	tx.Rollback()
+     	return m, err
+  	}
+	tx.Commit()
+	return m, err
+}
+// Delete{{modelStructName}} Delete {{modelStructName}} from database and returns
+// last nil on success.
+func (m {{modelStructName}}) Delete{{modelStructName}}() error{
+	var err error
+	tx := database.DB.Begin()
+	if err = tx.Delete(&m).Error; err != nil {
+     	tx.Rollback()
+     	return err
+  	}
+  	tx.Commit()
+  	return err
+}
+// Get{{modelStructName}}s Get all {{modelStructName}} from database and returns
+// list of {{modelStructName}} on success
+func Get{{modelStructName}}s() ([]{{modelStructName}},error) {
+	var (
+		err error
+		{{modelObjectName}}s []{{modelStructName}}
+	)
+	tx := database.DB.Begin()
+	if err = tx.Find(&{{modelObjectName}}s).Error; err != nil {
+     	tx.Rollback()
+     	return {{modelObjectName}}s, err
+  	}
+	tx.Commit()
+	return {{modelObjectName}}s, err
+}
+// Get{{modelStructName}} Get a {{modelStructName}} from database and returns
+// a {{modelStructName}} on success
+func GetPost(id uint64) ({{modelStructName}}, error){
+	var (
+		{{modelObjectName}} {{modelStructName}}
+		err error
+	)
+	tx := database.DB.Begin()
+	if err = tx.Last(&{{modelObjectName}}, id).Error; err != nil {
+     	tx.Rollback()
+     	return post, err
+  	}
+	tx.Commit()
+	return {{modelObjectName}}, err
+}
+func Migrate{{modelStructName}}(){
+	database.DB.AutoMigrate(&{{modelStructName}}{})
+}
+func ({{modelStructName}}) TableName() string {
+  return "{{modelObjectName}}s"
+}
+func ({{modelObjectName}} *{{modelStructName}}) Validate(v *revel.Validation) {
+	//Validation rules here
+}
