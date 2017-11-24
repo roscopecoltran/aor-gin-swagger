@@ -26,64 +26,64 @@ type Field struct {
 	Component string `json:"component,omitempty"`
 
 	// data source Id
-	DataSourceID string `json:"dataSourceId,omitempty"`
+	DataSourceID string `json:"dataSourceId,omitempty" gorm:"data_source_id" yaml:"data_source_id" toml:"data_source_id"`
 
 	// default value
-	DefaultValue string `json:"defaultValue,omitempty"`
+	DefaultValue string `json:"defaultValue,omitempty" gorm:"default_value" yaml:"default_value" toml:"default_value"`
 
 	// eid
-	Eid string `json:"eid,omitempty"`
+	Eid string `json:"eid,omitempty" gorm:"eid" yaml:"eid" toml:"eid"`
 
 	// id
-	ID string `json:"id,omitempty"`
+	ID string `json:"id,omitempty" gorm:"primary_key" yaml:"-" toml:"-"`
 
 	// input type
-	InputType string `json:"inputType,omitempty"`
+	InputType string `json:"inputType,omitempty" gorm:"input_type" yaml:"input_type" toml:"input_type"`
 
 	// is auto incremented
-	IsAutoIncremented bool `json:"isAutoIncremented,omitempty"`
+	IsAutoIncremented bool `json:"isAutoIncremented,omitempty" gorm:"is_auto_incremented" yaml:"is_auto_incremented" toml:"is_auto_incremented"`
 
 	// is part of primary key
-	IsPartOfPrimaryKey bool `json:"isPartOfPrimaryKey,omitempty"`
+	IsPartOfPrimaryKey bool `json:"isPartOfPrimaryKey,omitempty" gorm:"is_part_of_primary_key" yaml:"is_part_of_primary_key" toml:"is_part_of_primary_key"`
 
 	// label
-	Label string `json:"label,omitempty"`
+	Label string `json:"label,omitempty" gorm:"label" yaml:"label" toml:"label"`
 
 	// max length
-	MaxLength int32 `json:"maxLength,omitempty"`
+	MaxLength int32 `json:"maxLength,omitempty" gorm:"max_length" yaml:"max_length" toml:"max_length"`
 
 	// max value
-	MaxValue string `json:"maxValue,omitempty"`
+	MaxValue string `json:"maxValue,omitempty" gorm:"max_value" yaml:"max_value" toml:"max_value"`
 
 	// min value
-	MinValue string `json:"minValue,omitempty"`
+	MinValue string `json:"minValue,omitempty" gorm:"min_value" yaml:"min_value" toml:"min_value"`
 
 	// name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" gorm:"name" yaml:"name" toml:"name"`
 
 	// reference
-	Reference string `json:"reference,omitempty"`
+	Reference string `json:"reference,omitempty" gorm:"reference" yaml:"reference" toml:"reference"`
 
 	// reference option text
-	ReferenceOptionText string `json:"referenceOptionText,omitempty"`
+	ReferenceOptionText string `json:"referenceOptionText,omitempty" gorm:"reference_option_text" yaml:"reference_option_text" toml:"reference_option_text"`
 
 	// required
-	Required bool `json:"required,omitempty"`
+	Required bool `json:"required,omitempty" gorm:"required" yaml:"required" toml:"required"`
 
 	// show in create
-	ShowInCreate bool `json:"showInCreate,omitempty"`
+	ShowInCreate bool `json:"showInCreate,omitempty" gorm:"show_in_create" yaml:"show_in_create" toml:"show_in_create"`
 
 	// show in edit
-	ShowInEdit bool `json:"showInEdit,omitempty"`
+	ShowInEdit bool `json:"showInEdit,omitempty" gorm:"show_in_edit" yaml:"show_in_edit" toml:"show_in_edit"`
 
 	// show in filter
-	ShowInFilter bool `json:"showInFilter,omitempty"`
+	ShowInFilter bool `json:"showInFilter,omitempty" gorm:"show_in_filter" yaml:"show_in_filter" toml:"show_in_filter"`
 
 	// show in list
-	ShowInList bool `json:"showInList,omitempty"`
+	ShowInList bool `json:"showInList,omitempty" gorm:"show_in_list" yaml:"show_in_list" toml:"show_in_list"`
 
 	// show in show
-	ShowInShow bool `json:"showInShow,omitempty"`
+	ShowInShow bool `json:"showInShow,omitempty" gorm:"show_in_show" yaml:"show_in_show" toml:"show_in_show"`
 }
 
 // Validate validates this field

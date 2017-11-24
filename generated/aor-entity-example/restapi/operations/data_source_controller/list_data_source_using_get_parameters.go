@@ -13,9 +13,9 @@ import (
 	// Imports
 )
 
-// BusinessLogicListUsingGET executes the core logic of the related
+// BusinessLogicListDataSourceUsingGET executes the core logic of the related
 // route endpoint.
-func BusinessLogicListUsingGET(f func(ctx *gin.Context) *api.Response) gin.HandlerFunc {
+func BusinessLogicListDataSourceUsingGET(f func(ctx *gin.Context) *api.Response) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
 		resp := f(ctx)
@@ -28,16 +28,16 @@ func BusinessLogicListUsingGET(f func(ctx *gin.Context) *api.Response) gin.Handl
 	}
 }
 
-// ListUsingGETParams contains all the bound params for the list using g e t operation
+// ListDataSourceUsingGETParams contains all the bound params for the list data source using g e t operation
 // typically these are obtained from a http.Request
 //
-// swagger:parameters listUsingGET
-type ListUsingGETParams struct {
+// swagger:parameters listDataSourceUsingGET
+type ListDataSourceUsingGETParams struct {
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
 // for simple values it will use straight method calls
-func (o *ListUsingGETParams) bindRequest(ctx *gin.Context) error {
+func (o *ListDataSourceUsingGETParams) bindRequest(ctx *gin.Context) error {
 	var res []error
 
 	if len(res) > 0 {

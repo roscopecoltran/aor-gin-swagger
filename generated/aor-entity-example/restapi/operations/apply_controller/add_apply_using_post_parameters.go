@@ -19,12 +19,12 @@ import (
 	// Imports
 )
 
-// BusinessLogicApplyUsingOPTIONS executes the core logic of the related
+// BusinessLogicAddApplyUsingPOST executes the core logic of the related
 // route endpoint.
-func BusinessLogicApplyUsingOPTIONS(f func(ctx *gin.Context, params *ApplyUsingOPTIONSParams) *api.Response) gin.HandlerFunc {
+func BusinessLogicAddApplyUsingPOST(f func(ctx *gin.Context, params *AddApplyUsingPOSTParams) *api.Response) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		// generate params from request
-		params := &ApplyUsingOPTIONSParams{}
+		params := &AddApplyUsingPOSTParams{}
 		err := params.bindRequest(ctx)
 		if err != nil {
 			errObj := err.(*errors.CompositeError)
@@ -48,11 +48,11 @@ func BusinessLogicApplyUsingOPTIONS(f func(ctx *gin.Context, params *ApplyUsingO
 	}
 }
 
-// ApplyUsingOPTIONSParams contains all the bound params for the apply using o p t i o n s operation
+// AddApplyUsingPOSTParams contains all the bound params for the add apply using p o s t operation
 // typically these are obtained from a http.Request
 //
-// swagger:parameters applyUsingOPTIONS
-type ApplyUsingOPTIONSParams struct {
+// swagger:parameters addApplyUsingPOST
+type AddApplyUsingPOSTParams struct {
 
 	/*apply
 	  Required: true
@@ -61,15 +61,15 @@ type ApplyUsingOPTIONSParams struct {
 	Apply *models.Apply
 }
 
-// ApplyUsingOPTIONSParamsFromCtx gets the params struct from the gin context.
-func ApplyUsingOPTIONSParamsFromCtx(ctx *gin.Context) *ApplyUsingOPTIONSParams {
+// AddApplyUsingPOSTParamsFromCtx gets the params struct from the gin context.
+func AddApplyUsingPOSTParamsFromCtx(ctx *gin.Context) *AddApplyUsingPOSTParams {
 	params, _ := ctx.Get("params")
-	return params.(*ApplyUsingOPTIONSParams)
+	return params.(*AddApplyUsingPOSTParams)
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
 // for simple values it will use straight method calls
-func (o *ApplyUsingOPTIONSParams) bindRequest(ctx *gin.Context) error {
+func (o *AddApplyUsingPOSTParams) bindRequest(ctx *gin.Context) error {
 	var res []error
 	formats := strfmt.NewFormats()
 

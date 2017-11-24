@@ -14,12 +14,12 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// ListUsingGET1OKBody list using g e t1 o k body
-// swagger:model listUsingGET1OKBody
-type ListUsingGET1OKBody []*Permission
+// FindFieldsUsingGETOKBody find fields using g e t o k body
+// swagger:model findFieldsUsingGETOKBody
+type FindFieldsUsingGETOKBody []*Field
 
-// Validate validates this list using g e t1 o k body
-func (m ListUsingGET1OKBody) Validate(formats strfmt.Registry) error {
+// Validate validates this find fields using g e t o k body
+func (m FindFieldsUsingGETOKBody) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	for i := 0; i < len(m); i++ {

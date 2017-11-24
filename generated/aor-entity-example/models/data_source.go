@@ -20,34 +20,46 @@ import (
 type DataSource struct {
 
 	// cluster name
-	ClusterName string `json:"clusterName,omitempty"`
+	ClusterName string `json:"clusterName,omitempty" gorm:"cluster_name" yaml:"cluster_name" toml:"cluster_name"`
 
 	// current
-	Current bool `json:"current,omitempty"`
+	Current bool `json:"current,omitempty" gorm:"current" yaml:"current" toml:"current"`
 
 	// db name
-	DbName string `json:"dbName,omitempty"`
+	DbName string `json:"dbName,omitempty" gorm:"db_name" yaml:"db_name" toml:"db_name"`
+
+	// host
+	Host string `json:"host,omitempty" gorm:"host" yaml:"host" toml:"host"`
 
 	// id
-	ID string `json:"id,omitempty"`
+	ID string `json:"id,omitempty" gorm:"primary_key" yaml:"-" toml:"-"`
 
 	// index name
-	IndexName string `json:"indexName,omitempty"`
+	IndexName string `json:"indexName,omitempty" gorm:"index_name" yaml:"index_name" toml:"index_name"`
 
 	// jdbc Url
-	JdbcURL string `json:"jdbcUrl,omitempty"`
+	JdbcURL string `json:"jdbcUrl,omitempty" gorm:"jdbc_url" yaml:"jdbc_url" toml:"jdbc_url"`
 
 	// my Sql db name
-	MySQLDbName string `json:"mySqlDbName,omitempty"`
+	MySQLDbName string `json:"mySqlDbName,omitempty" gorm:"mysql_db_name" yaml:"mysql_db_name" toml:"mysql_db_name"`
 
 	// password
-	Password strfmt.Password `json:"password,omitempty"`
+	Password strfmt.Password `json:"password,omitempty" gorm:"password" yaml:"password" toml:"password"`
+
+	// port
+	Port string `json:"port,omitempty" gorm:"port" yaml:"port" toml:"port"`
+
+	// prefix path
+	PrefixPath string `json:"prefixPath,omitempty" gorm:"prefix_path" yaml:"prefix_path" toml:"prefix_path"`
+
+	// ssl mode
+	SslMode string `json:"sslMode,omitempty" gorm:"ssl_mode" yaml:"ssl_mode" toml:"ssl_mode"`
 
 	// type
-	Type string `json:"type,omitempty"`
+	Type string `json:"type,omitempty" gorm:"type" yaml:"type" toml:"type"`
 
 	// username
-	Username string `json:"username,omitempty"`
+	Username string `json:"username,omitempty" gorm:"username" yaml:"username" toml:"username"`
 }
 
 // Validate validates this data source

@@ -17,25 +17,25 @@ import (
 type User struct {
 
 	// email
-	Email strfmt.Email `json:"email,omitempty"`
+	Email strfmt.Email `json:"email,omitempty" gorm:"email" yaml:"email" toml:"email"`
 
 	// enabled
-	Enabled bool `json:"enabled,omitempty"`
+	Enabled bool `json:"enabled,omitempty" gorm:"enabled" yaml:"enabled" toml:"enabled"`
 
 	// id
-	ID string `json:"id,omitempty"`
+	ID string `json:"id,omitempty" gorm:"primary_key" yaml:"-" toml:"-"`
 
 	// last password reset date
-	LastPasswordResetDate strfmt.DateTime `json:"lastPasswordResetDate,omitempty"`
+	LastPasswordResetDate strfmt.DateTime `json:"lastPasswordResetDate,omitempty" gorm:"last_password_reset_date" yaml:"-" toml:"-"`
 
 	// password
-	Password strfmt.Password `json:"password,omitempty"`
+	Password strfmt.Password `json:"password,omitempty" gorm:"password" yaml:"password" toml:"password"`
 
 	// roles
 	Roles UserRoles `json:"roles"`
 
 	// username
-	Username string `json:"username,omitempty"`
+	Username string `json:"username,omitempty" gorm:"username" yaml:"username" toml:"username"`
 }
 
 // Validate validates this user

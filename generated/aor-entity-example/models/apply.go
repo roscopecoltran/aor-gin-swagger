@@ -17,16 +17,16 @@ import (
 type Apply struct {
 
 	// email
-	Email strfmt.Email `json:"email,omitempty"`
+	Email strfmt.Email `json:"email,omitempty" gorm:"email" yaml:"email" toml:"email"`
 
 	// mobile
-	Mobile string `json:"mobile,omitempty"`
+	Mobile string `json:"mobile,omitempty" gorm:"mobile" yaml:"mobile" toml:"mobile"`
 
 	// password
-	Password strfmt.Password `json:"password,omitempty"`
+	Password strfmt.Password `json:"password,omitempty" gorm:"password" yaml:"password" toml:"password"`
 
 	// username
-	Username string `json:"username,omitempty"`
+	Username string `json:"username,omitempty" gorm:"username" yaml:"username" toml:"username"`
 }
 
 // Validate validates this apply

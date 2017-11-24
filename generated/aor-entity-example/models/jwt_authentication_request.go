@@ -17,10 +17,10 @@ import (
 type JwtAuthenticationRequest struct {
 
 	// password
-	Password strfmt.Password `json:"password,omitempty"`
+	Password strfmt.Password `json:"password,omitempty" gorm:"password" yaml:"password" toml:"password"`
 
 	// username
-	Username string `json:"username,omitempty"`
+	Username string `json:"username,omitempty" gorm:"username" yaml:"username" toml:"username"`
 }
 
 // Validate validates this jwt authentication request

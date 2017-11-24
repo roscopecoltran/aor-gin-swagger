@@ -20,13 +20,13 @@ type JwtUser struct {
 	Authorities JwtUserAuthorities `json:"authorities"`
 
 	// email
-	Email strfmt.Email `json:"email,omitempty"`
+	Email strfmt.Email `json:"email,omitempty" gorm:"email" yaml:"email" toml:"email"`
 
 	// enabled
-	Enabled bool `json:"enabled,omitempty"`
+	Enabled bool `json:"enabled,omitempty" gorm:"enabled" yaml:"enabled" toml:"enabled"`
 
 	// username
-	Username string `json:"username,omitempty"`
+	Username string `json:"username,omitempty" gorm:"username" yaml:"username" toml:"username"`
 }
 
 // Validate validates this jwt user

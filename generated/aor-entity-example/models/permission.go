@@ -17,25 +17,25 @@ import (
 type Permission struct {
 
 	// c
-	C bool `json:"c,omitempty"`
+	C bool `json:"c,omitempty" gorm:"c" yaml:"c" toml:"c"`
 
 	// d
-	D bool `json:"d,omitempty"`
+	D bool `json:"d,omitempty" gorm:"d" yaml:"d" toml:"d"`
 
 	// eid
-	Eid string `json:"eid,omitempty"`
+	Eid string `json:"eid,omitempty" gorm:"eid" yaml:"name" toml:"name"`
 
 	// id
-	ID string `json:"id,omitempty"`
+	ID string `json:"id,omitempty" gorm:"primary_key" yaml:"-" toml:"-"`
 
 	// r
-	R bool `json:"r,omitempty"`
+	R bool `json:"r,omitempty" gorm:"r" yaml:"r" toml:"r"`
 
 	// role Id
-	RoleID string `json:"roleId,omitempty"`
+	RoleID string `json:"roleId,omitempty" gorm:"role_id" yaml:"role_id" toml:"role_id"`
 
 	// u
-	U bool `json:"u,omitempty"`
+	U bool `json:"u,omitempty" gorm:"u" yaml:"u" toml:"u"`
 }
 
 // Validate validates this permission

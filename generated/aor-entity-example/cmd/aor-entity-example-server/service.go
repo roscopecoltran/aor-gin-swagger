@@ -41,6 +41,182 @@ func (s *AorEntityExampleServer) Healthy() bool {
 	return s.Health
 }
 
+func (s *AorEntityExampleServer) AddApplyUsingOPTIONS(ctx *gin.Context, params *apply_controller.AddApplyUsingOPTIONSParams) *api.Response {
+
+	// debug - tmpl vars
+
+	// Method: OPTIONS
+	// HasQueryParams: false
+	// HasFormParams: false
+	// HasFormValueParams: false
+	// HasFileParams: false
+	// HasStreamingResponse: false
+	// WithContext: false
+	// HasFileParams: false
+	// Tags: [apply-controller]
+
+	// Package: apply_controller
+	// Path: /apply
+	// RootPackage: operations
+	// Authorized: true
+
+	// Name: addApplyUsingOPTIONS
+	// StrContains "findAll"? false
+	// StrContains "findOne"? false
+	// StrContains "WithID"? false
+
+	// StrContains "refresh"? false
+	// StrContains "sync"? false
+	// StrContains "update"? false
+	// StrContains "edit"? false
+	// StrContains "create"? false
+	// StrContains "add"? true
+	// StrContains "list"? false
+	// StrContains "get"? false
+
+	// HasPrefix "refresh"? false
+	// HasPrefix "update"? false
+	// HasPrefix "edit"? false
+	// HasPrefix "sync"? false
+	// HasPrefix "create"? false
+	// HasPrefix "add"? true
+	// HasPrefix "list"? false
+	// HasPrefix "get"? false
+	// HasPrefix "delete"? false
+
+	// HasSuffix "OPTIONS"? true
+
+	// ExtractString "add" "Using": Apply
+	// ExtractString "list" "Using":
+	// ExtractString "get" "Using":
+
+	// ID: Apply
+	// ModelsPackage: models
+	// Name: apply
+
+	pp.Println("params: ", params)
+	response := make(map[string]string)
+	var apply models.Apply
+	var queryRes []models.Apply
+	db := ctx.MustGet("db").(*gorm.DB)
+	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+	if queryRes.DbName != "" {
+		response["status"] = "error"
+		response["msg"] = "Duplicate resource."
+	} else {
+		db.Create(&dataSource)
+		response["status"] = "success"
+	}
+
+	// QueryParams: []
+	// PathParams: []
+	// HeaderParams: []
+	// FormParams: []
+
+	/*
+		db := ctx.MustGet("db").(*gorm.DB)
+		var results []models.User
+		response := make(map[string]interface{})
+		if err := db.Select("*").Find(&results).Error; err != nil {
+			response["error"] = err.Error()
+			return &api.Response{Code: 400, Body: response}
+		}
+		response["results"] = results
+		response["status"] = "success"
+		return &api.Response{Code: http.StatusOK, Body: response}
+	*/
+
+	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+}
+
+func (s *AorEntityExampleServer) AddApplyUsingPOST(ctx *gin.Context, params *apply_controller.AddApplyUsingPOSTParams) *api.Response {
+
+	// debug - tmpl vars
+
+	// Method: POST
+	// HasQueryParams: false
+	// HasFormParams: false
+	// HasFormValueParams: false
+	// HasFileParams: false
+	// HasStreamingResponse: false
+	// WithContext: false
+	// HasFileParams: false
+	// Tags: [apply-controller]
+
+	// Package: apply_controller
+	// Path: /apply
+	// RootPackage: operations
+	// Authorized: true
+
+	// Name: addApplyUsingPOST
+	// StrContains "findAll"? false
+	// StrContains "findOne"? false
+	// StrContains "WithID"? false
+
+	// StrContains "refresh"? false
+	// StrContains "sync"? false
+	// StrContains "update"? false
+	// StrContains "edit"? false
+	// StrContains "create"? false
+	// StrContains "add"? true
+	// StrContains "list"? false
+	// StrContains "get"? false
+
+	// HasPrefix "refresh"? false
+	// HasPrefix "update"? false
+	// HasPrefix "edit"? false
+	// HasPrefix "sync"? false
+	// HasPrefix "create"? false
+	// HasPrefix "add"? true
+	// HasPrefix "list"? false
+	// HasPrefix "get"? false
+	// HasPrefix "delete"? false
+
+	// HasSuffix "POST"? true
+
+	// ExtractString "add" "Using": Apply
+	// ExtractString "list" "Using":
+	// ExtractString "get" "Using":
+
+	// ID: Apply
+	// ModelsPackage: models
+	// Name: apply
+
+	pp.Println("params: ", params)
+	response := make(map[string]string)
+	var apply models.Apply
+	var queryRes []models.Apply
+	db := ctx.MustGet("db").(*gorm.DB)
+	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+	if queryRes.DbName != "" {
+		response["status"] = "error"
+		response["msg"] = "Duplicate resource."
+	} else {
+		db.Create(&dataSource)
+		response["status"] = "success"
+	}
+
+	// QueryParams: []
+	// PathParams: []
+	// HeaderParams: []
+	// FormParams: []
+
+	/*
+		db := ctx.MustGet("db").(*gorm.DB)
+		var results []models.User
+		response := make(map[string]interface{})
+		if err := db.Select("*").Find(&results).Error; err != nil {
+			response["error"] = err.Error()
+			return &api.Response{Code: 400, Body: response}
+		}
+		response["results"] = results
+		response["status"] = "success"
+		return &api.Response{Code: http.StatusOK, Body: response}
+	*/
+
+	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+}
+
 func (s *AorEntityExampleServer) AddDataSourceUsingOPTIONS(ctx *gin.Context, params *data_source_controller.AddDataSourceUsingOPTIONSParams) *api.Response {
 
 	// debug - tmpl vars
@@ -56,7 +232,6 @@ func (s *AorEntityExampleServer) AddDataSourceUsingOPTIONS(ctx *gin.Context, par
 	// Tags: [data-source-controller]
 
 	// Package: data_source_controller
-	// BasePath: /
 	// Path: /datasource/_datasource
 	// RootPackage: operations
 	// Authorized: true
@@ -145,7 +320,6 @@ func (s *AorEntityExampleServer) AddDataSourceUsingPOST(ctx *gin.Context, params
 	// Tags: [data-source-controller]
 
 	// Package: data_source_controller
-	// BasePath: /
 	// Path: /datasource/_datasource
 	// RootPackage: operations
 	// Authorized: true
@@ -234,7 +408,6 @@ func (s *AorEntityExampleServer) AddEntityUsingOPTIONS(ctx *gin.Context, params 
 	// Tags: [schema-controller]
 
 	// Package: schema_controller
-	// BasePath: /
 	// Path: /schemas/_entitys
 	// RootPackage: operations
 	// Authorized: true
@@ -323,7 +496,6 @@ func (s *AorEntityExampleServer) AddEntityUsingPOST(ctx *gin.Context, params *sc
 	// Tags: [schema-controller]
 
 	// Package: schema_controller
-	// BasePath: /
 	// Path: /schemas/_entitys
 	// RootPackage: operations
 	// Authorized: true
@@ -412,7 +584,6 @@ func (s *AorEntityExampleServer) AddFieldUsingOPTIONS(ctx *gin.Context, params *
 	// Tags: [schema-controller]
 
 	// Package: schema_controller
-	// BasePath: /
 	// Path: /schemas/_fields
 	// RootPackage: operations
 	// Authorized: true
@@ -501,7 +672,6 @@ func (s *AorEntityExampleServer) AddFieldUsingPOST(ctx *gin.Context, params *sch
 	// Tags: [schema-controller]
 
 	// Package: schema_controller
-	// BasePath: /
 	// Path: /schemas/_fields
 	// RootPackage: operations
 	// Authorized: true
@@ -590,7 +760,6 @@ func (s *AorEntityExampleServer) AddPermissionUsingOPTIONS(ctx *gin.Context, par
 	// Tags: [permission-controller]
 
 	// Package: permission_controller
-	// BasePath: /
 	// Path: /permission/_permission
 	// RootPackage: operations
 	// Authorized: true
@@ -679,7 +848,6 @@ func (s *AorEntityExampleServer) AddPermissionUsingPOST(ctx *gin.Context, params
 	// Tags: [permission-controller]
 
 	// Package: permission_controller
-	// BasePath: /
 	// Path: /permission/_permission
 	// RootPackage: operations
 	// Authorized: true
@@ -768,7 +936,6 @@ func (s *AorEntityExampleServer) AddRoleUsingOPTIONS(ctx *gin.Context, params *r
 	// Tags: [role-controller]
 
 	// Package: role_controller
-	// BasePath: /
 	// Path: /role/_roles
 	// RootPackage: operations
 	// Authorized: true
@@ -857,7 +1024,6 @@ func (s *AorEntityExampleServer) AddRoleUsingPOST(ctx *gin.Context, params *role
 	// Tags: [role-controller]
 
 	// Package: role_controller
-	// BasePath: /
 	// Path: /role/_roles
 	// RootPackage: operations
 	// Authorized: true
@@ -946,7 +1112,6 @@ func (s *AorEntityExampleServer) AddUserUsingOPTIONS(ctx *gin.Context, params *u
 	// Tags: [user-controller]
 
 	// Package: user_controller
-	// BasePath: /
 	// Path: /user/_users
 	// RootPackage: operations
 	// Authorized: true
@@ -1035,7 +1200,6 @@ func (s *AorEntityExampleServer) AddUserUsingPOST(ctx *gin.Context, params *user
 	// Tags: [user-controller]
 
 	// Package: user_controller
-	// BasePath: /
 	// Path: /user/_users
 	// RootPackage: operations
 	// Authorized: true
@@ -1109,184 +1273,6 @@ func (s *AorEntityExampleServer) AddUserUsingPOST(ctx *gin.Context, params *user
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *AorEntityExampleServer) ApplyUsingOPTIONS(ctx *gin.Context, params *apply_controller.ApplyUsingOPTIONSParams) *api.Response {
-
-	// debug - tmpl vars
-
-	// Method: OPTIONS
-	// HasQueryParams: false
-	// HasFormParams: false
-	// HasFormValueParams: false
-	// HasFileParams: false
-	// HasStreamingResponse: false
-	// WithContext: false
-	// HasFileParams: false
-	// Tags: [apply-controller]
-
-	// Package: apply_controller
-	// BasePath: /
-	// Path: /apply
-	// RootPackage: operations
-	// Authorized: true
-
-	// Name: applyUsingOPTIONS
-	// StrContains "findAll"? false
-	// StrContains "findOne"? false
-	// StrContains "WithID"? false
-
-	// StrContains "refresh"? false
-	// StrContains "sync"? false
-	// StrContains "update"? false
-	// StrContains "edit"? false
-	// StrContains "create"? false
-	// StrContains "add"? false
-	// StrContains "list"? false
-	// StrContains "get"? false
-
-	// HasPrefix "refresh"? false
-	// HasPrefix "update"? false
-	// HasPrefix "edit"? false
-	// HasPrefix "sync"? false
-	// HasPrefix "create"? false
-	// HasPrefix "add"? false
-	// HasPrefix "list"? false
-	// HasPrefix "get"? false
-	// HasPrefix "delete"? false
-
-	// HasSuffix "OPTIONS"? true
-
-	// ExtractString "add" "Using":
-	// ExtractString "list" "Using":
-	// ExtractString "get" "Using":
-
-	// ID: Apply
-	// ModelsPackage: models
-	// Name: apply
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
-	var apply models.Apply
-	var queryRes []models.Apply
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
-
-	// QueryParams: []
-	// PathParams: []
-	// HeaderParams: []
-	// FormParams: []
-
-	/*
-		db := ctx.MustGet("db").(*gorm.DB)
-		var results []models.User
-		response := make(map[string]interface{})
-		if err := db.Select("*").Find(&results).Error; err != nil {
-			response["error"] = err.Error()
-			return &api.Response{Code: 400, Body: response}
-		}
-		response["results"] = results
-		response["status"] = "success"
-		return &api.Response{Code: http.StatusOK, Body: response}
-	*/
-
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *AorEntityExampleServer) ApplyUsingPOST(ctx *gin.Context, params *apply_controller.ApplyUsingPOSTParams) *api.Response {
-
-	// debug - tmpl vars
-
-	// Method: POST
-	// HasQueryParams: false
-	// HasFormParams: false
-	// HasFormValueParams: false
-	// HasFileParams: false
-	// HasStreamingResponse: false
-	// WithContext: false
-	// HasFileParams: false
-	// Tags: [apply-controller]
-
-	// Package: apply_controller
-	// BasePath: /
-	// Path: /apply
-	// RootPackage: operations
-	// Authorized: true
-
-	// Name: applyUsingPOST
-	// StrContains "findAll"? false
-	// StrContains "findOne"? false
-	// StrContains "WithID"? false
-
-	// StrContains "refresh"? false
-	// StrContains "sync"? false
-	// StrContains "update"? false
-	// StrContains "edit"? false
-	// StrContains "create"? false
-	// StrContains "add"? false
-	// StrContains "list"? false
-	// StrContains "get"? false
-
-	// HasPrefix "refresh"? false
-	// HasPrefix "update"? false
-	// HasPrefix "edit"? false
-	// HasPrefix "sync"? false
-	// HasPrefix "create"? false
-	// HasPrefix "add"? false
-	// HasPrefix "list"? false
-	// HasPrefix "get"? false
-	// HasPrefix "delete"? false
-
-	// HasSuffix "POST"? true
-
-	// ExtractString "add" "Using":
-	// ExtractString "list" "Using":
-	// ExtractString "get" "Using":
-
-	// ID: Apply
-	// ModelsPackage: models
-	// Name: apply
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
-	var apply models.Apply
-	var queryRes []models.Apply
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
-
-	// QueryParams: []
-	// PathParams: []
-	// HeaderParams: []
-	// FormParams: []
-
-	/*
-		db := ctx.MustGet("db").(*gorm.DB)
-		var results []models.User
-		response := make(map[string]interface{})
-		if err := db.Select("*").Find(&results).Error; err != nil {
-			response["error"] = err.Error()
-			return &api.Response{Code: 400, Body: response}
-		}
-		response["results"] = results
-		response["status"] = "success"
-		return &api.Response{Code: http.StatusOK, Body: response}
-	*/
-
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
 func (s *AorEntityExampleServer) CreateAuthenticationTokenUsingOPTIONS(ctx *gin.Context, params *authentication_rest_controller.CreateAuthenticationTokenUsingOPTIONSParams) *api.Response {
 
 	// debug - tmpl vars
@@ -1302,7 +1288,6 @@ func (s *AorEntityExampleServer) CreateAuthenticationTokenUsingOPTIONS(ctx *gin.
 	// Tags: [authentication-rest-controller]
 
 	// Package: authentication_rest_controller
-	// BasePath: /
 	// Path: /auth
 	// RootPackage: operations
 	// Authorized: true
@@ -1391,7 +1376,6 @@ func (s *AorEntityExampleServer) CreateAuthenticationTokenUsingPOST(ctx *gin.Con
 	// Tags: [authentication-rest-controller]
 
 	// Package: authentication_rest_controller
-	// BasePath: /
 	// Path: /auth
 	// RootPackage: operations
 	// Authorized: true
@@ -1480,7 +1464,6 @@ func (s *AorEntityExampleServer) DataMutationUsingDELETE(ctx *gin.Context, param
 	// Tags: [data-controller]
 
 	// Package: data_controller
-	// BasePath: /
 	// Path: /api/{entity}/{id}
 	// RootPackage: operations
 	// Authorized: true
@@ -1572,6 +1555,112 @@ func (s *AorEntityExampleServer) DataMutationUsingDELETE(ctx *gin.Context, param
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
+func (s *AorEntityExampleServer) DataMutationUsingGET(ctx *gin.Context, params *data_controller.DataMutationUsingGETParams) *api.Response {
+
+	// debug - tmpl vars
+
+	// Method: GET
+	// HasQueryParams: false
+	// HasFormParams: false
+	// HasFormValueParams: false
+	// HasFileParams: false
+	// HasStreamingResponse: false
+	// WithContext: false
+	// HasFileParams: false
+	// Tags: [data-controller]
+
+	// Package: data_controller
+	// Path: /api/{entity}/{id}
+	// RootPackage: operations
+	// Authorized: true
+
+	// Name: dataMutationUsingGET
+	// StrContains "findAll"? false
+	// StrContains "findOne"? false
+	// StrContains "WithID"? false
+
+	// StrContains "refresh"? false
+	// StrContains "sync"? false
+	// StrContains "update"? false
+	// StrContains "edit"? false
+	// StrContains "create"? false
+	// StrContains "add"? false
+	// StrContains "list"? false
+	// StrContains "get"? false
+
+	// HasPrefix "refresh"? false
+	// HasPrefix "update"? false
+	// HasPrefix "edit"? false
+	// HasPrefix "sync"? false
+	// HasPrefix "create"? false
+	// HasPrefix "add"? false
+	// HasPrefix "list"? false
+	// HasPrefix "get"? false
+	// HasPrefix "delete"? false
+
+	// HasSuffix "GET"? true
+
+	// ExtractString "add" "Using":
+	// ExtractString "list" "Using":
+	// ExtractString "get" "Using":
+
+	// ID: Entity
+	// ModelsPackage: models
+	// Name: entity
+
+	pp.Println("params: ", params)
+	response := make(map[string]string)
+	var entity models.Entity
+	var queryRes []models.Entity
+	db := ctx.MustGet("db").(*gorm.DB)
+	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+	if queryRes.DbName != "" {
+		response["status"] = "error"
+		response["msg"] = "Duplicate resource."
+	} else {
+		db.Create(&dataSource)
+		response["status"] = "success"
+	}
+
+	// ID: ID
+	// ModelsPackage: models
+	// Name: id
+
+	pp.Println("params: ", params)
+	response := make(map[string]string)
+	var id models.ID
+	var queryRes []models.ID
+	db := ctx.MustGet("db").(*gorm.DB)
+	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+	if queryRes.DbName != "" {
+		response["status"] = "error"
+		response["msg"] = "Duplicate resource."
+	} else {
+		db.Create(&dataSource)
+		response["status"] = "success"
+	}
+
+	// QueryParams: []
+	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} Entity entity models "entity" o.Entity i o path  entity   <nil>  <nil> <nil> <nil> <nil> false  false map[]} {{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
+	// HeaderParams: []
+	// FormParams: []
+
+	/*
+		db := ctx.MustGet("db").(*gorm.DB)
+		var results []models.User
+		response := make(map[string]interface{})
+		if err := db.Select("*").Find(&results).Error; err != nil {
+			response["error"] = err.Error()
+			return &api.Response{Code: 400, Body: response}
+		}
+		response["results"] = results
+		response["status"] = "success"
+		return &api.Response{Code: http.StatusOK, Body: response}
+	*/
+
+	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+}
+
 func (s *AorEntityExampleServer) DataMutationUsingOPTIONS(ctx *gin.Context, params *data_controller.DataMutationUsingOPTIONSParams) *api.Response {
 
 	// debug - tmpl vars
@@ -1587,7 +1676,6 @@ func (s *AorEntityExampleServer) DataMutationUsingOPTIONS(ctx *gin.Context, para
 	// Tags: [data-controller]
 
 	// Package: data_controller
-	// BasePath: /
 	// Path: /api/{entity}
 	// RootPackage: operations
 	// Authorized: true
@@ -1694,7 +1782,6 @@ func (s *AorEntityExampleServer) DataMutationUsingPOST(ctx *gin.Context, params 
 	// Tags: [data-controller]
 
 	// Package: data_controller
-	// BasePath: /
 	// Path: /api/{entity}
 	// RootPackage: operations
 	// Authorized: true
@@ -1801,7 +1888,6 @@ func (s *AorEntityExampleServer) DataMutationUsingPUT(ctx *gin.Context, params *
 	// Tags: [data-controller]
 
 	// Package: data_controller
-	// BasePath: /
 	// Path: /api/{entity}/{id}
 	// RootPackage: operations
 	// Authorized: true
@@ -1911,95 +1997,6 @@ func (s *AorEntityExampleServer) DataMutationUsingPUT(ctx *gin.Context, params *
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *AorEntityExampleServer) DataQueryUsingGET(ctx *gin.Context, params *data_controller.DataQueryUsingGETParams) *api.Response {
-
-	// debug - tmpl vars
-
-	// Method: GET
-	// HasQueryParams: false
-	// HasFormParams: false
-	// HasFormValueParams: false
-	// HasFileParams: false
-	// HasStreamingResponse: false
-	// WithContext: false
-	// HasFileParams: false
-	// Tags: [data-controller]
-
-	// Package: data_controller
-	// BasePath: /
-	// Path: /api/{entity}
-	// RootPackage: operations
-	// Authorized: true
-
-	// Name: dataQueryUsingGET
-	// StrContains "findAll"? false
-	// StrContains "findOne"? false
-	// StrContains "WithID"? false
-
-	// StrContains "refresh"? false
-	// StrContains "sync"? false
-	// StrContains "update"? false
-	// StrContains "edit"? false
-	// StrContains "create"? false
-	// StrContains "add"? false
-	// StrContains "list"? false
-	// StrContains "get"? false
-
-	// HasPrefix "refresh"? false
-	// HasPrefix "update"? false
-	// HasPrefix "edit"? false
-	// HasPrefix "sync"? false
-	// HasPrefix "create"? false
-	// HasPrefix "add"? false
-	// HasPrefix "list"? false
-	// HasPrefix "get"? false
-	// HasPrefix "delete"? false
-
-	// HasSuffix "GET"? true
-
-	// ExtractString "add" "Using":
-	// ExtractString "list" "Using":
-	// ExtractString "get" "Using":
-
-	// ID: Entity
-	// ModelsPackage: models
-	// Name: entity
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
-	var entity models.Entity
-	var queryRes []models.Entity
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
-
-	// QueryParams: []
-	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} Entity entity models "entity" o.Entity i o path  entity   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
-	// HeaderParams: []
-	// FormParams: []
-
-	/*
-		db := ctx.MustGet("db").(*gorm.DB)
-		var results []models.User
-		response := make(map[string]interface{})
-		if err := db.Select("*").Find(&results).Error; err != nil {
-			response["error"] = err.Error()
-			return &api.Response{Code: 400, Body: response}
-		}
-		response["results"] = results
-		response["status"] = "success"
-		return &api.Response{Code: http.StatusOK, Body: response}
-	*/
-
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
 func (s *AorEntityExampleServer) EditDataSourceUsingPUT(ctx *gin.Context, params *data_source_controller.EditDataSourceUsingPUTParams) *api.Response {
 
 	// debug - tmpl vars
@@ -2015,7 +2012,6 @@ func (s *AorEntityExampleServer) EditDataSourceUsingPUT(ctx *gin.Context, params
 	// Tags: [data-source-controller]
 
 	// Package: data_source_controller
-	// BasePath: /
 	// Path: /datasource/_datasource/put/{id}
 	// RootPackage: operations
 	// Authorized: true
@@ -2122,7 +2118,6 @@ func (s *AorEntityExampleServer) EditEntityUsingPUT(ctx *gin.Context, params *sc
 	// Tags: [schema-controller]
 
 	// Package: schema_controller
-	// BasePath: /
 	// Path: /schemas/_entitys/put/{id}
 	// RootPackage: operations
 	// Authorized: true
@@ -2214,220 +2209,6 @@ func (s *AorEntityExampleServer) EditEntityUsingPUT(ctx *gin.Context, params *sc
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *AorEntityExampleServer) EditFieldUsingPUT(ctx *gin.Context, params *schema_controller.EditFieldUsingPUTParams) *api.Response {
-
-	// debug - tmpl vars
-
-	// Method: PUT
-	// HasQueryParams: false
-	// HasFormParams: false
-	// HasFormValueParams: false
-	// HasFileParams: false
-	// HasStreamingResponse: false
-	// WithContext: false
-	// HasFileParams: false
-	// Tags: [schema-controller]
-
-	// Package: schema_controller
-	// BasePath: /
-	// Path: /schemas/_fields/put/{id}
-	// RootPackage: operations
-	// Authorized: true
-
-	// Name: editFieldUsingPUT
-	// StrContains "findAll"? false
-	// StrContains "findOne"? false
-	// StrContains "WithID"? false
-
-	// StrContains "refresh"? false
-	// StrContains "sync"? false
-	// StrContains "update"? false
-	// StrContains "edit"? true
-	// StrContains "create"? false
-	// StrContains "add"? false
-	// StrContains "list"? false
-	// StrContains "get"? false
-
-	// HasPrefix "refresh"? false
-	// HasPrefix "update"? false
-	// HasPrefix "edit"? true
-	// HasPrefix "sync"? false
-	// HasPrefix "create"? false
-	// HasPrefix "add"? false
-	// HasPrefix "list"? false
-	// HasPrefix "get"? false
-	// HasPrefix "delete"? false
-
-	// HasSuffix "PUT"? true
-
-	// ExtractString "add" "Using":
-	// ExtractString "list" "Using":
-	// ExtractString "get" "Using":
-
-	// ID: Field
-	// ModelsPackage: models
-	// Name: field
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
-	var field models.Field
-	var queryRes []models.Field
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
-
-	// ID: ID
-	// ModelsPackage: models
-	// Name: id
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
-	var id models.ID
-	var queryRes []models.ID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
-
-	// QueryParams: []
-	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
-	// HeaderParams: []
-	// FormParams: []
-
-	/*
-		db := ctx.MustGet("db").(*gorm.DB)
-		var results []models.User
-		response := make(map[string]interface{})
-		if err := db.Select("*").Find(&results).Error; err != nil {
-			response["error"] = err.Error()
-			return &api.Response{Code: 400, Body: response}
-		}
-		response["results"] = results
-		response["status"] = "success"
-		return &api.Response{Code: http.StatusOK, Body: response}
-	*/
-
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *AorEntityExampleServer) EditFieldUsingPUT1(ctx *gin.Context, params *user_controller.EditFieldUsingPUT1Params) *api.Response {
-
-	// debug - tmpl vars
-
-	// Method: PUT
-	// HasQueryParams: false
-	// HasFormParams: false
-	// HasFormValueParams: false
-	// HasFileParams: false
-	// HasStreamingResponse: false
-	// WithContext: false
-	// HasFileParams: false
-	// Tags: [user-controller]
-
-	// Package: user_controller
-	// BasePath: /
-	// Path: /user/_users/put/{id}
-	// RootPackage: operations
-	// Authorized: true
-
-	// Name: editFieldUsingPUT_1
-	// StrContains "findAll"? false
-	// StrContains "findOne"? false
-	// StrContains "WithID"? false
-
-	// StrContains "refresh"? false
-	// StrContains "sync"? false
-	// StrContains "update"? false
-	// StrContains "edit"? true
-	// StrContains "create"? false
-	// StrContains "add"? false
-	// StrContains "list"? false
-	// StrContains "get"? false
-
-	// HasPrefix "refresh"? false
-	// HasPrefix "update"? false
-	// HasPrefix "edit"? true
-	// HasPrefix "sync"? false
-	// HasPrefix "create"? false
-	// HasPrefix "add"? false
-	// HasPrefix "list"? false
-	// HasPrefix "get"? false
-	// HasPrefix "delete"? false
-
-	// HasSuffix "PUT"? false
-
-	// ExtractString "add" "Using":
-	// ExtractString "list" "Using":
-	// ExtractString "get" "Using":
-
-	// ID: ID
-	// ModelsPackage: models
-	// Name: id
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
-	var id models.ID
-	var queryRes []models.ID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
-
-	// ID: User
-	// ModelsPackage: models
-	// Name: user
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
-	var user models.User
-	var queryRes []models.User
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
-
-	// QueryParams: []
-	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
-	// HeaderParams: []
-	// FormParams: []
-
-	/*
-		db := ctx.MustGet("db").(*gorm.DB)
-		var results []models.User
-		response := make(map[string]interface{})
-		if err := db.Select("*").Find(&results).Error; err != nil {
-			response["error"] = err.Error()
-			return &api.Response{Code: 400, Body: response}
-		}
-		response["results"] = results
-		response["status"] = "success"
-		return &api.Response{Code: http.StatusOK, Body: response}
-	*/
-
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
 func (s *AorEntityExampleServer) EditPermissionUsingPUT(ctx *gin.Context, params *permission_controller.EditPermissionUsingPUTParams) *api.Response {
 
 	// debug - tmpl vars
@@ -2443,7 +2224,6 @@ func (s *AorEntityExampleServer) EditPermissionUsingPUT(ctx *gin.Context, params
 	// Tags: [permission-controller]
 
 	// Package: permission_controller
-	// BasePath: /
 	// Path: /permission/_permission/{id}
 	// RootPackage: operations
 	// Authorized: true
@@ -2550,7 +2330,6 @@ func (s *AorEntityExampleServer) EditRoleUsingPUT(ctx *gin.Context, params *role
 	// Tags: [role-controller]
 
 	// Package: role_controller
-	// BasePath: /
 	// Path: /role/_roles/put/{id}
 	// RootPackage: operations
 	// Authorized: true
@@ -2642,12 +2421,12 @@ func (s *AorEntityExampleServer) EditRoleUsingPUT(ctx *gin.Context, params *role
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *AorEntityExampleServer) FindAllFieldsUsingGET(ctx *gin.Context, params *schema_controller.FindAllFieldsUsingGETParams) *api.Response {
+func (s *AorEntityExampleServer) EditSchemaFieldUsingPUT(ctx *gin.Context, params *schema_controller.EditSchemaFieldUsingPUTParams) *api.Response {
 
 	// debug - tmpl vars
 
-	// Method: GET
-	// HasQueryParams: true
+	// Method: PUT
+	// HasQueryParams: false
 	// HasFormParams: false
 	// HasFormValueParams: false
 	// HasFileParams: false
@@ -2657,13 +2436,224 @@ func (s *AorEntityExampleServer) FindAllFieldsUsingGET(ctx *gin.Context, params 
 	// Tags: [schema-controller]
 
 	// Package: schema_controller
-	// BasePath: /
-	// Path: /schemas/_fields
+	// Path: /schemas/_fields/put/{id}
 	// RootPackage: operations
 	// Authorized: true
 
-	// Name: findAllFieldsUsingGET
-	// StrContains "findAll"? true
+	// Name: editSchemaFieldUsingPUT
+	// StrContains "findAll"? false
+	// StrContains "findOne"? false
+	// StrContains "WithID"? false
+
+	// StrContains "refresh"? false
+	// StrContains "sync"? false
+	// StrContains "update"? false
+	// StrContains "edit"? true
+	// StrContains "create"? false
+	// StrContains "add"? false
+	// StrContains "list"? false
+	// StrContains "get"? false
+
+	// HasPrefix "refresh"? false
+	// HasPrefix "update"? false
+	// HasPrefix "edit"? true
+	// HasPrefix "sync"? false
+	// HasPrefix "create"? false
+	// HasPrefix "add"? false
+	// HasPrefix "list"? false
+	// HasPrefix "get"? false
+	// HasPrefix "delete"? false
+
+	// HasSuffix "PUT"? true
+
+	// ExtractString "add" "Using":
+	// ExtractString "list" "Using":
+	// ExtractString "get" "Using":
+
+	// ID: Field
+	// ModelsPackage: models
+	// Name: field
+
+	pp.Println("params: ", params)
+	response := make(map[string]string)
+	var field models.Field
+	var queryRes []models.Field
+	db := ctx.MustGet("db").(*gorm.DB)
+	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+	if queryRes.DbName != "" {
+		response["status"] = "error"
+		response["msg"] = "Duplicate resource."
+	} else {
+		db.Create(&dataSource)
+		response["status"] = "success"
+	}
+
+	// ID: ID
+	// ModelsPackage: models
+	// Name: id
+
+	pp.Println("params: ", params)
+	response := make(map[string]string)
+	var id models.ID
+	var queryRes []models.ID
+	db := ctx.MustGet("db").(*gorm.DB)
+	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+	if queryRes.DbName != "" {
+		response["status"] = "error"
+		response["msg"] = "Duplicate resource."
+	} else {
+		db.Create(&dataSource)
+		response["status"] = "success"
+	}
+
+	// QueryParams: []
+	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
+	// HeaderParams: []
+	// FormParams: []
+
+	/*
+		db := ctx.MustGet("db").(*gorm.DB)
+		var results []models.User
+		response := make(map[string]interface{})
+		if err := db.Select("*").Find(&results).Error; err != nil {
+			response["error"] = err.Error()
+			return &api.Response{Code: 400, Body: response}
+		}
+		response["results"] = results
+		response["status"] = "success"
+		return &api.Response{Code: http.StatusOK, Body: response}
+	*/
+
+	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+}
+
+func (s *AorEntityExampleServer) EditUserFieldUsingPUT(ctx *gin.Context, params *user_controller.EditUserFieldUsingPUTParams) *api.Response {
+
+	// debug - tmpl vars
+
+	// Method: PUT
+	// HasQueryParams: false
+	// HasFormParams: false
+	// HasFormValueParams: false
+	// HasFileParams: false
+	// HasStreamingResponse: false
+	// WithContext: false
+	// HasFileParams: false
+	// Tags: [user-controller]
+
+	// Package: user_controller
+	// Path: /user/_users/put/{id}
+	// RootPackage: operations
+	// Authorized: true
+
+	// Name: editUserFieldUsingPUT
+	// StrContains "findAll"? false
+	// StrContains "findOne"? false
+	// StrContains "WithID"? false
+
+	// StrContains "refresh"? false
+	// StrContains "sync"? false
+	// StrContains "update"? false
+	// StrContains "edit"? true
+	// StrContains "create"? false
+	// StrContains "add"? false
+	// StrContains "list"? false
+	// StrContains "get"? false
+
+	// HasPrefix "refresh"? false
+	// HasPrefix "update"? false
+	// HasPrefix "edit"? true
+	// HasPrefix "sync"? false
+	// HasPrefix "create"? false
+	// HasPrefix "add"? false
+	// HasPrefix "list"? false
+	// HasPrefix "get"? false
+	// HasPrefix "delete"? false
+
+	// HasSuffix "PUT"? true
+
+	// ExtractString "add" "Using":
+	// ExtractString "list" "Using":
+	// ExtractString "get" "Using":
+
+	// ID: ID
+	// ModelsPackage: models
+	// Name: id
+
+	pp.Println("params: ", params)
+	response := make(map[string]string)
+	var id models.ID
+	var queryRes []models.ID
+	db := ctx.MustGet("db").(*gorm.DB)
+	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+	if queryRes.DbName != "" {
+		response["status"] = "error"
+		response["msg"] = "Duplicate resource."
+	} else {
+		db.Create(&dataSource)
+		response["status"] = "success"
+	}
+
+	// ID: User
+	// ModelsPackage: models
+	// Name: user
+
+	pp.Println("params: ", params)
+	response := make(map[string]string)
+	var user models.User
+	var queryRes []models.User
+	db := ctx.MustGet("db").(*gorm.DB)
+	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+	if queryRes.DbName != "" {
+		response["status"] = "error"
+		response["msg"] = "Duplicate resource."
+	} else {
+		db.Create(&dataSource)
+		response["status"] = "success"
+	}
+
+	// QueryParams: []
+	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
+	// HeaderParams: []
+	// FormParams: []
+
+	/*
+		db := ctx.MustGet("db").(*gorm.DB)
+		var results []models.User
+		response := make(map[string]interface{})
+		if err := db.Select("*").Find(&results).Error; err != nil {
+			response["error"] = err.Error()
+			return &api.Response{Code: 400, Body: response}
+		}
+		response["results"] = results
+		response["status"] = "success"
+		return &api.Response{Code: http.StatusOK, Body: response}
+	*/
+
+	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+}
+
+func (s *AorEntityExampleServer) FindDataSourceUsingGET(ctx *gin.Context, params *data_source_controller.FindDataSourceUsingGETParams) *api.Response {
+
+	// debug - tmpl vars
+
+	// Method: GET
+	// HasQueryParams: false
+	// HasFormParams: false
+	// HasFormValueParams: false
+	// HasFileParams: false
+	// HasStreamingResponse: false
+	// WithContext: false
+	// HasFileParams: false
+	// Tags: [data-source-controller]
+
+	// Package: data_source_controller
+	// Path: /datasource/_datasource/{datasourceId}
+	// RootPackage: operations
+	// Authorized: true
+
+	// Name: findDataSourceUsingGET
+	// StrContains "findAll"? false
 	// StrContains "findOne"? false
 	// StrContains "WithID"? false
 
@@ -2692,14 +2682,14 @@ func (s *AorEntityExampleServer) FindAllFieldsUsingGET(ctx *gin.Context, params 
 	// ExtractString "list" "Using":
 	// ExtractString "get" "Using":
 
-	// ID: Eid
+	// ID: DatasourceID
 	// ModelsPackage: models
-	// Name: eid
+	// Name: datasourceId
 
 	pp.Println("params: ", params)
 	response := make(map[string]string)
-	var eid models.Eid
-	var queryRes []models.Eid
+	var datasourceId models.DatasourceID
+	var queryRes []models.DatasourceID
 	db := ctx.MustGet("db").(*gorm.DB)
 	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
 	if queryRes.DbName != "" {
@@ -2710,8 +2700,8 @@ func (s *AorEntityExampleServer) FindAllFieldsUsingGET(ctx *gin.Context, params 
 		response["status"] = "success"
 	}
 
-	// QueryParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} Eid eid models "eid" o.Eid i o query  eid   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
-	// PathParams: []
+	// QueryParams: []
+	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} DatasourceID datasourceId models "datasourceId" o.DatasourceID i o path  datasourceId   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
 	// HeaderParams: []
 	// FormParams: []
 
@@ -2746,7 +2736,6 @@ func (s *AorEntityExampleServer) FindEntityFieldsUsingGET(ctx *gin.Context, para
 	// Tags: [schema-controller]
 
 	// Package: schema_controller
-	// BasePath: /
 	// Path: /schemas/fields
 	// RootPackage: operations
 	// Authorized: true
@@ -2820,7 +2809,7 @@ func (s *AorEntityExampleServer) FindEntityFieldsUsingGET(ctx *gin.Context, para
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *AorEntityExampleServer) FindOneFieldUsingGET(ctx *gin.Context, params *schema_controller.FindOneFieldUsingGETParams) *api.Response {
+func (s *AorEntityExampleServer) FindFieldUsingGET(ctx *gin.Context, params *schema_controller.FindFieldUsingGETParams) *api.Response {
 
 	// debug - tmpl vars
 
@@ -2835,14 +2824,13 @@ func (s *AorEntityExampleServer) FindOneFieldUsingGET(ctx *gin.Context, params *
 	// Tags: [schema-controller]
 
 	// Package: schema_controller
-	// BasePath: /
 	// Path: /schemas/_fields/{fid}
 	// RootPackage: operations
 	// Authorized: true
 
-	// Name: findOneFieldUsingGET
+	// Name: findFieldUsingGET
 	// StrContains "findAll"? false
-	// StrContains "findOne"? true
+	// StrContains "findOne"? false
 	// StrContains "WithID"? false
 
 	// StrContains "refresh"? false
@@ -2909,29 +2897,28 @@ func (s *AorEntityExampleServer) FindOneFieldUsingGET(ctx *gin.Context, params *
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *AorEntityExampleServer) FindOneUsingGET(ctx *gin.Context, params *data_controller.FindOneUsingGETParams) *api.Response {
+func (s *AorEntityExampleServer) FindFieldsUsingGET(ctx *gin.Context, params *schema_controller.FindFieldsUsingGETParams) *api.Response {
 
 	// debug - tmpl vars
 
 	// Method: GET
-	// HasQueryParams: false
+	// HasQueryParams: true
 	// HasFormParams: false
 	// HasFormValueParams: false
 	// HasFileParams: false
 	// HasStreamingResponse: false
 	// WithContext: false
 	// HasFileParams: false
-	// Tags: [data-controller]
+	// Tags: [schema-controller]
 
-	// Package: data_controller
-	// BasePath: /
-	// Path: /api/{entity}/{id}
+	// Package: schema_controller
+	// Path: /schemas/_fields
 	// RootPackage: operations
 	// Authorized: true
 
-	// Name: findOneUsingGET
+	// Name: findFieldsUsingGET
 	// StrContains "findAll"? false
-	// StrContains "findOne"? true
+	// StrContains "findOne"? false
 	// StrContains "WithID"? false
 
 	// StrContains "refresh"? false
@@ -2959,14 +2946,14 @@ func (s *AorEntityExampleServer) FindOneUsingGET(ctx *gin.Context, params *data_
 	// ExtractString "list" "Using":
 	// ExtractString "get" "Using":
 
-	// ID: Entity
+	// ID: Eid
 	// ModelsPackage: models
-	// Name: entity
+	// Name: eid
 
 	pp.Println("params: ", params)
 	response := make(map[string]string)
-	var entity models.Entity
-	var queryRes []models.Entity
+	var eid models.Eid
+	var queryRes []models.Eid
 	db := ctx.MustGet("db").(*gorm.DB)
 	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
 	if queryRes.DbName != "" {
@@ -2976,6 +2963,76 @@ func (s *AorEntityExampleServer) FindOneUsingGET(ctx *gin.Context, params *data_
 		db.Create(&dataSource)
 		response["status"] = "success"
 	}
+
+	// QueryParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} Eid eid models "eid" o.Eid i o query  eid   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
+	// PathParams: []
+	// HeaderParams: []
+	// FormParams: []
+
+	/*
+		db := ctx.MustGet("db").(*gorm.DB)
+		var results []models.User
+		response := make(map[string]interface{})
+		if err := db.Select("*").Find(&results).Error; err != nil {
+			response["error"] = err.Error()
+			return &api.Response{Code: 400, Body: response}
+		}
+		response["results"] = results
+		response["status"] = "success"
+		return &api.Response{Code: http.StatusOK, Body: response}
+	*/
+
+	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+}
+
+func (s *AorEntityExampleServer) FindPermissionUsingGET(ctx *gin.Context, params *permission_controller.FindPermissionUsingGETParams) *api.Response {
+
+	// debug - tmpl vars
+
+	// Method: GET
+	// HasQueryParams: false
+	// HasFormParams: false
+	// HasFormValueParams: false
+	// HasFileParams: false
+	// HasStreamingResponse: false
+	// WithContext: false
+	// HasFileParams: false
+	// Tags: [permission-controller]
+
+	// Package: permission_controller
+	// Path: /permission/_permission/{id}
+	// RootPackage: operations
+	// Authorized: true
+
+	// Name: findPermissionUsingGET
+	// StrContains "findAll"? false
+	// StrContains "findOne"? false
+	// StrContains "WithID"? false
+
+	// StrContains "refresh"? false
+	// StrContains "sync"? false
+	// StrContains "update"? false
+	// StrContains "edit"? false
+	// StrContains "create"? false
+	// StrContains "add"? false
+	// StrContains "list"? false
+	// StrContains "get"? false
+
+	// HasPrefix "refresh"? false
+	// HasPrefix "update"? false
+	// HasPrefix "edit"? false
+	// HasPrefix "sync"? false
+	// HasPrefix "create"? false
+	// HasPrefix "add"? false
+	// HasPrefix "list"? false
+	// HasPrefix "get"? false
+	// HasPrefix "delete"? false
+
+	// HasSuffix "GET"? true
+
+	// ExtractString "add" "Using":
+	// ExtractString "list" "Using":
+	// ExtractString "get" "Using":
 
 	// ID: ID
 	// ModelsPackage: models
@@ -2996,7 +3053,7 @@ func (s *AorEntityExampleServer) FindOneUsingGET(ctx *gin.Context, params *data_
 	}
 
 	// QueryParams: []
-	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} Entity entity models "entity" o.Entity i o path  entity   <nil>  <nil> <nil> <nil> <nil> false  false map[]} {{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
+	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
 	// HeaderParams: []
 	// FormParams: []
 
@@ -3016,7 +3073,7 @@ func (s *AorEntityExampleServer) FindOneUsingGET(ctx *gin.Context, params *data_
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *AorEntityExampleServer) FindRoleUsingGET(ctx *gin.Context, params *data_source_controller.FindRoleUsingGETParams) *api.Response {
+func (s *AorEntityExampleServer) FindRoleUsingGET(ctx *gin.Context, params *role_controller.FindRoleUsingGETParams) *api.Response {
 
 	// debug - tmpl vars
 
@@ -3028,11 +3085,10 @@ func (s *AorEntityExampleServer) FindRoleUsingGET(ctx *gin.Context, params *data
 	// HasStreamingResponse: false
 	// WithContext: false
 	// HasFileParams: false
-	// Tags: [data-source-controller]
+	// Tags: [role-controller]
 
-	// Package: data_source_controller
-	// BasePath: /
-	// Path: /datasource/_datasource/{datasourceId}
+	// Package: role_controller
+	// Path: /role/_roles/{roleId}
 	// RootPackage: operations
 	// Authorized: true
 
@@ -3061,95 +3117,6 @@ func (s *AorEntityExampleServer) FindRoleUsingGET(ctx *gin.Context, params *data
 	// HasPrefix "delete"? false
 
 	// HasSuffix "GET"? true
-
-	// ExtractString "add" "Using":
-	// ExtractString "list" "Using":
-	// ExtractString "get" "Using":
-
-	// ID: DatasourceID
-	// ModelsPackage: models
-	// Name: datasourceId
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
-	var datasourceId models.DatasourceID
-	var queryRes []models.DatasourceID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
-
-	// QueryParams: []
-	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} DatasourceID datasourceId models "datasourceId" o.DatasourceID i o path  datasourceId   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
-	// HeaderParams: []
-	// FormParams: []
-
-	/*
-		db := ctx.MustGet("db").(*gorm.DB)
-		var results []models.User
-		response := make(map[string]interface{})
-		if err := db.Select("*").Find(&results).Error; err != nil {
-			response["error"] = err.Error()
-			return &api.Response{Code: 400, Body: response}
-		}
-		response["results"] = results
-		response["status"] = "success"
-		return &api.Response{Code: http.StatusOK, Body: response}
-	*/
-
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *AorEntityExampleServer) FindRoleUsingGET1(ctx *gin.Context, params *role_controller.FindRoleUsingGET1Params) *api.Response {
-
-	// debug - tmpl vars
-
-	// Method: GET
-	// HasQueryParams: false
-	// HasFormParams: false
-	// HasFormValueParams: false
-	// HasFileParams: false
-	// HasStreamingResponse: false
-	// WithContext: false
-	// HasFileParams: false
-	// Tags: [role-controller]
-
-	// Package: role_controller
-	// BasePath: /
-	// Path: /role/_roles/{roleId}
-	// RootPackage: operations
-	// Authorized: true
-
-	// Name: findRoleUsingGET_1
-	// StrContains "findAll"? false
-	// StrContains "findOne"? false
-	// StrContains "WithID"? false
-
-	// StrContains "refresh"? false
-	// StrContains "sync"? false
-	// StrContains "update"? false
-	// StrContains "edit"? false
-	// StrContains "create"? false
-	// StrContains "add"? false
-	// StrContains "list"? false
-	// StrContains "get"? false
-
-	// HasPrefix "refresh"? false
-	// HasPrefix "update"? false
-	// HasPrefix "edit"? false
-	// HasPrefix "sync"? false
-	// HasPrefix "create"? false
-	// HasPrefix "add"? false
-	// HasPrefix "list"? false
-	// HasPrefix "get"? false
-	// HasPrefix "delete"? false
-
-	// HasSuffix "GET"? false
 
 	// ExtractString "add" "Using":
 	// ExtractString "list" "Using":
@@ -3209,7 +3176,6 @@ func (s *AorEntityExampleServer) FindSchemaEntityGET(ctx *gin.Context, params *s
 	// Tags: [schema-controller]
 
 	// Package: schema_controller
-	// BasePath: /
 	// Path: /schemas/_entitys/{eid}
 	// RootPackage: operations
 	// Authorized: true
@@ -3283,7 +3249,7 @@ func (s *AorEntityExampleServer) FindSchemaEntityGET(ctx *gin.Context, params *s
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *AorEntityExampleServer) FindUserUsingGET(ctx *gin.Context, params *permission_controller.FindUserUsingGETParams) *api.Response {
+func (s *AorEntityExampleServer) FindUserUsingGET(ctx *gin.Context, params *user_controller.FindUserUsingGETParams) *api.Response {
 
 	// debug - tmpl vars
 
@@ -3295,11 +3261,10 @@ func (s *AorEntityExampleServer) FindUserUsingGET(ctx *gin.Context, params *perm
 	// HasStreamingResponse: false
 	// WithContext: false
 	// HasFileParams: false
-	// Tags: [permission-controller]
+	// Tags: [user-controller]
 
-	// Package: permission_controller
-	// BasePath: /
-	// Path: /permission/_permission/{id}
+	// Package: user_controller
+	// Path: /user/_users/{userId}
 	// RootPackage: operations
 	// Authorized: true
 
@@ -3328,95 +3293,6 @@ func (s *AorEntityExampleServer) FindUserUsingGET(ctx *gin.Context, params *perm
 	// HasPrefix "delete"? false
 
 	// HasSuffix "GET"? true
-
-	// ExtractString "add" "Using":
-	// ExtractString "list" "Using":
-	// ExtractString "get" "Using":
-
-	// ID: ID
-	// ModelsPackage: models
-	// Name: id
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
-	var id models.ID
-	var queryRes []models.ID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
-
-	// QueryParams: []
-	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
-	// HeaderParams: []
-	// FormParams: []
-
-	/*
-		db := ctx.MustGet("db").(*gorm.DB)
-		var results []models.User
-		response := make(map[string]interface{})
-		if err := db.Select("*").Find(&results).Error; err != nil {
-			response["error"] = err.Error()
-			return &api.Response{Code: 400, Body: response}
-		}
-		response["results"] = results
-		response["status"] = "success"
-		return &api.Response{Code: http.StatusOK, Body: response}
-	*/
-
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *AorEntityExampleServer) FindUserUsingGET1(ctx *gin.Context, params *user_controller.FindUserUsingGET1Params) *api.Response {
-
-	// debug - tmpl vars
-
-	// Method: GET
-	// HasQueryParams: false
-	// HasFormParams: false
-	// HasFormValueParams: false
-	// HasFileParams: false
-	// HasStreamingResponse: false
-	// WithContext: false
-	// HasFileParams: false
-	// Tags: [user-controller]
-
-	// Package: user_controller
-	// BasePath: /
-	// Path: /user/_users/{userId}
-	// RootPackage: operations
-	// Authorized: true
-
-	// Name: findUserUsingGET_1
-	// StrContains "findAll"? false
-	// StrContains "findOne"? false
-	// StrContains "WithID"? false
-
-	// StrContains "refresh"? false
-	// StrContains "sync"? false
-	// StrContains "update"? false
-	// StrContains "edit"? false
-	// StrContains "create"? false
-	// StrContains "add"? false
-	// StrContains "list"? false
-	// StrContains "get"? false
-
-	// HasPrefix "refresh"? false
-	// HasPrefix "update"? false
-	// HasPrefix "edit"? false
-	// HasPrefix "sync"? false
-	// HasPrefix "create"? false
-	// HasPrefix "add"? false
-	// HasPrefix "list"? false
-	// HasPrefix "get"? false
-	// HasPrefix "delete"? false
-
-	// HasSuffix "GET"? false
 
 	// ExtractString "add" "Using":
 	// ExtractString "list" "Using":
@@ -3476,7 +3352,6 @@ func (s *AorEntityExampleServer) GetAuthenticatedUserUsingGET(ctx *gin.Context) 
 	// Tags: [user-controller]
 
 	// Package: user_controller
-	// BasePath: /
 	// Path: /user/me
 	// RootPackage: operations
 	// Authorized: true
@@ -3532,6 +3407,94 @@ func (s *AorEntityExampleServer) GetAuthenticatedUserUsingGET(ctx *gin.Context) 
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
+func (s *AorEntityExampleServer) GetDataMutationUsingGET(ctx *gin.Context, params *data_controller.GetDataMutationUsingGETParams) *api.Response {
+
+	// debug - tmpl vars
+
+	// Method: GET
+	// HasQueryParams: false
+	// HasFormParams: false
+	// HasFormValueParams: false
+	// HasFileParams: false
+	// HasStreamingResponse: false
+	// WithContext: false
+	// HasFileParams: false
+	// Tags: [data-controller]
+
+	// Package: data_controller
+	// Path: /api/{entity}
+	// RootPackage: operations
+	// Authorized: true
+
+	// Name: getDataMutationUsingGET
+	// StrContains "findAll"? false
+	// StrContains "findOne"? false
+	// StrContains "WithID"? false
+
+	// StrContains "refresh"? false
+	// StrContains "sync"? false
+	// StrContains "update"? false
+	// StrContains "edit"? false
+	// StrContains "create"? false
+	// StrContains "add"? false
+	// StrContains "list"? false
+	// StrContains "get"? true
+
+	// HasPrefix "refresh"? false
+	// HasPrefix "update"? false
+	// HasPrefix "edit"? false
+	// HasPrefix "sync"? false
+	// HasPrefix "create"? false
+	// HasPrefix "add"? false
+	// HasPrefix "list"? false
+	// HasPrefix "get"? true
+	// HasPrefix "delete"? false
+
+	// HasSuffix "GET"? true
+
+	// ExtractString "add" "Using":
+	// ExtractString "list" "Using":
+	// ExtractString "get" "Using": DataMutation
+
+	// ID: Entity
+	// ModelsPackage: models
+	// Name: entity
+
+	pp.Println("params: ", params)
+	response := make(map[string]string)
+	var entity models.Entity
+	var queryRes []models.Entity
+	db := ctx.MustGet("db").(*gorm.DB)
+	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+	if queryRes.DbName != "" {
+		response["status"] = "error"
+		response["msg"] = "Duplicate resource."
+	} else {
+		db.Create(&dataSource)
+		response["status"] = "success"
+	}
+
+	// QueryParams: []
+	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} Entity entity models "entity" o.Entity i o path  entity   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
+	// HeaderParams: []
+	// FormParams: []
+
+	/*
+		db := ctx.MustGet("db").(*gorm.DB)
+		var results []models.User
+		response := make(map[string]interface{})
+		if err := db.Select("*").Find(&results).Error; err != nil {
+			response["error"] = err.Error()
+			return &api.Response{Code: 400, Body: response}
+		}
+		response["results"] = results
+		response["status"] = "success"
+		return &api.Response{Code: http.StatusOK, Body: response}
+	*/
+
+	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+}
+
 func (s *AorEntityExampleServer) GetRoles(ctx *gin.Context) *api.Response {
 
 	// debug - tmpl vars
@@ -3547,7 +3510,6 @@ func (s *AorEntityExampleServer) GetRoles(ctx *gin.Context) *api.Response {
 	// Tags: [role-controller]
 
 	// Package: role_controller
-	// BasePath: /
 	// Path: /role/_roles
 	// RootPackage: operations
 	// Authorized: true
@@ -3618,7 +3580,6 @@ func (s *AorEntityExampleServer) GetSchemasUsingGET(ctx *gin.Context) *api.Respo
 	// Tags: [schema-controller]
 
 	// Package: schema_controller
-	// BasePath: /
 	// Path: /schemas/_entitys
 	// RootPackage: operations
 	// Authorized: true
@@ -3674,6 +3635,164 @@ func (s *AorEntityExampleServer) GetSchemasUsingGET(ctx *gin.Context) *api.Respo
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
+func (s *AorEntityExampleServer) ListDataSourceUsingGET(ctx *gin.Context) *api.Response {
+
+	// debug - tmpl vars
+
+	// Method: GET
+	// HasQueryParams: false
+	// HasFormParams: false
+	// HasFormValueParams: false
+	// HasFileParams: false
+	// HasStreamingResponse: false
+	// WithContext: false
+	// HasFileParams: false
+	// Tags: [data-source-controller]
+
+	// Package: data_source_controller
+	// Path: /datasource/_datasource
+	// RootPackage: operations
+	// Authorized: true
+
+	// Name: listDataSourceUsingGET
+	// StrContains "findAll"? false
+	// StrContains "findOne"? false
+	// StrContains "WithID"? false
+
+	// StrContains "refresh"? false
+	// StrContains "sync"? false
+	// StrContains "update"? false
+	// StrContains "edit"? false
+	// StrContains "create"? false
+	// StrContains "add"? false
+	// StrContains "list"? true
+	// StrContains "get"? false
+
+	// HasPrefix "refresh"? false
+	// HasPrefix "update"? false
+	// HasPrefix "edit"? false
+	// HasPrefix "sync"? false
+	// HasPrefix "create"? false
+	// HasPrefix "add"? false
+	// HasPrefix "list"? true
+	// HasPrefix "get"? false
+	// HasPrefix "delete"? false
+
+	// HasSuffix "GET"? true
+
+	// ExtractString "add" "Using":
+	// ExtractString "list" "Using": DataSource
+	// ExtractString "get" "Using":
+
+	// QueryParams: []
+	// PathParams: []
+	// HeaderParams: []
+	// FormParams: []
+
+	/*
+		db := ctx.MustGet("db").(*gorm.DB)
+		var results []models.User
+		response := make(map[string]interface{})
+		if err := db.Select("*").Find(&results).Error; err != nil {
+			response["error"] = err.Error()
+			return &api.Response{Code: 400, Body: response}
+		}
+		response["results"] = results
+		response["status"] = "success"
+		return &api.Response{Code: http.StatusOK, Body: response}
+	*/
+
+	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+}
+
+func (s *AorEntityExampleServer) ListPermissionUsingGET(ctx *gin.Context, params *permission_controller.ListPermissionUsingGETParams) *api.Response {
+
+	// debug - tmpl vars
+
+	// Method: GET
+	// HasQueryParams: true
+	// HasFormParams: false
+	// HasFormValueParams: false
+	// HasFileParams: false
+	// HasStreamingResponse: false
+	// WithContext: false
+	// HasFileParams: false
+	// Tags: [permission-controller]
+
+	// Package: permission_controller
+	// Path: /permission/_permission
+	// RootPackage: operations
+	// Authorized: true
+
+	// Name: listPermissionUsingGET
+	// StrContains "findAll"? false
+	// StrContains "findOne"? false
+	// StrContains "WithID"? false
+
+	// StrContains "refresh"? false
+	// StrContains "sync"? false
+	// StrContains "update"? false
+	// StrContains "edit"? false
+	// StrContains "create"? false
+	// StrContains "add"? false
+	// StrContains "list"? true
+	// StrContains "get"? false
+
+	// HasPrefix "refresh"? false
+	// HasPrefix "update"? false
+	// HasPrefix "edit"? false
+	// HasPrefix "sync"? false
+	// HasPrefix "create"? false
+	// HasPrefix "add"? false
+	// HasPrefix "list"? true
+	// HasPrefix "get"? false
+	// HasPrefix "delete"? false
+
+	// HasSuffix "GET"? true
+
+	// ExtractString "add" "Using":
+	// ExtractString "list" "Using": Permission
+	// ExtractString "get" "Using":
+
+	// ID: RoleID
+	// ModelsPackage: models
+	// Name: roleId
+
+	pp.Println("params: ", params)
+	response := make(map[string]string)
+	var roleId models.RoleID
+	var queryRes []models.RoleID
+	db := ctx.MustGet("db").(*gorm.DB)
+	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+	if queryRes.DbName != "" {
+		response["status"] = "error"
+		response["msg"] = "Duplicate resource."
+	} else {
+		db.Create(&dataSource)
+		response["status"] = "success"
+	}
+
+	// QueryParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} RoleID roleId models "roleId" o.RoleID i o query  roleId   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
+	// PathParams: []
+	// HeaderParams: []
+	// FormParams: []
+
+	/*
+		db := ctx.MustGet("db").(*gorm.DB)
+		var results []models.User
+		response := make(map[string]interface{})
+		if err := db.Select("*").Find(&results).Error; err != nil {
+			response["error"] = err.Error()
+			return &api.Response{Code: 400, Body: response}
+		}
+		response["results"] = results
+		response["status"] = "success"
+		return &api.Response{Code: http.StatusOK, Body: response}
+	*/
+
+	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+}
+
 func (s *AorEntityExampleServer) ListUsersGET(ctx *gin.Context) *api.Response {
 
 	// debug - tmpl vars
@@ -3689,7 +3808,6 @@ func (s *AorEntityExampleServer) ListUsersGET(ctx *gin.Context) *api.Response {
 	// Tags: [user-controller]
 
 	// Package: user_controller
-	// BasePath: /
 	// Path: /user/_users
 	// RootPackage: operations
 	// Authorized: true
@@ -3745,166 +3863,6 @@ func (s *AorEntityExampleServer) ListUsersGET(ctx *gin.Context) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *AorEntityExampleServer) ListUsingGET(ctx *gin.Context) *api.Response {
-
-	// debug - tmpl vars
-
-	// Method: GET
-	// HasQueryParams: false
-	// HasFormParams: false
-	// HasFormValueParams: false
-	// HasFileParams: false
-	// HasStreamingResponse: false
-	// WithContext: false
-	// HasFileParams: false
-	// Tags: [data-source-controller]
-
-	// Package: data_source_controller
-	// BasePath: /
-	// Path: /datasource/_datasource
-	// RootPackage: operations
-	// Authorized: true
-
-	// Name: listUsingGET
-	// StrContains "findAll"? false
-	// StrContains "findOne"? false
-	// StrContains "WithID"? false
-
-	// StrContains "refresh"? false
-	// StrContains "sync"? false
-	// StrContains "update"? false
-	// StrContains "edit"? false
-	// StrContains "create"? false
-	// StrContains "add"? false
-	// StrContains "list"? true
-	// StrContains "get"? false
-
-	// HasPrefix "refresh"? false
-	// HasPrefix "update"? false
-	// HasPrefix "edit"? false
-	// HasPrefix "sync"? false
-	// HasPrefix "create"? false
-	// HasPrefix "add"? false
-	// HasPrefix "list"? true
-	// HasPrefix "get"? false
-	// HasPrefix "delete"? false
-
-	// HasSuffix "GET"? true
-
-	// ExtractString "add" "Using":
-	// ExtractString "list" "Using":
-	// ExtractString "get" "Using":
-
-	// QueryParams: []
-	// PathParams: []
-	// HeaderParams: []
-	// FormParams: []
-
-	/*
-		db := ctx.MustGet("db").(*gorm.DB)
-		var results []models.User
-		response := make(map[string]interface{})
-		if err := db.Select("*").Find(&results).Error; err != nil {
-			response["error"] = err.Error()
-			return &api.Response{Code: 400, Body: response}
-		}
-		response["results"] = results
-		response["status"] = "success"
-		return &api.Response{Code: http.StatusOK, Body: response}
-	*/
-
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
-func (s *AorEntityExampleServer) ListUsingGET1(ctx *gin.Context, params *permission_controller.ListUsingGET1Params) *api.Response {
-
-	// debug - tmpl vars
-
-	// Method: GET
-	// HasQueryParams: true
-	// HasFormParams: false
-	// HasFormValueParams: false
-	// HasFileParams: false
-	// HasStreamingResponse: false
-	// WithContext: false
-	// HasFileParams: false
-	// Tags: [permission-controller]
-
-	// Package: permission_controller
-	// BasePath: /
-	// Path: /permission/_permission
-	// RootPackage: operations
-	// Authorized: true
-
-	// Name: listUsingGET_1
-	// StrContains "findAll"? false
-	// StrContains "findOne"? false
-	// StrContains "WithID"? false
-
-	// StrContains "refresh"? false
-	// StrContains "sync"? false
-	// StrContains "update"? false
-	// StrContains "edit"? false
-	// StrContains "create"? false
-	// StrContains "add"? false
-	// StrContains "list"? true
-	// StrContains "get"? false
-
-	// HasPrefix "refresh"? false
-	// HasPrefix "update"? false
-	// HasPrefix "edit"? false
-	// HasPrefix "sync"? false
-	// HasPrefix "create"? false
-	// HasPrefix "add"? false
-	// HasPrefix "list"? true
-	// HasPrefix "get"? false
-	// HasPrefix "delete"? false
-
-	// HasSuffix "GET"? false
-
-	// ExtractString "add" "Using":
-	// ExtractString "list" "Using":
-	// ExtractString "get" "Using":
-
-	// ID: RoleID
-	// ModelsPackage: models
-	// Name: roleId
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
-	var roleId models.RoleID
-	var queryRes []models.RoleID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
-
-	// QueryParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} RoleID roleId models "roleId" o.RoleID i o query  roleId   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
-	// PathParams: []
-	// HeaderParams: []
-	// FormParams: []
-
-	/*
-		db := ctx.MustGet("db").(*gorm.DB)
-		var results []models.User
-		response := make(map[string]interface{})
-		if err := db.Select("*").Find(&results).Error; err != nil {
-			response["error"] = err.Error()
-			return &api.Response{Code: 400, Body: response}
-		}
-		response["results"] = results
-		response["status"] = "success"
-		return &api.Response{Code: http.StatusOK, Body: response}
-	*/
-
-	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
-}
-
 func (s *AorEntityExampleServer) RefreshAndGetAuthenticationTokenUsingGET(ctx *gin.Context) *api.Response {
 
 	// debug - tmpl vars
@@ -3920,7 +3878,6 @@ func (s *AorEntityExampleServer) RefreshAndGetAuthenticationTokenUsingGET(ctx *g
 	// Tags: [authentication-rest-controller]
 
 	// Package: authentication_rest_controller
-	// BasePath: /
 	// Path: /refresh
 	// RootPackage: operations
 	// Authorized: true
@@ -3991,7 +3948,6 @@ func (s *AorEntityExampleServer) ResetCurrentDsUsingPUT(ctx *gin.Context, params
 	// Tags: [schema-controller]
 
 	// Package: schema_controller
-	// BasePath: /
 	// Path: /schemas/resetCurrentDs/{dataSourceId}
 	// RootPackage: operations
 	// Authorized: true
@@ -4080,7 +4036,6 @@ func (s *AorEntityExampleServer) SyncSchemasUsingPUT(ctx *gin.Context, params *s
 	// Tags: [schema-controller]
 
 	// Package: schema_controller
-	// BasePath: /
 	// Path: /schemas/sync/{dataSourceId}
 	// RootPackage: operations
 	// Authorized: true

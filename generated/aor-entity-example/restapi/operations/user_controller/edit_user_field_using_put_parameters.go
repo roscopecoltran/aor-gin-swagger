@@ -19,12 +19,12 @@ import (
 	// Imports
 )
 
-// BusinessLogicEditFieldUsingPUT1 executes the core logic of the related
+// BusinessLogicEditUserFieldUsingPUT executes the core logic of the related
 // route endpoint.
-func BusinessLogicEditFieldUsingPUT1(f func(ctx *gin.Context, params *EditFieldUsingPUT1Params) *api.Response) gin.HandlerFunc {
+func BusinessLogicEditUserFieldUsingPUT(f func(ctx *gin.Context, params *EditUserFieldUsingPUTParams) *api.Response) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		// generate params from request
-		params := &EditFieldUsingPUT1Params{}
+		params := &EditUserFieldUsingPUTParams{}
 		err := params.bindRequest(ctx)
 		if err != nil {
 			errObj := err.(*errors.CompositeError)
@@ -48,11 +48,11 @@ func BusinessLogicEditFieldUsingPUT1(f func(ctx *gin.Context, params *EditFieldU
 	}
 }
 
-// EditFieldUsingPUT1Params contains all the bound params for the edit field using p u t 1 operation
+// EditUserFieldUsingPUTParams contains all the bound params for the edit user field using p u t operation
 // typically these are obtained from a http.Request
 //
-// swagger:parameters editFieldUsingPUT_1
-type EditFieldUsingPUT1Params struct {
+// swagger:parameters editUserFieldUsingPUT
+type EditUserFieldUsingPUTParams struct {
 
 	/*id
 	  Required: true
@@ -66,15 +66,15 @@ type EditFieldUsingPUT1Params struct {
 	User *models.User
 }
 
-// EditFieldUsingPUT1ParamsFromCtx gets the params struct from the gin context.
-func EditFieldUsingPUT1ParamsFromCtx(ctx *gin.Context) *EditFieldUsingPUT1Params {
+// EditUserFieldUsingPUTParamsFromCtx gets the params struct from the gin context.
+func EditUserFieldUsingPUTParamsFromCtx(ctx *gin.Context) *EditUserFieldUsingPUTParams {
 	params, _ := ctx.Get("params")
-	return params.(*EditFieldUsingPUT1Params)
+	return params.(*EditUserFieldUsingPUTParams)
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
 // for simple values it will use straight method calls
-func (o *EditFieldUsingPUT1Params) bindRequest(ctx *gin.Context) error {
+func (o *EditUserFieldUsingPUTParams) bindRequest(ctx *gin.Context) error {
 	var res []error
 	formats := strfmt.NewFormats()
 
@@ -112,7 +112,7 @@ func (o *EditFieldUsingPUT1Params) bindRequest(ctx *gin.Context) error {
 	return nil
 }
 
-func (o *EditFieldUsingPUT1Params) bindID(rawData []string, hasKey bool, formats strfmt.Registry) error {
+func (o *EditUserFieldUsingPUTParams) bindID(rawData []string, hasKey bool, formats strfmt.Registry) error {
 	var raw string
 	if len(rawData) > 0 {
 		raw = rawData[len(rawData)-1]

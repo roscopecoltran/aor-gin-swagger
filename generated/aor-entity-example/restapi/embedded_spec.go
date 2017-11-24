@@ -43,7 +43,7 @@ func init() {
           "data-controller"
         ],
         "summary": "dataQuery",
-        "operationId": "dataQueryUsingGET",
+        "operationId": "getDataMutationUsingGET",
         "parameters": [
           {
             "type": "string",
@@ -195,7 +195,7 @@ func init() {
           "data-controller"
         ],
         "summary": "findOne",
-        "operationId": "findOneUsingGET",
+        "operationId": "dataMutationUsingGET",
         "parameters": [
           {
             "type": "string",
@@ -356,7 +356,7 @@ func init() {
           "apply-controller"
         ],
         "summary": "apply",
-        "operationId": "applyUsingPOST",
+        "operationId": "addApplyUsingPOST",
         "parameters": [
           {
             "description": "apply",
@@ -400,7 +400,7 @@ func init() {
           "apply-controller"
         ],
         "summary": "apply",
-        "operationId": "applyUsingOPTIONS",
+        "operationId": "addApplyUsingOPTIONS",
         "parameters": [
           {
             "description": "apply",
@@ -536,7 +536,7 @@ func init() {
           "data-source-controller"
         ],
         "summary": "list",
-        "operationId": "listUsingGET",
+        "operationId": "listDataSourceUsingGET",
         "responses": {
           "200": {
             "description": "OK",
@@ -711,8 +711,8 @@ func init() {
         "tags": [
           "data-source-controller"
         ],
-        "summary": "findRole",
-        "operationId": "findRoleUsingGET",
+        "summary": "findDataSource",
+        "operationId": "findDataSourceUsingGET",
         "parameters": [
           {
             "type": "string",
@@ -753,7 +753,7 @@ func init() {
           "permission-controller"
         ],
         "summary": "list",
-        "operationId": "listUsingGET_1",
+        "operationId": "listPermissionUsingGET",
         "parameters": [
           {
             "type": "string",
@@ -885,7 +885,7 @@ func init() {
           "permission-controller"
         ],
         "summary": "findUser",
-        "operationId": "findUserUsingGET",
+        "operationId": "findPermissionUsingGET",
         "parameters": [
           {
             "type": "string",
@@ -1185,7 +1185,7 @@ func init() {
           "role-controller"
         ],
         "summary": "findRole",
-        "operationId": "findRoleUsingGET_1",
+        "operationId": "findRoleUsingGET",
         "parameters": [
           {
             "type": "string",
@@ -1443,7 +1443,7 @@ func init() {
           "schema-controller"
         ],
         "summary": "findAllFields",
-        "operationId": "findAllFieldsUsingGET",
+        "operationId": "findFieldsUsingGET",
         "parameters": [
           {
             "type": "string",
@@ -1575,7 +1575,7 @@ func init() {
           "schema-controller"
         ],
         "summary": "editField",
-        "operationId": "editFieldUsingPUT",
+        "operationId": "editSchemaFieldUsingPUT",
         "parameters": [
           {
             "type": "string",
@@ -1628,7 +1628,7 @@ func init() {
           "schema-controller"
         ],
         "summary": "findOneField",
-        "operationId": "findOneFieldUsingGET",
+        "operationId": "findFieldUsingGET",
         "parameters": [
           {
             "type": "string",
@@ -1924,7 +1924,7 @@ func init() {
           "user-controller"
         ],
         "summary": "editField",
-        "operationId": "editFieldUsingPUT_1",
+        "operationId": "editUserFieldUsingPUT",
         "parameters": [
           {
             "type": "string",
@@ -1977,7 +1977,7 @@ func init() {
           "user-controller"
         ],
         "summary": "findUser",
-        "operationId": "findUserUsingGET_1",
+        "operationId": "findUserUsingGET",
         "parameters": [
           {
             "type": "string",
@@ -2045,17 +2045,21 @@ func init() {
       "properties": {
         "email": {
           "type": "string",
-          "format": "email"
+          "format": "email",
+          "x-go-custom-tag": "gorm:\"email\" yaml:\"email\" toml:\"email\""
         },
         "mobile": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"mobile\" yaml:\"mobile\" toml:\"mobile\""
         },
         "password": {
           "type": "string",
-          "format": "password"
+          "format": "password",
+          "x-go-custom-tag": "gorm:\"password\" yaml:\"password\" toml:\"password\""
         },
         "username": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"username\" yaml:\"username\" toml:\"username\""
         }
       }
     },
@@ -2063,10 +2067,12 @@ func init() {
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"primary_key\" yaml:\"-\" toml:\"-\""
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"name\" yaml:\"name\" toml:\"name\""
         }
       }
     },
@@ -2074,29 +2080,53 @@ func init() {
       "type": "object",
       "properties": {
         "clusterName": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"cluster_name\" yaml:\"cluster_name\" toml:\"cluster_name\""
         },
         "current": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-custom-tag": "gorm:\"current\" yaml:\"current\" toml:\"current\""
         },
         "dbName": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"db_name\" yaml:\"db_name\" toml:\"db_name\""
+        },
+        "host": {
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"host\" yaml:\"host\" toml:\"host\""
         },
         "id": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"primary_key\" yaml:\"-\" toml:\"-\""
         },
         "indexName": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"index_name\" yaml:\"index_name\" toml:\"index_name\""
         },
         "jdbcUrl": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"jdbc_url\" yaml:\"jdbc_url\" toml:\"jdbc_url\""
         },
         "mySqlDbName": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"mysql_db_name\" yaml:\"mysql_db_name\" toml:\"mysql_db_name\""
         },
         "password": {
           "type": "string",
-          "format": "password"
+          "format": "password",
+          "x-go-custom-tag": "gorm:\"password\" yaml:\"password\" toml:\"password\""
+        },
+        "port": {
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"port\" yaml:\"port\" toml:\"port\""
+        },
+        "prefixPath": {
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"prefix_path\" yaml:\"prefix_path\" toml:\"prefix_path\""
+        },
+        "sslMode": {
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"ssl_mode\" yaml:\"ssl_mode\" toml:\"ssl_mode\""
         },
         "type": {
           "type": "string",
@@ -2115,10 +2145,12 @@ func init() {
             "rocksdb",
             "leveldb",
             "sqlite3"
-          ]
+          ],
+          "x-go-custom-tag": "gorm:\"type\" yaml:\"type\" toml:\"type\""
         },
         "username": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"username\" yaml:\"username\" toml:\"username\""
         }
       }
     },
@@ -2127,19 +2159,19 @@ func init() {
       "properties": {
         "allow_create": {
           "type": "boolean",
-          "x-go-tag": "gorm:\"allow_create\""
+          "x-go-custom-tag": "gorm:\"allow_create\" yaml:\"allow_create\" toml:\"allow_create\""
         },
         "allow_delete": {
           "type": "boolean",
-          "x-go-tag": "gorm:\"allow_delete\""
+          "x-go-custom-tag": "gorm:\"allow_delete\" yaml:\"allow_delete\" toml:\"allow_delete\""
         },
         "allow_read": {
           "type": "boolean",
-          "x-go-tag": "gorm:\"allow_read\""
+          "x-go-custom-tag": "gorm:\"allow_read\" yaml:\"allow_read\" toml:\"allow_read\""
         },
         "allow_update": {
           "type": "boolean",
-          "x-go-tag": "gorm:\"allow_update\""
+          "x-go-custom-tag": "gorm:\"allow_update\" yaml:\"allow_update\" toml:\"allow_update\""
         },
         "fields": {
           "type": "array",
@@ -2148,15 +2180,16 @@ func init() {
           }
         },
         "id": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"primary_key\" yaml:\"-\" toml:\"-\""
         },
         "label": {
           "type": "string",
-          "x-go-tag": "gorm:\"label\""
+          "x-go-custom-tag": "gorm:\"label\" yaml:\"label\" toml:\"label\""
         },
         "name": {
           "type": "string",
-          "x-go-tag": "gorm:\"name\""
+          "x-go-custom-tag": "gorm:\"name\" yaml:\"name\" toml:\"name\""
         },
         "redirect": {
           "type": "string",
@@ -2165,11 +2198,11 @@ func init() {
             "show",
             "list"
           ],
-          "x-go-tag": "gorm:\"redirect\""
+          "x-go-custom-tag": "gorm:\"redirect\" yaml:\"redirect\" toml:\"redirect\""
         },
         "showInMenu": {
           "type": "boolean",
-          "x-go-tag": "gorm:\"show_in_menu\""
+          "x-go-custom-tag": "gorm:\"show_in_menu\" yaml:\"show_in_menu\" toml:\"show_in_menu\""
         }
       }
     },
@@ -2205,16 +2238,20 @@ func init() {
           ]
         },
         "dataSourceId": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"data_source_id\" yaml:\"data_source_id\" toml:\"data_source_id\""
         },
         "defaultValue": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"default_value\" yaml:\"default_value\" toml:\"default_value\""
         },
         "eid": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"eid\" yaml:\"eid\" toml:\"eid\""
         },
         "id": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"primary_key\" yaml:\"-\" toml:\"-\""
         },
         "inputType": {
           "type": "string",
@@ -2223,53 +2260,69 @@ func init() {
             "email",
             "password",
             "url"
-          ]
+          ],
+          "x-go-custom-tag": "gorm:\"input_type\" yaml:\"input_type\" toml:\"input_type\""
         },
         "isAutoIncremented": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-custom-tag": "gorm:\"is_auto_incremented\" yaml:\"is_auto_incremented\" toml:\"is_auto_incremented\""
         },
         "isPartOfPrimaryKey": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-custom-tag": "gorm:\"is_part_of_primary_key\" yaml:\"is_part_of_primary_key\" toml:\"is_part_of_primary_key\""
         },
         "label": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"label\" yaml:\"label\" toml:\"label\""
         },
         "maxLength": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "x-go-custom-tag": "gorm:\"max_length\" yaml:\"max_length\" toml:\"max_length\""
         },
         "maxValue": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"max_value\" yaml:\"max_value\" toml:\"max_value\""
         },
         "minValue": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"min_value\" yaml:\"min_value\" toml:\"min_value\""
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"name\" yaml:\"name\" toml:\"name\""
         },
         "reference": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"reference\" yaml:\"reference\" toml:\"reference\""
         },
         "referenceOptionText": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"reference_option_text\" yaml:\"reference_option_text\" toml:\"reference_option_text\""
         },
         "required": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-custom-tag": "gorm:\"required\" yaml:\"required\" toml:\"required\""
         },
         "showInCreate": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-custom-tag": "gorm:\"show_in_create\" yaml:\"show_in_create\" toml:\"show_in_create\""
         },
         "showInEdit": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-custom-tag": "gorm:\"show_in_edit\" yaml:\"show_in_edit\" toml:\"show_in_edit\""
         },
         "showInFilter": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-custom-tag": "gorm:\"show_in_filter\" yaml:\"show_in_filter\" toml:\"show_in_filter\""
         },
         "showInList": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-custom-tag": "gorm:\"show_in_list\" yaml:\"show_in_list\" toml:\"show_in_list\""
         },
         "showInShow": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-custom-tag": "gorm:\"show_in_show\" yaml:\"show_in_show\" toml:\"show_in_show\""
         }
       }
     },
@@ -2289,10 +2342,12 @@ func init() {
       "properties": {
         "password": {
           "type": "string",
-          "format": "password"
+          "format": "password",
+          "x-go-custom-tag": "gorm:\"password\" yaml:\"password\" toml:\"password\""
         },
         "username": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"username\" yaml:\"username\" toml:\"username\""
         }
       }
     },
@@ -2307,13 +2362,16 @@ func init() {
         },
         "email": {
           "type": "string",
-          "format": "email"
+          "format": "email",
+          "x-go-custom-tag": "gorm:\"email\" yaml:\"email\" toml:\"email\""
         },
         "enabled": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-custom-tag": "gorm:\"enabled\" yaml:\"enabled\" toml:\"enabled\""
         },
         "username": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"username\" yaml:\"username\" toml:\"username\""
         }
       }
     },
@@ -2321,25 +2379,32 @@ func init() {
       "type": "object",
       "properties": {
         "c": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-custom-tag": "gorm:\"c\" yaml:\"c\" toml:\"c\""
         },
         "d": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-custom-tag": "gorm:\"d\" yaml:\"d\" toml:\"d\""
         },
         "eid": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"eid\" yaml:\"name\" toml:\"name\""
         },
         "id": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"primary_key\" yaml:\"-\" toml:\"-\""
         },
         "r": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-custom-tag": "gorm:\"r\" yaml:\"r\" toml:\"r\""
         },
         "roleId": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"role_id\" yaml:\"role_id\" toml:\"role_id\""
         },
         "u": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-custom-tag": "gorm:\"u\" yaml:\"u\" toml:\"u\""
         }
       }
     },
@@ -2428,10 +2493,12 @@ func init() {
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"primary_key\" yaml:\"-\" toml:\"-\""
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"name\" yaml:\"name\" toml:\"name\""
         },
         "users": {
           "type": "array",
@@ -2446,21 +2513,26 @@ func init() {
       "properties": {
         "email": {
           "type": "string",
-          "format": "email"
+          "format": "email",
+          "x-go-custom-tag": "gorm:\"email\" yaml:\"email\" toml:\"email\""
         },
         "enabled": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-custom-tag": "gorm:\"enabled\" yaml:\"enabled\" toml:\"enabled\""
         },
         "id": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"primary_key\" yaml:\"-\" toml:\"-\""
         },
         "lastPasswordResetDate": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "x-go-custom-tag": "gorm:\"last_password_reset_date\" yaml:\"-\" toml:\"-\""
         },
         "password": {
           "type": "string",
-          "format": "password"
+          "format": "password",
+          "x-go-custom-tag": "gorm:\"password\" yaml:\"password\" toml:\"password\""
         },
         "roles": {
           "type": "array",
@@ -2469,7 +2541,8 @@ func init() {
           }
         },
         "username": {
-          "type": "string"
+          "type": "string",
+          "x-go-custom-tag": "gorm:\"username\" yaml:\"username\" toml:\"username\""
         }
       }
     }

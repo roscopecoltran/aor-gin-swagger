@@ -20,34 +20,34 @@ import (
 type Entity struct {
 
 	// allow create
-	AllowCreate bool `json:"allow_create,omitempty"`
+	AllowCreate bool `json:"allow_create,omitempty" gorm:"allow_create" yaml:"allow_create" toml:"allow_create"`
 
 	// allow delete
-	AllowDelete bool `json:"allow_delete,omitempty"`
+	AllowDelete bool `json:"allow_delete,omitempty" gorm:"allow_delete" yaml:"allow_delete" toml:"allow_delete"`
 
 	// allow read
-	AllowRead bool `json:"allow_read,omitempty"`
+	AllowRead bool `json:"allow_read,omitempty" gorm:"allow_read" yaml:"allow_read" toml:"allow_read"`
 
 	// allow update
-	AllowUpdate bool `json:"allow_update,omitempty"`
+	AllowUpdate bool `json:"allow_update,omitempty" gorm:"allow_update" yaml:"allow_update" toml:"allow_update"`
 
 	// fields
 	Fields EntityFields `json:"fields"`
 
 	// id
-	ID string `json:"id,omitempty"`
+	ID string `json:"id,omitempty" gorm:"primary_key" yaml:"-" toml:"-"`
 
 	// label
-	Label string `json:"label,omitempty"`
+	Label string `json:"label,omitempty" gorm:"label" yaml:"label" toml:"label"`
 
 	// name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" gorm:"name" yaml:"name" toml:"name"`
 
 	// redirect
-	Redirect string `json:"redirect,omitempty"`
+	Redirect string `json:"redirect,omitempty" gorm:"redirect" yaml:"redirect" toml:"redirect"`
 
 	// show in menu
-	ShowInMenu bool `json:"showInMenu,omitempty"`
+	ShowInMenu bool `json:"showInMenu,omitempty" gorm:"show_in_menu" yaml:"show_in_menu" toml:"show_in_menu"`
 }
 
 // Validate validates this entity

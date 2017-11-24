@@ -42,6 +42,16 @@ import (
 // Routes defines all the routes of the API service.
 type Routes struct {
 	*gin.Engine
+	AddApplyUsingOPTIONS struct {
+		*gin.RouterGroup
+		Auth gin.HandlerFunc
+		Post *gin.RouterGroup
+	}
+	AddApplyUsingPOST struct {
+		*gin.RouterGroup
+		Auth gin.HandlerFunc
+		Post *gin.RouterGroup
+	}
 	AddDataSourceUsingOPTIONS struct {
 		*gin.RouterGroup
 		Auth gin.HandlerFunc
@@ -102,16 +112,6 @@ type Routes struct {
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
-	ApplyUsingOPTIONS struct {
-		*gin.RouterGroup
-		Auth gin.HandlerFunc
-		Post *gin.RouterGroup
-	}
-	ApplyUsingPOST struct {
-		*gin.RouterGroup
-		Auth gin.HandlerFunc
-		Post *gin.RouterGroup
-	}
 	CreateAuthenticationTokenUsingOPTIONS struct {
 		*gin.RouterGroup
 		Auth gin.HandlerFunc
@@ -123,6 +123,11 @@ type Routes struct {
 		Post *gin.RouterGroup
 	}
 	DataMutationUsingDELETE struct {
+		*gin.RouterGroup
+		Auth gin.HandlerFunc
+		Post *gin.RouterGroup
+	}
+	DataMutationUsingGET struct {
 		*gin.RouterGroup
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
@@ -142,27 +147,12 @@ type Routes struct {
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
-	DataQueryUsingGET struct {
-		*gin.RouterGroup
-		Auth gin.HandlerFunc
-		Post *gin.RouterGroup
-	}
 	EditDataSourceUsingPUT struct {
 		*gin.RouterGroup
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	EditEntityUsingPUT struct {
-		*gin.RouterGroup
-		Auth gin.HandlerFunc
-		Post *gin.RouterGroup
-	}
-	EditFieldUsingPUT struct {
-		*gin.RouterGroup
-		Auth gin.HandlerFunc
-		Post *gin.RouterGroup
-	}
-	EditFieldUsingPUT1 struct {
 		*gin.RouterGroup
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
@@ -177,7 +167,17 @@ type Routes struct {
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
-	FindAllFieldsUsingGET struct {
+	EditSchemaFieldUsingPUT struct {
+		*gin.RouterGroup
+		Auth gin.HandlerFunc
+		Post *gin.RouterGroup
+	}
+	EditUserFieldUsingPUT struct {
+		*gin.RouterGroup
+		Auth gin.HandlerFunc
+		Post *gin.RouterGroup
+	}
+	FindDataSourceUsingGET struct {
 		*gin.RouterGroup
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
@@ -187,22 +187,22 @@ type Routes struct {
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
-	FindOneFieldUsingGET struct {
+	FindFieldUsingGET struct {
 		*gin.RouterGroup
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
-	FindOneUsingGET struct {
+	FindFieldsUsingGET struct {
+		*gin.RouterGroup
+		Auth gin.HandlerFunc
+		Post *gin.RouterGroup
+	}
+	FindPermissionUsingGET struct {
 		*gin.RouterGroup
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
 	FindRoleUsingGET struct {
-		*gin.RouterGroup
-		Auth gin.HandlerFunc
-		Post *gin.RouterGroup
-	}
-	FindRoleUsingGET1 struct {
 		*gin.RouterGroup
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
@@ -217,12 +217,12 @@ type Routes struct {
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
-	FindUserUsingGET1 struct {
+	GetAuthenticatedUserUsingGET struct {
 		*gin.RouterGroup
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
-	GetAuthenticatedUserUsingGET struct {
+	GetDataMutationUsingGET struct {
 		*gin.RouterGroup
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
@@ -237,17 +237,17 @@ type Routes struct {
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
 	}
+	ListDataSourceUsingGET struct {
+		*gin.RouterGroup
+		Auth gin.HandlerFunc
+		Post *gin.RouterGroup
+	}
+	ListPermissionUsingGET struct {
+		*gin.RouterGroup
+		Auth gin.HandlerFunc
+		Post *gin.RouterGroup
+	}
 	ListUsersGET struct {
-		*gin.RouterGroup
-		Auth gin.HandlerFunc
-		Post *gin.RouterGroup
-	}
-	ListUsingGET struct {
-		*gin.RouterGroup
-		Auth gin.HandlerFunc
-		Post *gin.RouterGroup
-	}
-	ListUsingGET1 struct {
 		*gin.RouterGroup
 		Auth gin.HandlerFunc
 		Post *gin.RouterGroup
@@ -315,6 +315,8 @@ func healthHandler(healthFunc func() bool) gin.HandlerFunc {
 // business logic for the API service.
 type Service interface {
 	Healthy() bool
+	AddApplyUsingOPTIONS(ctx *gin.Context, params *apply_controller.AddApplyUsingOPTIONSParams) *api.Response
+	AddApplyUsingPOST(ctx *gin.Context, params *apply_controller.AddApplyUsingPOSTParams) *api.Response
 	AddDataSourceUsingOPTIONS(ctx *gin.Context, params *data_source_controller.AddDataSourceUsingOPTIONSParams) *api.Response
 	AddDataSourceUsingPOST(ctx *gin.Context, params *data_source_controller.AddDataSourceUsingPOSTParams) *api.Response
 	AddEntityUsingOPTIONS(ctx *gin.Context, params *schema_controller.AddEntityUsingOPTIONSParams) *api.Response
@@ -327,36 +329,34 @@ type Service interface {
 	AddRoleUsingPOST(ctx *gin.Context, params *role_controller.AddRoleUsingPOSTParams) *api.Response
 	AddUserUsingOPTIONS(ctx *gin.Context, params *user_controller.AddUserUsingOPTIONSParams) *api.Response
 	AddUserUsingPOST(ctx *gin.Context, params *user_controller.AddUserUsingPOSTParams) *api.Response
-	ApplyUsingOPTIONS(ctx *gin.Context, params *apply_controller.ApplyUsingOPTIONSParams) *api.Response
-	ApplyUsingPOST(ctx *gin.Context, params *apply_controller.ApplyUsingPOSTParams) *api.Response
 	CreateAuthenticationTokenUsingOPTIONS(ctx *gin.Context, params *authentication_rest_controller.CreateAuthenticationTokenUsingOPTIONSParams) *api.Response
 	CreateAuthenticationTokenUsingPOST(ctx *gin.Context, params *authentication_rest_controller.CreateAuthenticationTokenUsingPOSTParams) *api.Response
 	DataMutationUsingDELETE(ctx *gin.Context, params *data_controller.DataMutationUsingDELETEParams) *api.Response
+	DataMutationUsingGET(ctx *gin.Context, params *data_controller.DataMutationUsingGETParams) *api.Response
 	DataMutationUsingOPTIONS(ctx *gin.Context, params *data_controller.DataMutationUsingOPTIONSParams) *api.Response
 	DataMutationUsingPOST(ctx *gin.Context, params *data_controller.DataMutationUsingPOSTParams) *api.Response
 	DataMutationUsingPUT(ctx *gin.Context, params *data_controller.DataMutationUsingPUTParams) *api.Response
-	DataQueryUsingGET(ctx *gin.Context, params *data_controller.DataQueryUsingGETParams) *api.Response
 	EditDataSourceUsingPUT(ctx *gin.Context, params *data_source_controller.EditDataSourceUsingPUTParams) *api.Response
 	EditEntityUsingPUT(ctx *gin.Context, params *schema_controller.EditEntityUsingPUTParams) *api.Response
-	EditFieldUsingPUT(ctx *gin.Context, params *schema_controller.EditFieldUsingPUTParams) *api.Response
-	EditFieldUsingPUT1(ctx *gin.Context, params *user_controller.EditFieldUsingPUT1Params) *api.Response
 	EditPermissionUsingPUT(ctx *gin.Context, params *permission_controller.EditPermissionUsingPUTParams) *api.Response
 	EditRoleUsingPUT(ctx *gin.Context, params *role_controller.EditRoleUsingPUTParams) *api.Response
-	FindAllFieldsUsingGET(ctx *gin.Context, params *schema_controller.FindAllFieldsUsingGETParams) *api.Response
+	EditSchemaFieldUsingPUT(ctx *gin.Context, params *schema_controller.EditSchemaFieldUsingPUTParams) *api.Response
+	EditUserFieldUsingPUT(ctx *gin.Context, params *user_controller.EditUserFieldUsingPUTParams) *api.Response
+	FindDataSourceUsingGET(ctx *gin.Context, params *data_source_controller.FindDataSourceUsingGETParams) *api.Response
 	FindEntityFieldsUsingGET(ctx *gin.Context, params *schema_controller.FindEntityFieldsUsingGETParams) *api.Response
-	FindOneFieldUsingGET(ctx *gin.Context, params *schema_controller.FindOneFieldUsingGETParams) *api.Response
-	FindOneUsingGET(ctx *gin.Context, params *data_controller.FindOneUsingGETParams) *api.Response
-	FindRoleUsingGET(ctx *gin.Context, params *data_source_controller.FindRoleUsingGETParams) *api.Response
-	FindRoleUsingGET1(ctx *gin.Context, params *role_controller.FindRoleUsingGET1Params) *api.Response
+	FindFieldUsingGET(ctx *gin.Context, params *schema_controller.FindFieldUsingGETParams) *api.Response
+	FindFieldsUsingGET(ctx *gin.Context, params *schema_controller.FindFieldsUsingGETParams) *api.Response
+	FindPermissionUsingGET(ctx *gin.Context, params *permission_controller.FindPermissionUsingGETParams) *api.Response
+	FindRoleUsingGET(ctx *gin.Context, params *role_controller.FindRoleUsingGETParams) *api.Response
 	FindSchemaEntityGET(ctx *gin.Context, params *schema_controller.FindSchemaEntityGETParams) *api.Response
-	FindUserUsingGET(ctx *gin.Context, params *permission_controller.FindUserUsingGETParams) *api.Response
-	FindUserUsingGET1(ctx *gin.Context, params *user_controller.FindUserUsingGET1Params) *api.Response
+	FindUserUsingGET(ctx *gin.Context, params *user_controller.FindUserUsingGETParams) *api.Response
 	GetAuthenticatedUserUsingGET(ctx *gin.Context) *api.Response
+	GetDataMutationUsingGET(ctx *gin.Context, params *data_controller.GetDataMutationUsingGETParams) *api.Response
 	GetRoles(ctx *gin.Context) *api.Response
 	GetSchemasUsingGET(ctx *gin.Context) *api.Response
+	ListDataSourceUsingGET(ctx *gin.Context) *api.Response
+	ListPermissionUsingGET(ctx *gin.Context, params *permission_controller.ListPermissionUsingGETParams) *api.Response
 	ListUsersGET(ctx *gin.Context) *api.Response
-	ListUsingGET(ctx *gin.Context) *api.Response
-	ListUsingGET1(ctx *gin.Context, params *permission_controller.ListUsingGET1Params) *api.Response
 	RefreshAndGetAuthenticationTokenUsingGET(ctx *gin.Context) *api.Response
 	ResetCurrentDsUsingPUT(ctx *gin.Context, params *schema_controller.ResetCurrentDsUsingPUTParams) *api.Response
 	SyncSchemasUsingPUT(ctx *gin.Context, params *schema_controller.SyncSchemasUsingPUTParams) *api.Response
@@ -387,6 +387,56 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 		fmt.Println("SecretKey: ", svcConfig.API.JWT.SecretKey)
 	}
 	routes := &Routes{Engine: engine}
+
+	routes.AddApplyUsingOPTIONS.RouterGroup = routes.Group("")
+	routes.AddApplyUsingOPTIONS.RouterGroup.Use(middleware.ContentTypes("application/json"))
+	if enableAuth {
+
+		routes.AddApplyUsingOPTIONS.RouterGroup.Use(routes.AddApplyUsingOPTIONS.Auth)
+
+		routeTokenURL := tokenURL
+		if routeTokenURL == "" {
+			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
+		}
+		routes.AddApplyUsingOPTIONS.Auth = ginoauth2.Auth(
+			middleware.ScopesAuth("uid"),
+			oauth2.Endpoint{
+				TokenURL: routeTokenURL,
+			},
+		)
+
+		routes.AddApplyUsingOPTIONS.RouterGroup.Use(routes.AddApplyUsingOPTIONS.Auth)
+
+		routes.AddApplyUsingOPTIONS.RouterGroup.Use(routes.AddApplyUsingOPTIONS.Auth)
+
+	}
+	routes.AddApplyUsingOPTIONS.Post = routes.AddApplyUsingOPTIONS.Group("")
+	routes.AddApplyUsingOPTIONS.Post.OPTIONS(ginizePath("/apply"), apply_controller.BusinessLogicAddApplyUsingOPTIONS(service.AddApplyUsingOPTIONS))
+
+	routes.AddApplyUsingPOST.RouterGroup = routes.Group("")
+	routes.AddApplyUsingPOST.RouterGroup.Use(middleware.ContentTypes("application/json"))
+	if enableAuth {
+
+		routes.AddApplyUsingPOST.RouterGroup.Use(routes.AddApplyUsingPOST.Auth)
+
+		routeTokenURL := tokenURL
+		if routeTokenURL == "" {
+			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
+		}
+		routes.AddApplyUsingPOST.Auth = ginoauth2.Auth(
+			middleware.ScopesAuth("uid"),
+			oauth2.Endpoint{
+				TokenURL: routeTokenURL,
+			},
+		)
+
+		routes.AddApplyUsingPOST.RouterGroup.Use(routes.AddApplyUsingPOST.Auth)
+
+		routes.AddApplyUsingPOST.RouterGroup.Use(routes.AddApplyUsingPOST.Auth)
+
+	}
+	routes.AddApplyUsingPOST.Post = routes.AddApplyUsingPOST.Group("")
+	routes.AddApplyUsingPOST.Post.POST(ginizePath("/apply"), apply_controller.BusinessLogicAddApplyUsingPOST(service.AddApplyUsingPOST))
 
 	routes.AddDataSourceUsingOPTIONS.RouterGroup = routes.Group("")
 	routes.AddDataSourceUsingOPTIONS.RouterGroup.Use(middleware.ContentTypes("application/json"))
@@ -542,10 +592,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.AddPermissionUsingOPTIONS.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
 
-		routes.AddPermissionUsingOPTIONS.RouterGroup.Use(routes.AddPermissionUsingOPTIONS.Auth)
-
-		routes.AddPermissionUsingOPTIONS.RouterGroup.Use(routes.AddPermissionUsingOPTIONS.Auth)
-
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -556,6 +602,10 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 				TokenURL: routeTokenURL,
 			},
 		)
+
+		routes.AddPermissionUsingOPTIONS.RouterGroup.Use(routes.AddPermissionUsingOPTIONS.Auth)
+
+		routes.AddPermissionUsingOPTIONS.RouterGroup.Use(routes.AddPermissionUsingOPTIONS.Auth)
 
 		routes.AddPermissionUsingOPTIONS.RouterGroup.Use(routes.AddPermissionUsingOPTIONS.Auth)
 
@@ -594,8 +644,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.AddRoleUsingOPTIONS.RouterGroup.Use(routes.AddRoleUsingOPTIONS.Auth)
 
-		routes.AddRoleUsingOPTIONS.RouterGroup.Use(routes.AddRoleUsingOPTIONS.Auth)
-
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -609,6 +657,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.AddRoleUsingOPTIONS.RouterGroup.Use(routes.AddRoleUsingOPTIONS.Auth)
 
+		routes.AddRoleUsingOPTIONS.RouterGroup.Use(routes.AddRoleUsingOPTIONS.Auth)
+
 	}
 	routes.AddRoleUsingOPTIONS.Post = routes.AddRoleUsingOPTIONS.Group("")
 	routes.AddRoleUsingOPTIONS.Post.OPTIONS(ginizePath("/role/_roles"), role_controller.BusinessLogicAddRoleUsingOPTIONS(service.AddRoleUsingOPTIONS))
@@ -616,8 +666,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.AddRoleUsingPOST.RouterGroup = routes.Group("")
 	routes.AddRoleUsingPOST.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
-
-		routes.AddRoleUsingPOST.RouterGroup.Use(routes.AddRoleUsingPOST.Auth)
 
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
@@ -634,6 +682,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.AddRoleUsingPOST.RouterGroup.Use(routes.AddRoleUsingPOST.Auth)
 
+		routes.AddRoleUsingPOST.RouterGroup.Use(routes.AddRoleUsingPOST.Auth)
+
 	}
 	routes.AddRoleUsingPOST.Post = routes.AddRoleUsingPOST.Group("")
 	routes.AddRoleUsingPOST.Post.POST(ginizePath("/role/_roles"), role_controller.BusinessLogicAddRoleUsingPOST(service.AddRoleUsingPOST))
@@ -641,6 +691,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.AddUserUsingOPTIONS.RouterGroup = routes.Group("")
 	routes.AddUserUsingOPTIONS.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
+
+		routes.AddUserUsingOPTIONS.RouterGroup.Use(routes.AddUserUsingOPTIONS.Auth)
 
 		routes.AddUserUsingOPTIONS.RouterGroup.Use(routes.AddUserUsingOPTIONS.Auth)
 
@@ -657,8 +709,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.AddUserUsingOPTIONS.RouterGroup.Use(routes.AddUserUsingOPTIONS.Auth)
 
-		routes.AddUserUsingOPTIONS.RouterGroup.Use(routes.AddUserUsingOPTIONS.Auth)
-
 	}
 	routes.AddUserUsingOPTIONS.Post = routes.AddUserUsingOPTIONS.Group("")
 	routes.AddUserUsingOPTIONS.Post.OPTIONS(ginizePath("/user/_users"), user_controller.BusinessLogicAddUserUsingOPTIONS(service.AddUserUsingOPTIONS))
@@ -666,8 +716,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.AddUserUsingPOST.RouterGroup = routes.Group("")
 	routes.AddUserUsingPOST.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
-
-		routes.AddUserUsingPOST.RouterGroup.Use(routes.AddUserUsingPOST.Auth)
 
 		routes.AddUserUsingPOST.RouterGroup.Use(routes.AddUserUsingPOST.Auth)
 
@@ -684,63 +732,17 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.AddUserUsingPOST.RouterGroup.Use(routes.AddUserUsingPOST.Auth)
 
+		routes.AddUserUsingPOST.RouterGroup.Use(routes.AddUserUsingPOST.Auth)
+
 	}
 	routes.AddUserUsingPOST.Post = routes.AddUserUsingPOST.Group("")
 	routes.AddUserUsingPOST.Post.POST(ginizePath("/user/_users"), user_controller.BusinessLogicAddUserUsingPOST(service.AddUserUsingPOST))
 
-	routes.ApplyUsingOPTIONS.RouterGroup = routes.Group("")
-	routes.ApplyUsingOPTIONS.RouterGroup.Use(middleware.ContentTypes("application/json"))
-	if enableAuth {
-
-		routes.ApplyUsingOPTIONS.RouterGroup.Use(routes.ApplyUsingOPTIONS.Auth)
-
-		routeTokenURL := tokenURL
-		if routeTokenURL == "" {
-			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
-		}
-		routes.ApplyUsingOPTIONS.Auth = ginoauth2.Auth(
-			middleware.ScopesAuth("uid"),
-			oauth2.Endpoint{
-				TokenURL: routeTokenURL,
-			},
-		)
-
-		routes.ApplyUsingOPTIONS.RouterGroup.Use(routes.ApplyUsingOPTIONS.Auth)
-
-		routes.ApplyUsingOPTIONS.RouterGroup.Use(routes.ApplyUsingOPTIONS.Auth)
-
-	}
-	routes.ApplyUsingOPTIONS.Post = routes.ApplyUsingOPTIONS.Group("")
-	routes.ApplyUsingOPTIONS.Post.OPTIONS(ginizePath("/apply"), apply_controller.BusinessLogicApplyUsingOPTIONS(service.ApplyUsingOPTIONS))
-
-	routes.ApplyUsingPOST.RouterGroup = routes.Group("")
-	routes.ApplyUsingPOST.RouterGroup.Use(middleware.ContentTypes("application/json"))
-	if enableAuth {
-
-		routes.ApplyUsingPOST.RouterGroup.Use(routes.ApplyUsingPOST.Auth)
-
-		routeTokenURL := tokenURL
-		if routeTokenURL == "" {
-			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
-		}
-		routes.ApplyUsingPOST.Auth = ginoauth2.Auth(
-			middleware.ScopesAuth("uid"),
-			oauth2.Endpoint{
-				TokenURL: routeTokenURL,
-			},
-		)
-
-		routes.ApplyUsingPOST.RouterGroup.Use(routes.ApplyUsingPOST.Auth)
-
-		routes.ApplyUsingPOST.RouterGroup.Use(routes.ApplyUsingPOST.Auth)
-
-	}
-	routes.ApplyUsingPOST.Post = routes.ApplyUsingPOST.Group("")
-	routes.ApplyUsingPOST.Post.POST(ginizePath("/apply"), apply_controller.BusinessLogicApplyUsingPOST(service.ApplyUsingPOST))
-
 	routes.CreateAuthenticationTokenUsingOPTIONS.RouterGroup = routes.Group("")
 	routes.CreateAuthenticationTokenUsingOPTIONS.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
+
+		routes.CreateAuthenticationTokenUsingOPTIONS.RouterGroup.Use(routes.CreateAuthenticationTokenUsingOPTIONS.Auth)
 
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
@@ -752,8 +754,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 				TokenURL: routeTokenURL,
 			},
 		)
-
-		routes.CreateAuthenticationTokenUsingOPTIONS.RouterGroup.Use(routes.CreateAuthenticationTokenUsingOPTIONS.Auth)
 
 		routes.CreateAuthenticationTokenUsingOPTIONS.RouterGroup.Use(routes.CreateAuthenticationTokenUsingOPTIONS.Auth)
 
@@ -794,6 +794,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.DataMutationUsingDELETE.RouterGroup.Use(routes.DataMutationUsingDELETE.Auth)
 
+		routes.DataMutationUsingDELETE.RouterGroup.Use(routes.DataMutationUsingDELETE.Auth)
+
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -807,11 +809,33 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.DataMutationUsingDELETE.RouterGroup.Use(routes.DataMutationUsingDELETE.Auth)
 
-		routes.DataMutationUsingDELETE.RouterGroup.Use(routes.DataMutationUsingDELETE.Auth)
-
 	}
 	routes.DataMutationUsingDELETE.Post = routes.DataMutationUsingDELETE.Group("")
 	routes.DataMutationUsingDELETE.Post.DELETE(ginizePath("/api/{entity}/{id}"), data_controller.BusinessLogicDataMutationUsingDELETE(service.DataMutationUsingDELETE))
+
+	routes.DataMutationUsingGET.RouterGroup = routes.Group("")
+	if enableAuth {
+
+		routes.DataMutationUsingGET.RouterGroup.Use(routes.DataMutationUsingGET.Auth)
+
+		routeTokenURL := tokenURL
+		if routeTokenURL == "" {
+			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
+		}
+		routes.DataMutationUsingGET.Auth = ginoauth2.Auth(
+			middleware.ScopesAuth("uid"),
+			oauth2.Endpoint{
+				TokenURL: routeTokenURL,
+			},
+		)
+
+		routes.DataMutationUsingGET.RouterGroup.Use(routes.DataMutationUsingGET.Auth)
+
+		routes.DataMutationUsingGET.RouterGroup.Use(routes.DataMutationUsingGET.Auth)
+
+	}
+	routes.DataMutationUsingGET.Post = routes.DataMutationUsingGET.Group("")
+	routes.DataMutationUsingGET.Post.GET(ginizePath("/api/{entity}/{id}"), data_controller.BusinessLogicDataMutationUsingGET(service.DataMutationUsingGET))
 
 	routes.DataMutationUsingOPTIONS.RouterGroup = routes.Group("")
 	routes.DataMutationUsingOPTIONS.RouterGroup.Use(middleware.ContentTypes("application/json"))
@@ -867,8 +891,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.DataMutationUsingPUT.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
 
-		routes.DataMutationUsingPUT.RouterGroup.Use(routes.DataMutationUsingPUT.Auth)
-
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -884,39 +906,15 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.DataMutationUsingPUT.RouterGroup.Use(routes.DataMutationUsingPUT.Auth)
 
+		routes.DataMutationUsingPUT.RouterGroup.Use(routes.DataMutationUsingPUT.Auth)
+
 	}
 	routes.DataMutationUsingPUT.Post = routes.DataMutationUsingPUT.Group("")
 	routes.DataMutationUsingPUT.Post.PUT(ginizePath("/api/{entity}/{id}"), data_controller.BusinessLogicDataMutationUsingPUT(service.DataMutationUsingPUT))
 
-	routes.DataQueryUsingGET.RouterGroup = routes.Group("")
-	if enableAuth {
-
-		routes.DataQueryUsingGET.RouterGroup.Use(routes.DataQueryUsingGET.Auth)
-
-		routeTokenURL := tokenURL
-		if routeTokenURL == "" {
-			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
-		}
-		routes.DataQueryUsingGET.Auth = ginoauth2.Auth(
-			middleware.ScopesAuth("uid"),
-			oauth2.Endpoint{
-				TokenURL: routeTokenURL,
-			},
-		)
-
-		routes.DataQueryUsingGET.RouterGroup.Use(routes.DataQueryUsingGET.Auth)
-
-		routes.DataQueryUsingGET.RouterGroup.Use(routes.DataQueryUsingGET.Auth)
-
-	}
-	routes.DataQueryUsingGET.Post = routes.DataQueryUsingGET.Group("")
-	routes.DataQueryUsingGET.Post.GET(ginizePath("/api/{entity}"), data_controller.BusinessLogicDataQueryUsingGET(service.DataQueryUsingGET))
-
 	routes.EditDataSourceUsingPUT.RouterGroup = routes.Group("")
 	routes.EditDataSourceUsingPUT.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
-
-		routes.EditDataSourceUsingPUT.RouterGroup.Use(routes.EditDataSourceUsingPUT.Auth)
 
 		routes.EditDataSourceUsingPUT.RouterGroup.Use(routes.EditDataSourceUsingPUT.Auth)
 
@@ -930,6 +928,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 				TokenURL: routeTokenURL,
 			},
 		)
+
+		routes.EditDataSourceUsingPUT.RouterGroup.Use(routes.EditDataSourceUsingPUT.Auth)
 
 		routes.EditDataSourceUsingPUT.RouterGroup.Use(routes.EditDataSourceUsingPUT.Auth)
 
@@ -961,56 +961,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	}
 	routes.EditEntityUsingPUT.Post = routes.EditEntityUsingPUT.Group("")
 	routes.EditEntityUsingPUT.Post.PUT(ginizePath("/schemas/_entitys/put/{id}"), schema_controller.BusinessLogicEditEntityUsingPUT(service.EditEntityUsingPUT))
-
-	routes.EditFieldUsingPUT.RouterGroup = routes.Group("")
-	routes.EditFieldUsingPUT.RouterGroup.Use(middleware.ContentTypes("application/json"))
-	if enableAuth {
-
-		routes.EditFieldUsingPUT.RouterGroup.Use(routes.EditFieldUsingPUT.Auth)
-
-		routeTokenURL := tokenURL
-		if routeTokenURL == "" {
-			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
-		}
-		routes.EditFieldUsingPUT.Auth = ginoauth2.Auth(
-			middleware.ScopesAuth("uid"),
-			oauth2.Endpoint{
-				TokenURL: routeTokenURL,
-			},
-		)
-
-		routes.EditFieldUsingPUT.RouterGroup.Use(routes.EditFieldUsingPUT.Auth)
-
-		routes.EditFieldUsingPUT.RouterGroup.Use(routes.EditFieldUsingPUT.Auth)
-
-	}
-	routes.EditFieldUsingPUT.Post = routes.EditFieldUsingPUT.Group("")
-	routes.EditFieldUsingPUT.Post.PUT(ginizePath("/schemas/_fields/put/{id}"), schema_controller.BusinessLogicEditFieldUsingPUT(service.EditFieldUsingPUT))
-
-	routes.EditFieldUsingPUT1.RouterGroup = routes.Group("")
-	routes.EditFieldUsingPUT1.RouterGroup.Use(middleware.ContentTypes("application/json"))
-	if enableAuth {
-
-		routes.EditFieldUsingPUT1.RouterGroup.Use(routes.EditFieldUsingPUT1.Auth)
-
-		routeTokenURL := tokenURL
-		if routeTokenURL == "" {
-			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
-		}
-		routes.EditFieldUsingPUT1.Auth = ginoauth2.Auth(
-			middleware.ScopesAuth("uid"),
-			oauth2.Endpoint{
-				TokenURL: routeTokenURL,
-			},
-		)
-
-		routes.EditFieldUsingPUT1.RouterGroup.Use(routes.EditFieldUsingPUT1.Auth)
-
-		routes.EditFieldUsingPUT1.RouterGroup.Use(routes.EditFieldUsingPUT1.Auth)
-
-	}
-	routes.EditFieldUsingPUT1.Post = routes.EditFieldUsingPUT1.Group("")
-	routes.EditFieldUsingPUT1.Post.PUT(ginizePath("/user/_users/put/{id}"), user_controller.BusinessLogicEditFieldUsingPUT1(service.EditFieldUsingPUT1))
 
 	routes.EditPermissionUsingPUT.RouterGroup = routes.Group("")
 	routes.EditPermissionUsingPUT.RouterGroup.Use(middleware.ContentTypes("application/json"))
@@ -1062,32 +1012,84 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.EditRoleUsingPUT.Post = routes.EditRoleUsingPUT.Group("")
 	routes.EditRoleUsingPUT.Post.PUT(ginizePath("/role/_roles/put/{id}"), role_controller.BusinessLogicEditRoleUsingPUT(service.EditRoleUsingPUT))
 
-	routes.FindAllFieldsUsingGET.RouterGroup = routes.Group("")
+	routes.EditSchemaFieldUsingPUT.RouterGroup = routes.Group("")
+	routes.EditSchemaFieldUsingPUT.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
 
-		routes.FindAllFieldsUsingGET.RouterGroup.Use(routes.FindAllFieldsUsingGET.Auth)
+		routes.EditSchemaFieldUsingPUT.RouterGroup.Use(routes.EditSchemaFieldUsingPUT.Auth)
+
+		routes.EditSchemaFieldUsingPUT.RouterGroup.Use(routes.EditSchemaFieldUsingPUT.Auth)
 
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
 		}
-		routes.FindAllFieldsUsingGET.Auth = ginoauth2.Auth(
+		routes.EditSchemaFieldUsingPUT.Auth = ginoauth2.Auth(
 			middleware.ScopesAuth("uid"),
 			oauth2.Endpoint{
 				TokenURL: routeTokenURL,
 			},
 		)
 
-		routes.FindAllFieldsUsingGET.RouterGroup.Use(routes.FindAllFieldsUsingGET.Auth)
-
-		routes.FindAllFieldsUsingGET.RouterGroup.Use(routes.FindAllFieldsUsingGET.Auth)
+		routes.EditSchemaFieldUsingPUT.RouterGroup.Use(routes.EditSchemaFieldUsingPUT.Auth)
 
 	}
-	routes.FindAllFieldsUsingGET.Post = routes.FindAllFieldsUsingGET.Group("")
-	routes.FindAllFieldsUsingGET.Post.GET(ginizePath("/schemas/_fields"), schema_controller.BusinessLogicFindAllFieldsUsingGET(service.FindAllFieldsUsingGET))
+	routes.EditSchemaFieldUsingPUT.Post = routes.EditSchemaFieldUsingPUT.Group("")
+	routes.EditSchemaFieldUsingPUT.Post.PUT(ginizePath("/schemas/_fields/put/{id}"), schema_controller.BusinessLogicEditSchemaFieldUsingPUT(service.EditSchemaFieldUsingPUT))
+
+	routes.EditUserFieldUsingPUT.RouterGroup = routes.Group("")
+	routes.EditUserFieldUsingPUT.RouterGroup.Use(middleware.ContentTypes("application/json"))
+	if enableAuth {
+
+		routes.EditUserFieldUsingPUT.RouterGroup.Use(routes.EditUserFieldUsingPUT.Auth)
+
+		routeTokenURL := tokenURL
+		if routeTokenURL == "" {
+			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
+		}
+		routes.EditUserFieldUsingPUT.Auth = ginoauth2.Auth(
+			middleware.ScopesAuth("uid"),
+			oauth2.Endpoint{
+				TokenURL: routeTokenURL,
+			},
+		)
+
+		routes.EditUserFieldUsingPUT.RouterGroup.Use(routes.EditUserFieldUsingPUT.Auth)
+
+		routes.EditUserFieldUsingPUT.RouterGroup.Use(routes.EditUserFieldUsingPUT.Auth)
+
+	}
+	routes.EditUserFieldUsingPUT.Post = routes.EditUserFieldUsingPUT.Group("")
+	routes.EditUserFieldUsingPUT.Post.PUT(ginizePath("/user/_users/put/{id}"), user_controller.BusinessLogicEditUserFieldUsingPUT(service.EditUserFieldUsingPUT))
+
+	routes.FindDataSourceUsingGET.RouterGroup = routes.Group("")
+	if enableAuth {
+
+		routes.FindDataSourceUsingGET.RouterGroup.Use(routes.FindDataSourceUsingGET.Auth)
+
+		routeTokenURL := tokenURL
+		if routeTokenURL == "" {
+			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
+		}
+		routes.FindDataSourceUsingGET.Auth = ginoauth2.Auth(
+			middleware.ScopesAuth("uid"),
+			oauth2.Endpoint{
+				TokenURL: routeTokenURL,
+			},
+		)
+
+		routes.FindDataSourceUsingGET.RouterGroup.Use(routes.FindDataSourceUsingGET.Auth)
+
+		routes.FindDataSourceUsingGET.RouterGroup.Use(routes.FindDataSourceUsingGET.Auth)
+
+	}
+	routes.FindDataSourceUsingGET.Post = routes.FindDataSourceUsingGET.Group("")
+	routes.FindDataSourceUsingGET.Post.GET(ginizePath("/datasource/_datasource/{datasourceId}"), data_source_controller.BusinessLogicFindDataSourceUsingGET(service.FindDataSourceUsingGET))
 
 	routes.FindEntityFieldsUsingGET.RouterGroup = routes.Group("")
 	if enableAuth {
+
+		routes.FindEntityFieldsUsingGET.RouterGroup.Use(routes.FindEntityFieldsUsingGET.Auth)
 
 		routes.FindEntityFieldsUsingGET.RouterGroup.Use(routes.FindEntityFieldsUsingGET.Auth)
 
@@ -1104,59 +1106,81 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.FindEntityFieldsUsingGET.RouterGroup.Use(routes.FindEntityFieldsUsingGET.Auth)
 
-		routes.FindEntityFieldsUsingGET.RouterGroup.Use(routes.FindEntityFieldsUsingGET.Auth)
-
 	}
 	routes.FindEntityFieldsUsingGET.Post = routes.FindEntityFieldsUsingGET.Group("")
 	routes.FindEntityFieldsUsingGET.Post.GET(ginizePath("/schemas/fields"), schema_controller.BusinessLogicFindEntityFieldsUsingGET(service.FindEntityFieldsUsingGET))
 
-	routes.FindOneFieldUsingGET.RouterGroup = routes.Group("")
+	routes.FindFieldUsingGET.RouterGroup = routes.Group("")
 	if enableAuth {
-
-		routes.FindOneFieldUsingGET.RouterGroup.Use(routes.FindOneFieldUsingGET.Auth)
 
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
 		}
-		routes.FindOneFieldUsingGET.Auth = ginoauth2.Auth(
+		routes.FindFieldUsingGET.Auth = ginoauth2.Auth(
 			middleware.ScopesAuth("uid"),
 			oauth2.Endpoint{
 				TokenURL: routeTokenURL,
 			},
 		)
 
-		routes.FindOneFieldUsingGET.RouterGroup.Use(routes.FindOneFieldUsingGET.Auth)
+		routes.FindFieldUsingGET.RouterGroup.Use(routes.FindFieldUsingGET.Auth)
 
-		routes.FindOneFieldUsingGET.RouterGroup.Use(routes.FindOneFieldUsingGET.Auth)
+		routes.FindFieldUsingGET.RouterGroup.Use(routes.FindFieldUsingGET.Auth)
+
+		routes.FindFieldUsingGET.RouterGroup.Use(routes.FindFieldUsingGET.Auth)
 
 	}
-	routes.FindOneFieldUsingGET.Post = routes.FindOneFieldUsingGET.Group("")
-	routes.FindOneFieldUsingGET.Post.GET(ginizePath("/schemas/_fields/{fid}"), schema_controller.BusinessLogicFindOneFieldUsingGET(service.FindOneFieldUsingGET))
+	routes.FindFieldUsingGET.Post = routes.FindFieldUsingGET.Group("")
+	routes.FindFieldUsingGET.Post.GET(ginizePath("/schemas/_fields/{fid}"), schema_controller.BusinessLogicFindFieldUsingGET(service.FindFieldUsingGET))
 
-	routes.FindOneUsingGET.RouterGroup = routes.Group("")
+	routes.FindFieldsUsingGET.RouterGroup = routes.Group("")
 	if enableAuth {
 
-		routes.FindOneUsingGET.RouterGroup.Use(routes.FindOneUsingGET.Auth)
+		routes.FindFieldsUsingGET.RouterGroup.Use(routes.FindFieldsUsingGET.Auth)
 
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
 		}
-		routes.FindOneUsingGET.Auth = ginoauth2.Auth(
+		routes.FindFieldsUsingGET.Auth = ginoauth2.Auth(
 			middleware.ScopesAuth("uid"),
 			oauth2.Endpoint{
 				TokenURL: routeTokenURL,
 			},
 		)
 
-		routes.FindOneUsingGET.RouterGroup.Use(routes.FindOneUsingGET.Auth)
+		routes.FindFieldsUsingGET.RouterGroup.Use(routes.FindFieldsUsingGET.Auth)
 
-		routes.FindOneUsingGET.RouterGroup.Use(routes.FindOneUsingGET.Auth)
+		routes.FindFieldsUsingGET.RouterGroup.Use(routes.FindFieldsUsingGET.Auth)
 
 	}
-	routes.FindOneUsingGET.Post = routes.FindOneUsingGET.Group("")
-	routes.FindOneUsingGET.Post.GET(ginizePath("/api/{entity}/{id}"), data_controller.BusinessLogicFindOneUsingGET(service.FindOneUsingGET))
+	routes.FindFieldsUsingGET.Post = routes.FindFieldsUsingGET.Group("")
+	routes.FindFieldsUsingGET.Post.GET(ginizePath("/schemas/_fields"), schema_controller.BusinessLogicFindFieldsUsingGET(service.FindFieldsUsingGET))
+
+	routes.FindPermissionUsingGET.RouterGroup = routes.Group("")
+	if enableAuth {
+
+		routes.FindPermissionUsingGET.RouterGroup.Use(routes.FindPermissionUsingGET.Auth)
+
+		routeTokenURL := tokenURL
+		if routeTokenURL == "" {
+			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
+		}
+		routes.FindPermissionUsingGET.Auth = ginoauth2.Auth(
+			middleware.ScopesAuth("uid"),
+			oauth2.Endpoint{
+				TokenURL: routeTokenURL,
+			},
+		)
+
+		routes.FindPermissionUsingGET.RouterGroup.Use(routes.FindPermissionUsingGET.Auth)
+
+		routes.FindPermissionUsingGET.RouterGroup.Use(routes.FindPermissionUsingGET.Auth)
+
+	}
+	routes.FindPermissionUsingGET.Post = routes.FindPermissionUsingGET.Group("")
+	routes.FindPermissionUsingGET.Post.GET(ginizePath("/permission/_permission/{id}"), permission_controller.BusinessLogicFindPermissionUsingGET(service.FindPermissionUsingGET))
 
 	routes.FindRoleUsingGET.RouterGroup = routes.Group("")
 	if enableAuth {
@@ -1180,34 +1204,12 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 	}
 	routes.FindRoleUsingGET.Post = routes.FindRoleUsingGET.Group("")
-	routes.FindRoleUsingGET.Post.GET(ginizePath("/datasource/_datasource/{datasourceId}"), data_source_controller.BusinessLogicFindRoleUsingGET(service.FindRoleUsingGET))
-
-	routes.FindRoleUsingGET1.RouterGroup = routes.Group("")
-	if enableAuth {
-
-		routes.FindRoleUsingGET1.RouterGroup.Use(routes.FindRoleUsingGET1.Auth)
-
-		routes.FindRoleUsingGET1.RouterGroup.Use(routes.FindRoleUsingGET1.Auth)
-
-		routeTokenURL := tokenURL
-		if routeTokenURL == "" {
-			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
-		}
-		routes.FindRoleUsingGET1.Auth = ginoauth2.Auth(
-			middleware.ScopesAuth("uid"),
-			oauth2.Endpoint{
-				TokenURL: routeTokenURL,
-			},
-		)
-
-		routes.FindRoleUsingGET1.RouterGroup.Use(routes.FindRoleUsingGET1.Auth)
-
-	}
-	routes.FindRoleUsingGET1.Post = routes.FindRoleUsingGET1.Group("")
-	routes.FindRoleUsingGET1.Post.GET(ginizePath("/role/_roles/{roleId}"), role_controller.BusinessLogicFindRoleUsingGET1(service.FindRoleUsingGET1))
+	routes.FindRoleUsingGET.Post.GET(ginizePath("/role/_roles/{roleId}"), role_controller.BusinessLogicFindRoleUsingGET(service.FindRoleUsingGET))
 
 	routes.FindSchemaEntityGET.RouterGroup = routes.Group("")
 	if enableAuth {
+
+		routes.FindSchemaEntityGET.RouterGroup.Use(routes.FindSchemaEntityGET.Auth)
 
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
@@ -1224,14 +1226,14 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.FindSchemaEntityGET.RouterGroup.Use(routes.FindSchemaEntityGET.Auth)
 
-		routes.FindSchemaEntityGET.RouterGroup.Use(routes.FindSchemaEntityGET.Auth)
-
 	}
 	routes.FindSchemaEntityGET.Post = routes.FindSchemaEntityGET.Group("")
 	routes.FindSchemaEntityGET.Post.GET(ginizePath("/schemas/_entitys/{eid}"), schema_controller.BusinessLogicFindSchemaEntityGET(service.FindSchemaEntityGET))
 
 	routes.FindUserUsingGET.RouterGroup = routes.Group("")
 	if enableAuth {
+
+		routes.FindUserUsingGET.RouterGroup.Use(routes.FindUserUsingGET.Auth)
 
 		routes.FindUserUsingGET.RouterGroup.Use(routes.FindUserUsingGET.Auth)
 
@@ -1248,40 +1250,12 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.FindUserUsingGET.RouterGroup.Use(routes.FindUserUsingGET.Auth)
 
-		routes.FindUserUsingGET.RouterGroup.Use(routes.FindUserUsingGET.Auth)
-
 	}
 	routes.FindUserUsingGET.Post = routes.FindUserUsingGET.Group("")
-	routes.FindUserUsingGET.Post.GET(ginizePath("/permission/_permission/{id}"), permission_controller.BusinessLogicFindUserUsingGET(service.FindUserUsingGET))
-
-	routes.FindUserUsingGET1.RouterGroup = routes.Group("")
-	if enableAuth {
-
-		routes.FindUserUsingGET1.RouterGroup.Use(routes.FindUserUsingGET1.Auth)
-
-		routeTokenURL := tokenURL
-		if routeTokenURL == "" {
-			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
-		}
-		routes.FindUserUsingGET1.Auth = ginoauth2.Auth(
-			middleware.ScopesAuth("uid"),
-			oauth2.Endpoint{
-				TokenURL: routeTokenURL,
-			},
-		)
-
-		routes.FindUserUsingGET1.RouterGroup.Use(routes.FindUserUsingGET1.Auth)
-
-		routes.FindUserUsingGET1.RouterGroup.Use(routes.FindUserUsingGET1.Auth)
-
-	}
-	routes.FindUserUsingGET1.Post = routes.FindUserUsingGET1.Group("")
-	routes.FindUserUsingGET1.Post.GET(ginizePath("/user/_users/{userId}"), user_controller.BusinessLogicFindUserUsingGET1(service.FindUserUsingGET1))
+	routes.FindUserUsingGET.Post.GET(ginizePath("/user/_users/{userId}"), user_controller.BusinessLogicFindUserUsingGET(service.FindUserUsingGET))
 
 	routes.GetAuthenticatedUserUsingGET.RouterGroup = routes.Group("")
 	if enableAuth {
-
-		routes.GetAuthenticatedUserUsingGET.RouterGroup.Use(routes.GetAuthenticatedUserUsingGET.Auth)
 
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
@@ -1298,9 +1272,35 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.GetAuthenticatedUserUsingGET.RouterGroup.Use(routes.GetAuthenticatedUserUsingGET.Auth)
 
+		routes.GetAuthenticatedUserUsingGET.RouterGroup.Use(routes.GetAuthenticatedUserUsingGET.Auth)
+
 	}
 	routes.GetAuthenticatedUserUsingGET.Post = routes.GetAuthenticatedUserUsingGET.Group("")
 	routes.GetAuthenticatedUserUsingGET.Post.GET(ginizePath("/user/me"), user_controller.BusinessLogicGetAuthenticatedUserUsingGET(service.GetAuthenticatedUserUsingGET))
+
+	routes.GetDataMutationUsingGET.RouterGroup = routes.Group("")
+	if enableAuth {
+
+		routes.GetDataMutationUsingGET.RouterGroup.Use(routes.GetDataMutationUsingGET.Auth)
+
+		routeTokenURL := tokenURL
+		if routeTokenURL == "" {
+			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
+		}
+		routes.GetDataMutationUsingGET.Auth = ginoauth2.Auth(
+			middleware.ScopesAuth("uid"),
+			oauth2.Endpoint{
+				TokenURL: routeTokenURL,
+			},
+		)
+
+		routes.GetDataMutationUsingGET.RouterGroup.Use(routes.GetDataMutationUsingGET.Auth)
+
+		routes.GetDataMutationUsingGET.RouterGroup.Use(routes.GetDataMutationUsingGET.Auth)
+
+	}
+	routes.GetDataMutationUsingGET.Post = routes.GetDataMutationUsingGET.Group("")
+	routes.GetDataMutationUsingGET.Post.GET(ginizePath("/api/{entity}"), data_controller.BusinessLogicGetDataMutationUsingGET(service.GetDataMutationUsingGET))
 
 	routes.GetRoles.RouterGroup = routes.Group("")
 	if enableAuth {
@@ -1331,8 +1331,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.GetSchemasUsingGET.RouterGroup.Use(routes.GetSchemasUsingGET.Auth)
 
-		routes.GetSchemasUsingGET.RouterGroup.Use(routes.GetSchemasUsingGET.Auth)
-
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -1346,9 +1344,59 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 
 		routes.GetSchemasUsingGET.RouterGroup.Use(routes.GetSchemasUsingGET.Auth)
 
+		routes.GetSchemasUsingGET.RouterGroup.Use(routes.GetSchemasUsingGET.Auth)
+
 	}
 	routes.GetSchemasUsingGET.Post = routes.GetSchemasUsingGET.Group("")
 	routes.GetSchemasUsingGET.Post.GET(ginizePath("/schemas/_entitys"), schema_controller.BusinessLogicGetSchemasUsingGET(service.GetSchemasUsingGET))
+
+	routes.ListDataSourceUsingGET.RouterGroup = routes.Group("")
+	if enableAuth {
+
+		routes.ListDataSourceUsingGET.RouterGroup.Use(routes.ListDataSourceUsingGET.Auth)
+
+		routes.ListDataSourceUsingGET.RouterGroup.Use(routes.ListDataSourceUsingGET.Auth)
+
+		routeTokenURL := tokenURL
+		if routeTokenURL == "" {
+			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
+		}
+		routes.ListDataSourceUsingGET.Auth = ginoauth2.Auth(
+			middleware.ScopesAuth("uid"),
+			oauth2.Endpoint{
+				TokenURL: routeTokenURL,
+			},
+		)
+
+		routes.ListDataSourceUsingGET.RouterGroup.Use(routes.ListDataSourceUsingGET.Auth)
+
+	}
+	routes.ListDataSourceUsingGET.Post = routes.ListDataSourceUsingGET.Group("")
+	routes.ListDataSourceUsingGET.Post.GET(ginizePath("/datasource/_datasource"), data_source_controller.BusinessLogicListDataSourceUsingGET(service.ListDataSourceUsingGET))
+
+	routes.ListPermissionUsingGET.RouterGroup = routes.Group("")
+	if enableAuth {
+
+		routes.ListPermissionUsingGET.RouterGroup.Use(routes.ListPermissionUsingGET.Auth)
+
+		routeTokenURL := tokenURL
+		if routeTokenURL == "" {
+			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
+		}
+		routes.ListPermissionUsingGET.Auth = ginoauth2.Auth(
+			middleware.ScopesAuth("uid"),
+			oauth2.Endpoint{
+				TokenURL: routeTokenURL,
+			},
+		)
+
+		routes.ListPermissionUsingGET.RouterGroup.Use(routes.ListPermissionUsingGET.Auth)
+
+		routes.ListPermissionUsingGET.RouterGroup.Use(routes.ListPermissionUsingGET.Auth)
+
+	}
+	routes.ListPermissionUsingGET.Post = routes.ListPermissionUsingGET.Group("")
+	routes.ListPermissionUsingGET.Post.GET(ginizePath("/permission/_permission"), permission_controller.BusinessLogicListPermissionUsingGET(service.ListPermissionUsingGET))
 
 	routes.ListUsersGET.RouterGroup = routes.Group("")
 	if enableAuth {
@@ -1373,54 +1421,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	}
 	routes.ListUsersGET.Post = routes.ListUsersGET.Group("")
 	routes.ListUsersGET.Post.GET(ginizePath("/user/_users"), user_controller.BusinessLogicListUsersGET(service.ListUsersGET))
-
-	routes.ListUsingGET.RouterGroup = routes.Group("")
-	if enableAuth {
-
-		routes.ListUsingGET.RouterGroup.Use(routes.ListUsingGET.Auth)
-
-		routeTokenURL := tokenURL
-		if routeTokenURL == "" {
-			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
-		}
-		routes.ListUsingGET.Auth = ginoauth2.Auth(
-			middleware.ScopesAuth("uid"),
-			oauth2.Endpoint{
-				TokenURL: routeTokenURL,
-			},
-		)
-
-		routes.ListUsingGET.RouterGroup.Use(routes.ListUsingGET.Auth)
-
-		routes.ListUsingGET.RouterGroup.Use(routes.ListUsingGET.Auth)
-
-	}
-	routes.ListUsingGET.Post = routes.ListUsingGET.Group("")
-	routes.ListUsingGET.Post.GET(ginizePath("/datasource/_datasource"), data_source_controller.BusinessLogicListUsingGET(service.ListUsingGET))
-
-	routes.ListUsingGET1.RouterGroup = routes.Group("")
-	if enableAuth {
-
-		routes.ListUsingGET1.RouterGroup.Use(routes.ListUsingGET1.Auth)
-
-		routeTokenURL := tokenURL
-		if routeTokenURL == "" {
-			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
-		}
-		routes.ListUsingGET1.Auth = ginoauth2.Auth(
-			middleware.ScopesAuth("uid"),
-			oauth2.Endpoint{
-				TokenURL: routeTokenURL,
-			},
-		)
-
-		routes.ListUsingGET1.RouterGroup.Use(routes.ListUsingGET1.Auth)
-
-		routes.ListUsingGET1.RouterGroup.Use(routes.ListUsingGET1.Auth)
-
-	}
-	routes.ListUsingGET1.Post = routes.ListUsingGET1.Group("")
-	routes.ListUsingGET1.Post.GET(ginizePath("/permission/_permission"), permission_controller.BusinessLogicListUsingGET1(service.ListUsingGET1))
 
 	routes.RefreshAndGetAuthenticationTokenUsingGET.RouterGroup = routes.Group("")
 	if enableAuth {
@@ -1450,6 +1450,8 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	routes.ResetCurrentDsUsingPUT.RouterGroup.Use(middleware.ContentTypes("application/json"))
 	if enableAuth {
 
+		routes.ResetCurrentDsUsingPUT.RouterGroup.Use(routes.ResetCurrentDsUsingPUT.Auth)
+
 		routeTokenURL := tokenURL
 		if routeTokenURL == "" {
 			routeTokenURL = "https://info.services.auth.localhost/oauth2/tokeninfo"
@@ -1460,8 +1462,6 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 				TokenURL: routeTokenURL,
 			},
 		)
-
-		routes.ResetCurrentDsUsingPUT.RouterGroup.Use(routes.ResetCurrentDsUsingPUT.Auth)
 
 		routes.ResetCurrentDsUsingPUT.RouterGroup.Use(routes.ResetCurrentDsUsingPUT.Auth)
 

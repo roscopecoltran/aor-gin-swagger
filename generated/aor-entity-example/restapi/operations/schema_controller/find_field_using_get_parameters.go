@@ -15,12 +15,12 @@ import (
 	// Imports
 )
 
-// BusinessLogicFindOneFieldUsingGET executes the core logic of the related
+// BusinessLogicFindFieldUsingGET executes the core logic of the related
 // route endpoint.
-func BusinessLogicFindOneFieldUsingGET(f func(ctx *gin.Context, params *FindOneFieldUsingGETParams) *api.Response) gin.HandlerFunc {
+func BusinessLogicFindFieldUsingGET(f func(ctx *gin.Context, params *FindFieldUsingGETParams) *api.Response) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		// generate params from request
-		params := &FindOneFieldUsingGETParams{}
+		params := &FindFieldUsingGETParams{}
 		err := params.bindRequest(ctx)
 		if err != nil {
 			errObj := err.(*errors.CompositeError)
@@ -44,11 +44,11 @@ func BusinessLogicFindOneFieldUsingGET(f func(ctx *gin.Context, params *FindOneF
 	}
 }
 
-// FindOneFieldUsingGETParams contains all the bound params for the find one field using g e t operation
+// FindFieldUsingGETParams contains all the bound params for the find field using g e t operation
 // typically these are obtained from a http.Request
 //
-// swagger:parameters findOneFieldUsingGET
-type FindOneFieldUsingGETParams struct {
+// swagger:parameters findFieldUsingGET
+type FindFieldUsingGETParams struct {
 
 	/*fid
 	  Required: true
@@ -57,15 +57,15 @@ type FindOneFieldUsingGETParams struct {
 	Fid string
 }
 
-// FindOneFieldUsingGETParamsFromCtx gets the params struct from the gin context.
-func FindOneFieldUsingGETParamsFromCtx(ctx *gin.Context) *FindOneFieldUsingGETParams {
+// FindFieldUsingGETParamsFromCtx gets the params struct from the gin context.
+func FindFieldUsingGETParamsFromCtx(ctx *gin.Context) *FindFieldUsingGETParams {
 	params, _ := ctx.Get("params")
-	return params.(*FindOneFieldUsingGETParams)
+	return params.(*FindFieldUsingGETParams)
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
 // for simple values it will use straight method calls
-func (o *FindOneFieldUsingGETParams) bindRequest(ctx *gin.Context) error {
+func (o *FindFieldUsingGETParams) bindRequest(ctx *gin.Context) error {
 	var res []error
 	formats := strfmt.NewFormats()
 
@@ -80,7 +80,7 @@ func (o *FindOneFieldUsingGETParams) bindRequest(ctx *gin.Context) error {
 	return nil
 }
 
-func (o *FindOneFieldUsingGETParams) bindFid(rawData []string, hasKey bool, formats strfmt.Registry) error {
+func (o *FindFieldUsingGETParams) bindFid(rawData []string, hasKey bool, formats strfmt.Registry) error {
 	var raw string
 	if len(rawData) > 0 {
 		raw = rawData[len(rawData)-1]

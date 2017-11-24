@@ -17,10 +17,10 @@ import (
 type ChoiceItem struct {
 
 	// id
-	ID string `json:"id,omitempty"`
+	ID string `json:"id,omitempty" gorm:"primary_key" yaml:"-" toml:"-"`
 
 	// name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" gorm:"name" yaml:"name" toml:"name"`
 }
 
 // Validate validates this choice item

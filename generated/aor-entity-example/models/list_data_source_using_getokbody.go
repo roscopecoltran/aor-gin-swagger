@@ -14,12 +14,12 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// ListUsingGETOKBody list using g e t o k body
-// swagger:model listUsingGETOKBody
-type ListUsingGETOKBody []*DataSource
+// ListDataSourceUsingGETOKBody list data source using g e t o k body
+// swagger:model listDataSourceUsingGETOKBody
+type ListDataSourceUsingGETOKBody []*DataSource
 
-// Validate validates this list using g e t o k body
-func (m ListUsingGETOKBody) Validate(formats strfmt.Registry) error {
+// Validate validates this list data source using g e t o k body
+func (m ListDataSourceUsingGETOKBody) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	for i := 0; i < len(m); i++ {
