@@ -15,3 +15,8 @@ https://github.com/harvest-platform/concept-registry#concept-registry (interesti
 	https://github.com/harvest-platform/concept-registry/blob/master/model.go
 	https://github.com/harvest-platform
 https://github.com/ibraheamkh/datasource/blob/master/datasource.go
+
+- https://github.com/sezzle/generator-gin-api
+- https://github.com/ngorm/ngorm
+- https://github.com/bgk-/go-gin-gorm/blob/master/models/gorm.go
+- 

@@ -10,6 +10,21 @@ import (
 	"github.com/roscopecoltran/aor-gin-swagger/config"
 )
 
+/*
+	Refs:
+	- https://github.com/theplant/resources
+	- https://github.com/go-gormigrate/gormigrate
+	- https://github.com/Altoros/gorm-goose
+	- https://github.com/kmulvey/gen-gorm
+	- https://github.com/wuyq101/gormgenerator
+	- https://github.com/waynegerard/GORMGenerator
+	- https://github.com/etcinit/ohmygorm
+	- https://github.com/hype-ru/go-gorm-json-types
+	- https://github.com/casbin/gorm-adapter
+	- https://github.com/wantedly/pq2gorm
+	- https://github.com/BlueJello/gorethink-helper
+*/
+
 func CreateTables(isTruncate bool, models ...interface{}) {
 	config.PrintConfig()
 	printDatabaseInfo()

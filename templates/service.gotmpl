@@ -93,12 +93,13 @@ func (s *{{ $.Name }}Server) {{ pascalize .Name }}(ctx *gin.Context{{ if .Params
 		// ID: {{ .ID }}
 		// ModelsPackage: {{ .ModelsPackage }}
 		// Name: {{ .Name }}
+		var {{ .Name }} models.{{ .ID }}
+		var res{{ .ID }} []models.{{ .ID }}
 		{{end}}
 
+		/*
 		pp.Println("params: ", params)
 		response := make(map[string]string)
-		var {{ .Name }} models.{{ .ID }}
-		var queryRes []models.{{ .ID }}
 		db := ctx.MustGet("db").(*gorm.DB)
 		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
 		if queryRes.DbName != "" {
@@ -108,6 +109,7 @@ func (s *{{ $.Name }}Server) {{ pascalize .Name }}(ctx *gin.Context{{ if .Params
 			db.Create(&dataSource)
 			response["status"] = "success"
 		}
+		*/
 
 	// QueryParams: {{ .QueryParams }}
 	// PathParams: {{ .PathParams }}

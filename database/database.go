@@ -16,6 +16,15 @@ import (
 var DB *gorm.DB
 var Status bool
 
+/*
+	Refs:
+	- https://github.com/ngorm/ngorm
+	- https://github.com/gotoolkit/db
+	- https://github.com/acrosson/gingorm
+	- https://github.com/talantbekov123/go_ecommerce
+	- https://github.com/yy584089958/webgin
+*/
+
 func init() {
 	var err error
 

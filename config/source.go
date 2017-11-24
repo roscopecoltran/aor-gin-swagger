@@ -13,6 +13,9 @@ type DatabaseConfig struct {
 	MigrationsDir string `env:"DB_MIGRATION_DIR" default:"./shared/data/seeds" json:"migrations_dir" yaml:"migrations_dir" toml:"migrations_dir"`
 	SSL           bool   `env:"DB_SECURED" default:"false" json:"ssl_mode" yaml:"ssl_mode" toml:"ssl_mode"`
 	SingularTable bool   `env:"DB_SINGULAR_TABLE" default:"true" json:"singular_table" yaml:"singular_table" toml:"singular_table"`
+	Log           bool   `env:"DB_SINGULAR_TABLE" default:"true" json:"singular_table" yaml:"singular_table" toml:"singular_table"`
+	MaxIdleConns  int    `env:"DB_MAX_IDLE_CONNS" default:"2" json:"max_idle_conns" yaml:"max_idle_conns" toml:"max_idle_conns"`
+	MaxOpenConns  int    `env:"DB_MAX_OPEN_CONNS" default:"2" json:"max_open_conns" yaml:"max_open_conns" toml:"max_open_conns"`
 	Debug         bool   `env:"DB_DEBUG" default:"false" json:"debug" yaml:"debug" toml:"debug"`
 }
 

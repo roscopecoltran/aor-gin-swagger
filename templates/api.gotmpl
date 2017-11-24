@@ -193,6 +193,9 @@ func NewAPI(svc Service, config *Config) *API {
 	// configure healthz endpoint
 	api.Routes.GET("/healthz", healthHandler(svc.Healthy))
 
+	// api.Routes.GET("/api/swagger-editor", healthHandler(svc.SwaggerEditor))
+	// api.Routes.GET("/api/swagger-ui", healthHandler(svc.SwaggerUI))
+
 	return api
 }
 

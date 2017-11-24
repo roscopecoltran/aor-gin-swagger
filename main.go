@@ -19,6 +19,11 @@ import (
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
+// https://github.com/chrusty/openapi2jsonschema
+// https://github.com/Nordstrom/swaggrpc
+// https://github.com/jhump/protoreflect
+// https://github.com/posener/grpcgw
+
 //go:generate go-bindata -pkg main -o bindata.go config.yaml templates
 
 const (
@@ -64,8 +69,8 @@ func init() {
 	kingpin.Flag("generate-proto", "Generate Protobuf v3 schema and gRPC service definition files.").
 		Short('G').BoolVar(&config.GenerateProtobuf)
 
-	kingpin.Flag("annotate-proto", "Annotate Protobuf v3 schema and gRPC service definition filess.").
-		Short('A').BoolVar(&config.AnnotateProtobuf)
+	kingpin.Flag("annotate-proto", "Annotate Protobuf v3 schema and gRPC service definition files.").
+		Short('P').BoolVar(&config.AnnotateProtobuf)
 
 	kingpin.Flag("database-middleware", "Add a gin database middleware.").
 		Short('D').BoolVar(&config.DatabaseMiddleware)

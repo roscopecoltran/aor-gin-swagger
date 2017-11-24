@@ -1,23 +1,25 @@
 .PHONY: build test generate clean
 
-OS          ?= $(shell go env GOOS)
-ARCH        ?= $(shell go env GOARCH)
+OS          		?= $(shell go env GOOS)
+ARCH        		?= $(shell go env GOARCH)
 
-EXAMPLE_NAME 	?= aor-entity-example
-EXAMPLE_SPECS 	?= $(CURDIR)/tests/swagger.yaml
-EXAMPLE_DIR 	?= $(CURDIR)/generated/$(EXAMPLE_NAME)
+EXAMPLE_NAME 		?= aor-entity-example
+EXAMPLE_SPECS 		?= $(CURDIR)/tests/swagger.yaml
+EXAMPLE_DIR 		?= $(CURDIR)/generated/$(EXAMPLE_NAME)
 
-BINARY_DIR   	?= $(CURDIR)/bin
-BINARY_NAME  	?= gin-swagger-aor
+SWAGGER_UI_VERSION 	?= 3.5.0
+
+BINARY_DIR   		?= $(CURDIR)/bin
+BINARY_NAME  		?= gin-swagger-aor
 ifeq ($(OS),windows)
-	BINARY_NAME := $(BINARY_NAME).exe
+	BINARY_NAME 	:= $(BINARY_NAME).exe
 endif
 
-SOURCES      	= $(shell find . -name '*.go')
-GOPKGS       	= $(shell go list ./... | grep -v /vendor/)
-TEMPLATES    	= $(shell find templates/ -type f -name '*.gotmpl')
-BUILD_FLAGS  	?= -v
-LDFLAGS      	?= -X main.version=$(VERSION) -w -s
+SOURCES      		= $(shell find . -name '*.go')
+GOPKGS       		= $(shell go list ./... | grep -v /vendor/)
+TEMPLATES    		= $(shell find templates/ -type f -name '*.gotmpl')
+BUILD_FLAGS  		?= -v
+LDFLAGS      		?= -X main.version=$(VERSION) -w -s
 
 default: build
 
@@ -67,3 +69,21 @@ example-bin:
 
 example-run:
 	./bin/$(EXAMPLE_NAME) --insecure-http
+
+build-assets:
+	go-bindata -pkg=assets -prefix=assets/swagger-ui -o=./assets/assets.go ./assets/swagger-ui/...
+
+swagger_ui_resources.go: swagger-ui
+	mkdir -p $(dir $@)
+	go-bindata -nomemcopy -o $@ -prefix ${PWD}/swagger-ui -pkg swaggerui $</...
+
+$(BINARY_NAME)/swaggerui.go: swagger-ui
+	mkdir -p $(dir $@)
+	go-bindata -nocompress -o $@ -prefix ${PWD} -pkg $(BINARY_NAME) $</...
+
+swagger-ui:
+	curl -sSL https://github.com/swagger-api/swagger-ui/archive/v$(SWAGGER_UI_VERSION).zip > /tmp/swagger-ui.zip
+	mkdir -p $@
+	unzip /tmp/swagger-ui.zip ./addons/swagger-ui-*/dist/* -d $@
+	mv swagger-ui/swagger-ui-*/dist/* ./addons/swagger-ui/
+	rm -r ./addons/swagger-ui/swagger-ui-*

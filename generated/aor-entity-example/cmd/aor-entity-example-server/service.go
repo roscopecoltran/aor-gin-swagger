@@ -17,7 +17,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	"github.com/k0kubun/pp"
 )
 
 func CreateOrUpdateJwtToken(db *gorm.DB, jwtUser *models.JwtUser) (bool, error) {
@@ -93,20 +92,22 @@ func (s *AorEntityExampleServer) AddApplyUsingOPTIONS(ctx *gin.Context, params *
 	// ID: Apply
 	// ModelsPackage: models
 	// Name: apply
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var apply models.Apply
-	var queryRes []models.Apply
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resApply []models.Apply
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -181,20 +182,22 @@ func (s *AorEntityExampleServer) AddApplyUsingPOST(ctx *gin.Context, params *app
 	// ID: Apply
 	// ModelsPackage: models
 	// Name: apply
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var apply models.Apply
-	var queryRes []models.Apply
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resApply []models.Apply
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -269,20 +272,22 @@ func (s *AorEntityExampleServer) AddDataSourceUsingOPTIONS(ctx *gin.Context, par
 	// ID: DataSource
 	// ModelsPackage: models
 	// Name: dataSource
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var dataSource models.DataSource
-	var queryRes []models.DataSource
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resDataSource []models.DataSource
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -357,20 +362,22 @@ func (s *AorEntityExampleServer) AddDataSourceUsingPOST(ctx *gin.Context, params
 	// ID: DataSource
 	// ModelsPackage: models
 	// Name: dataSource
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var dataSource models.DataSource
-	var queryRes []models.DataSource
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resDataSource []models.DataSource
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -445,20 +452,22 @@ func (s *AorEntityExampleServer) AddEntityUsingOPTIONS(ctx *gin.Context, params 
 	// ID: Entity
 	// ModelsPackage: models
 	// Name: entity
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var entity models.Entity
-	var queryRes []models.Entity
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resEntity []models.Entity
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -533,20 +542,22 @@ func (s *AorEntityExampleServer) AddEntityUsingPOST(ctx *gin.Context, params *sc
 	// ID: Entity
 	// ModelsPackage: models
 	// Name: entity
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var entity models.Entity
-	var queryRes []models.Entity
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resEntity []models.Entity
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -621,20 +632,22 @@ func (s *AorEntityExampleServer) AddFieldUsingOPTIONS(ctx *gin.Context, params *
 	// ID: Field
 	// ModelsPackage: models
 	// Name: field
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var field models.Field
-	var queryRes []models.Field
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resField []models.Field
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -709,20 +722,22 @@ func (s *AorEntityExampleServer) AddFieldUsingPOST(ctx *gin.Context, params *sch
 	// ID: Field
 	// ModelsPackage: models
 	// Name: field
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var field models.Field
-	var queryRes []models.Field
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resField []models.Field
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -797,20 +812,22 @@ func (s *AorEntityExampleServer) AddPermissionUsingOPTIONS(ctx *gin.Context, par
 	// ID: Permission
 	// ModelsPackage: models
 	// Name: permission
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var permission models.Permission
-	var queryRes []models.Permission
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resPermission []models.Permission
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -885,20 +902,22 @@ func (s *AorEntityExampleServer) AddPermissionUsingPOST(ctx *gin.Context, params
 	// ID: Permission
 	// ModelsPackage: models
 	// Name: permission
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var permission models.Permission
-	var queryRes []models.Permission
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resPermission []models.Permission
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -973,20 +992,22 @@ func (s *AorEntityExampleServer) AddRoleUsingOPTIONS(ctx *gin.Context, params *r
 	// ID: Role
 	// ModelsPackage: models
 	// Name: role
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var role models.Role
-	var queryRes []models.Role
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resRole []models.Role
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -1061,20 +1082,22 @@ func (s *AorEntityExampleServer) AddRoleUsingPOST(ctx *gin.Context, params *role
 	// ID: Role
 	// ModelsPackage: models
 	// Name: role
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var role models.Role
-	var queryRes []models.Role
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resRole []models.Role
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -1149,20 +1172,22 @@ func (s *AorEntityExampleServer) AddUserUsingOPTIONS(ctx *gin.Context, params *u
 	// ID: User
 	// ModelsPackage: models
 	// Name: user
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var user models.User
-	var queryRes []models.User
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resUser []models.User
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -1237,20 +1262,22 @@ func (s *AorEntityExampleServer) AddUserUsingPOST(ctx *gin.Context, params *user
 	// ID: User
 	// ModelsPackage: models
 	// Name: user
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var user models.User
-	var queryRes []models.User
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resUser []models.User
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -1325,20 +1352,22 @@ func (s *AorEntityExampleServer) CreateAuthenticationTokenUsingOPTIONS(ctx *gin.
 	// ID: AuthenticationRequest
 	// ModelsPackage: models
 	// Name: authenticationRequest
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var authenticationRequest models.AuthenticationRequest
-	var queryRes []models.AuthenticationRequest
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resAuthenticationRequest []models.AuthenticationRequest
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -1413,20 +1442,22 @@ func (s *AorEntityExampleServer) CreateAuthenticationTokenUsingPOST(ctx *gin.Con
 	// ID: AuthenticationRequest
 	// ModelsPackage: models
 	// Name: authenticationRequest
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var authenticationRequest models.AuthenticationRequest
-	var queryRes []models.AuthenticationRequest
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resAuthenticationRequest []models.AuthenticationRequest
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -1501,38 +1532,28 @@ func (s *AorEntityExampleServer) DataMutationUsingDELETE(ctx *gin.Context, param
 	// ID: Entity
 	// ModelsPackage: models
 	// Name: entity
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var entity models.Entity
-	var queryRes []models.Entity
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resEntity []models.Entity
 
 	// ID: ID
 	// ModelsPackage: models
 	// Name: id
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var id models.ID
-	var queryRes []models.ID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resID []models.ID
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} Entity entity models "entity" o.Entity i o path  entity   <nil>  <nil> <nil> <nil> <nil> false  false map[]} {{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -1607,38 +1628,28 @@ func (s *AorEntityExampleServer) DataMutationUsingGET(ctx *gin.Context, params *
 	// ID: Entity
 	// ModelsPackage: models
 	// Name: entity
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var entity models.Entity
-	var queryRes []models.Entity
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resEntity []models.Entity
 
 	// ID: ID
 	// ModelsPackage: models
 	// Name: id
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var id models.ID
-	var queryRes []models.ID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resID []models.ID
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} Entity entity models "entity" o.Entity i o path  entity   <nil>  <nil> <nil> <nil> <nil> false  false map[]} {{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -1713,38 +1724,28 @@ func (s *AorEntityExampleServer) DataMutationUsingOPTIONS(ctx *gin.Context, para
 	// ID: AllRequestParams
 	// ModelsPackage: models
 	// Name: allRequestParams
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var allRequestParams models.AllRequestParams
-	var queryRes []models.AllRequestParams
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resAllRequestParams []models.AllRequestParams
 
 	// ID: Entity
 	// ModelsPackage: models
 	// Name: entity
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var entity models.Entity
-	var queryRes []models.Entity
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resEntity []models.Entity
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} Entity entity models "entity" o.Entity i o path  entity   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -1819,38 +1820,28 @@ func (s *AorEntityExampleServer) DataMutationUsingPOST(ctx *gin.Context, params 
 	// ID: AllRequestParams
 	// ModelsPackage: models
 	// Name: allRequestParams
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var allRequestParams models.AllRequestParams
-	var queryRes []models.AllRequestParams
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resAllRequestParams []models.AllRequestParams
 
 	// ID: Entity
 	// ModelsPackage: models
 	// Name: entity
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var entity models.Entity
-	var queryRes []models.Entity
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resEntity []models.Entity
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} Entity entity models "entity" o.Entity i o path  entity   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -1925,56 +1916,34 @@ func (s *AorEntityExampleServer) DataMutationUsingPUT(ctx *gin.Context, params *
 	// ID: AllRequestParams
 	// ModelsPackage: models
 	// Name: allRequestParams
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var allRequestParams models.AllRequestParams
-	var queryRes []models.AllRequestParams
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resAllRequestParams []models.AllRequestParams
 
 	// ID: Entity
 	// ModelsPackage: models
 	// Name: entity
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var entity models.Entity
-	var queryRes []models.Entity
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resEntity []models.Entity
 
 	// ID: ID
 	// ModelsPackage: models
 	// Name: id
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var id models.ID
-	var queryRes []models.ID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resID []models.ID
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} Entity entity models "entity" o.Entity i o path  entity   <nil>  <nil> <nil> <nil> <nil> false  false map[]} {{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -2049,38 +2018,28 @@ func (s *AorEntityExampleServer) EditDataSourceUsingPUT(ctx *gin.Context, params
 	// ID: DataSource
 	// ModelsPackage: models
 	// Name: dataSource
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var dataSource models.DataSource
-	var queryRes []models.DataSource
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resDataSource []models.DataSource
 
 	// ID: ID
 	// ModelsPackage: models
 	// Name: id
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var id models.ID
-	var queryRes []models.ID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resID []models.ID
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -2155,38 +2114,28 @@ func (s *AorEntityExampleServer) EditEntityUsingPUT(ctx *gin.Context, params *sc
 	// ID: Entity
 	// ModelsPackage: models
 	// Name: entity
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var entity models.Entity
-	var queryRes []models.Entity
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resEntity []models.Entity
 
 	// ID: ID
 	// ModelsPackage: models
 	// Name: id
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var id models.ID
-	var queryRes []models.ID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resID []models.ID
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -2261,38 +2210,28 @@ func (s *AorEntityExampleServer) EditPermissionUsingPUT(ctx *gin.Context, params
 	// ID: ID
 	// ModelsPackage: models
 	// Name: id
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var id models.ID
-	var queryRes []models.ID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resID []models.ID
 
 	// ID: Permission
 	// ModelsPackage: models
 	// Name: permission
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var permission models.Permission
-	var queryRes []models.Permission
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resPermission []models.Permission
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -2367,38 +2306,28 @@ func (s *AorEntityExampleServer) EditRoleUsingPUT(ctx *gin.Context, params *role
 	// ID: ID
 	// ModelsPackage: models
 	// Name: id
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var id models.ID
-	var queryRes []models.ID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resID []models.ID
 
 	// ID: Role
 	// ModelsPackage: models
 	// Name: role
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var role models.Role
-	var queryRes []models.Role
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resRole []models.Role
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -2473,38 +2402,28 @@ func (s *AorEntityExampleServer) EditSchemaFieldUsingPUT(ctx *gin.Context, param
 	// ID: Field
 	// ModelsPackage: models
 	// Name: field
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var field models.Field
-	var queryRes []models.Field
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resField []models.Field
 
 	// ID: ID
 	// ModelsPackage: models
 	// Name: id
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var id models.ID
-	var queryRes []models.ID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resID []models.ID
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -2579,38 +2498,28 @@ func (s *AorEntityExampleServer) EditUserFieldUsingPUT(ctx *gin.Context, params 
 	// ID: ID
 	// ModelsPackage: models
 	// Name: id
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var id models.ID
-	var queryRes []models.ID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resID []models.ID
 
 	// ID: User
 	// ModelsPackage: models
 	// Name: user
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var user models.User
-	var queryRes []models.User
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resUser []models.User
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -2685,20 +2594,22 @@ func (s *AorEntityExampleServer) FindDataSourceUsingGET(ctx *gin.Context, params
 	// ID: DatasourceID
 	// ModelsPackage: models
 	// Name: datasourceId
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var datasourceId models.DatasourceID
-	var queryRes []models.DatasourceID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resDatasourceID []models.DatasourceID
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} DatasourceID datasourceId models "datasourceId" o.DatasourceID i o path  datasourceId   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -2773,20 +2684,22 @@ func (s *AorEntityExampleServer) FindEntityFieldsUsingGET(ctx *gin.Context, para
 	// ID: EntityName
 	// ModelsPackage: models
 	// Name: entityName
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var entityName models.EntityName
-	var queryRes []models.EntityName
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resEntityName []models.EntityName
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} EntityName entityName models "entityName" o.EntityName i o query  entityName   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
 	// PathParams: []
@@ -2861,20 +2774,22 @@ func (s *AorEntityExampleServer) FindFieldUsingGET(ctx *gin.Context, params *sch
 	// ID: Fid
 	// ModelsPackage: models
 	// Name: fid
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var fid models.Fid
-	var queryRes []models.Fid
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resFid []models.Fid
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} Fid fid models "fid" o.Fid i o path  fid   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -2949,20 +2864,22 @@ func (s *AorEntityExampleServer) FindFieldsUsingGET(ctx *gin.Context, params *sc
 	// ID: Eid
 	// ModelsPackage: models
 	// Name: eid
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var eid models.Eid
-	var queryRes []models.Eid
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resEid []models.Eid
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} Eid eid models "eid" o.Eid i o query  eid   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
 	// PathParams: []
@@ -3037,20 +2954,22 @@ func (s *AorEntityExampleServer) FindPermissionUsingGET(ctx *gin.Context, params
 	// ID: ID
 	// ModelsPackage: models
 	// Name: id
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var id models.ID
-	var queryRes []models.ID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resID []models.ID
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} ID id models "id" o.ID i o path  id   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -3125,20 +3044,22 @@ func (s *AorEntityExampleServer) FindRoleUsingGET(ctx *gin.Context, params *role
 	// ID: RoleID
 	// ModelsPackage: models
 	// Name: roleId
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var roleId models.RoleID
-	var queryRes []models.RoleID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resRoleID []models.RoleID
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} RoleID roleId models "roleId" o.RoleID i o path  roleId   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -3213,20 +3134,22 @@ func (s *AorEntityExampleServer) FindSchemaEntityGET(ctx *gin.Context, params *s
 	// ID: Eid
 	// ModelsPackage: models
 	// Name: eid
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var eid models.Eid
-	var queryRes []models.Eid
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resEid []models.Eid
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} Eid eid models "eid" o.Eid i o path  eid   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -3301,20 +3224,22 @@ func (s *AorEntityExampleServer) FindUserUsingGET(ctx *gin.Context, params *user
 	// ID: UserID
 	// ModelsPackage: models
 	// Name: userId
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var userId models.UserID
-	var queryRes []models.UserID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resUserID []models.UserID
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} UserID userId models "userId" o.UserID i o path  userId   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -3385,6 +3310,20 @@ func (s *AorEntityExampleServer) GetAuthenticatedUserUsingGET(ctx *gin.Context) 
 	// ExtractString "add" "Using":
 	// ExtractString "list" "Using":
 	// ExtractString "get" "Using": AuthenticatedUser
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -3459,20 +3398,22 @@ func (s *AorEntityExampleServer) GetDataMutationUsingGET(ctx *gin.Context, param
 	// ID: Entity
 	// ModelsPackage: models
 	// Name: entity
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var entity models.Entity
-	var queryRes []models.Entity
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resEntity []models.Entity
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} Entity entity models "entity" o.Entity i o path  entity   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -3544,6 +3485,20 @@ func (s *AorEntityExampleServer) GetRoles(ctx *gin.Context) *api.Response {
 	// ExtractString "list" "Using":
 	// ExtractString "get" "Using":
 
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
+
 	// QueryParams: []
 	// PathParams: []
 	// HeaderParams: []
@@ -3614,6 +3569,20 @@ func (s *AorEntityExampleServer) GetSchemasUsingGET(ctx *gin.Context) *api.Respo
 	// ExtractString "list" "Using":
 	// ExtractString "get" "Using": Schemas
 
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
+
 	// QueryParams: []
 	// PathParams: []
 	// HeaderParams: []
@@ -3683,6 +3652,20 @@ func (s *AorEntityExampleServer) ListDataSourceUsingGET(ctx *gin.Context) *api.R
 	// ExtractString "add" "Using":
 	// ExtractString "list" "Using": DataSource
 	// ExtractString "get" "Using":
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -3757,20 +3740,22 @@ func (s *AorEntityExampleServer) ListPermissionUsingGET(ctx *gin.Context, params
 	// ID: RoleID
 	// ModelsPackage: models
 	// Name: roleId
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var roleId models.RoleID
-	var queryRes []models.RoleID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resRoleID []models.RoleID
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} RoleID roleId models "roleId" o.RoleID i o query  roleId   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
 	// PathParams: []
@@ -3842,6 +3827,20 @@ func (s *AorEntityExampleServer) ListUsersGET(ctx *gin.Context) *api.Response {
 	// ExtractString "list" "Using":
 	// ExtractString "get" "Using":
 
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
+
 	// QueryParams: []
 	// PathParams: []
 	// HeaderParams: []
@@ -3911,6 +3910,20 @@ func (s *AorEntityExampleServer) RefreshAndGetAuthenticationTokenUsingGET(ctx *g
 	// ExtractString "add" "Using":
 	// ExtractString "list" "Using":
 	// ExtractString "get" "Using":
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: []
@@ -3985,20 +3998,22 @@ func (s *AorEntityExampleServer) ResetCurrentDsUsingPUT(ctx *gin.Context, params
 	// ID: DataSourceID
 	// ModelsPackage: models
 	// Name: dataSourceId
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var dataSourceId models.DataSourceID
-	var queryRes []models.DataSourceID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resDataSourceID []models.DataSourceID
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} DataSourceID dataSourceId models "dataSourceId" o.DataSourceID i o path  dataSourceId   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
@@ -4073,20 +4088,22 @@ func (s *AorEntityExampleServer) SyncSchemasUsingPUT(ctx *gin.Context, params *s
 	// ID: DataSourceID
 	// ModelsPackage: models
 	// Name: dataSourceId
-
-	pp.Println("params: ", params)
-	response := make(map[string]string)
 	var dataSourceId models.DataSourceID
-	var queryRes []models.DataSourceID
-	db := ctx.MustGet("db").(*gorm.DB)
-	db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
-	if queryRes.DbName != "" {
-		response["status"] = "error"
-		response["msg"] = "Duplicate resource."
-	} else {
-		db.Create(&dataSource)
-		response["status"] = "success"
-	}
+	var resDataSourceID []models.DataSourceID
+
+	/*
+		pp.Println("params: ", params)
+		response := make(map[string]string)
+		db := ctx.MustGet("db").(*gorm.DB)
+		db.Where("cluster_name = ? AND db_name = ?", params.DataSource.ClusterName, params.DataSource.DbName).First(&queryRes)
+		if queryRes.DbName != "" {
+			response["status"] = "error"
+			response["msg"] = "Duplicate resource."
+		} else {
+			db.Create(&dataSource)
+			response["status"] = "success"
+		}
+	*/
 
 	// QueryParams: []
 	// PathParams: [{{false false false false true false false false false false false false false false false string    string  map[] <nil>} {true <nil> <nil>  <nil> <nil> <nil> false false [] [] false <nil> <nil> false false false false false} DataSourceID dataSourceId models "dataSourceId" o.DataSourceID i o path  dataSourceId   <nil>  <nil> <nil> <nil> <nil> false  false map[]}]
