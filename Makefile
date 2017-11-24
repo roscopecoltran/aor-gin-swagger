@@ -1,11 +1,18 @@
 .PHONY: build test generate clean
 
+OS          ?= $(shell go env GOOS)
+ARCH        ?= $(shell go env GOARCH)
+
 EXAMPLE_NAME 	?= aor-entity-example
-EXAMPLE_SPECS 	?= $(CURDIR)/tests/swagger.json
+EXAMPLE_SPECS 	?= $(CURDIR)/tests/swagger.yaml
 EXAMPLE_DIR 	?= $(CURDIR)/generated/$(EXAMPLE_NAME)
 
 BINARY_DIR   	?= $(CURDIR)/bin
 BINARY_NAME  	?= gin-swagger-aor
+ifeq ($(OS),windows)
+	BINARY_NAME := $(BINARY_NAME).exe
+endif
+
 SOURCES      	= $(shell find . -name '*.go')
 GOPKGS       	= $(shell go list ./... | grep -v /vendor/)
 TEMPLATES    	= $(shell find templates/ -type f -name '*.gotmpl')
@@ -13,6 +20,13 @@ BUILD_FLAGS  	?= -v
 LDFLAGS      	?= -X main.version=$(VERSION) -w -s
 
 default: build
+
+# git submodule add --prefix ./addons/swagger-ui https://github.com/swagger-api/swagger-ui master --squash
+# git submodule add --prefix ./addons/swagger-editor https://github.com/swagger-api/swagger-editor master --squash
+
+.PHONY: install-go-bindata
+install-go-bindata:
+	which go-bindata 2>/dev/null  || go get -v github.com/jteeuwen/go-bindata/go-bindata
 
 deps: glide
 	go get -v -u github.com/go-swagger/go-swagger/cmd/swagger

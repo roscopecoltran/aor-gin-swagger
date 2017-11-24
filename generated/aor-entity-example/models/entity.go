@@ -19,8 +19,17 @@ import (
 // swagger:model Entity
 type Entity struct {
 
-	// crud
-	Crud EntityCrud `json:"crud"`
+	// allow create
+	AllowCreate bool `json:"allow_create,omitempty"`
+
+	// allow delete
+	AllowDelete bool `json:"allow_delete,omitempty"`
+
+	// allow read
+	AllowRead bool `json:"allow_read,omitempty"`
+
+	// allow update
+	AllowUpdate bool `json:"allow_update,omitempty"`
 
 	// fields
 	Fields EntityFields `json:"fields"`

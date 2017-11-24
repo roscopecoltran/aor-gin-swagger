@@ -2070,23 +2070,6 @@ func init() {
         }
       }
     },
-    "CrudOptions": {
-      "type": "object",
-      "properties": {
-        "c": {
-          "type": "boolean"
-        },
-        "d": {
-          "type": "boolean"
-        },
-        "r": {
-          "type": "boolean"
-        },
-        "u": {
-          "type": "boolean"
-        }
-      }
-    },
     "DataSource": {
       "type": "object",
       "properties": {
@@ -2142,11 +2125,21 @@ func init() {
     "Entity": {
       "type": "object",
       "properties": {
-        "crud": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CrudOptions"
-          }
+        "allow_create": {
+          "type": "boolean",
+          "x-go-tag": "gorm:\"allow_create\""
+        },
+        "allow_delete": {
+          "type": "boolean",
+          "x-go-tag": "gorm:\"allow_delete\""
+        },
+        "allow_read": {
+          "type": "boolean",
+          "x-go-tag": "gorm:\"allow_read\""
+        },
+        "allow_update": {
+          "type": "boolean",
+          "x-go-tag": "gorm:\"allow_update\""
         },
         "fields": {
           "type": "array",
@@ -2158,10 +2151,12 @@ func init() {
           "type": "string"
         },
         "label": {
-          "type": "string"
+          "type": "string",
+          "x-go-tag": "gorm:\"label\""
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "x-go-tag": "gorm:\"name\""
         },
         "redirect": {
           "type": "string",
@@ -2169,10 +2164,12 @@ func init() {
             "edit",
             "show",
             "list"
-          ]
+          ],
+          "x-go-tag": "gorm:\"redirect\""
         },
         "showInMenu": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-go-tag": "gorm:\"show_in_menu\""
         }
       }
     },

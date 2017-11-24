@@ -1,4 +1,3 @@
-# https://github.com/go-swagger/go-swagger/blob/master/docs/use/template_layout.md
 layout:
   application:
     - name: configure
@@ -20,7 +19,6 @@ layout:
     - name: migrate
       source: "{{ .TmpDir }}/templates/migrate.gotmpl"
       target: "{{`{{ joinFilePath .Target \"cmd\" (dasherize (pascalize .Name)) }}-server`}}"      
-      # target: "{{`{{ joinFilePath .Target .ServerPackage }}`}}"
       file_name: "migrate.go"
     - name: service
       source: "{{ .TmpDir }}/templates/service.gotmpl"

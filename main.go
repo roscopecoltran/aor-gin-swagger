@@ -12,6 +12,7 @@ import (
 
 	// "github.com/fatih/structs"
 	// "github.com/k0kubun/pp"
+	"github.com/MohamedBassem/gormgen"
 	"github.com/iancoleman/strcase"
 	"github.com/roscopecoltran/aor-gin-swagger/utils"
 	"gopkg.in/alecthomas/kingpin.v2"
@@ -116,6 +117,23 @@ func run(application, swagger string, databaseMiddleware bool) error {
 	cmd.Stderr = os.Stderr
 
 	return cmd.Run()
+}
+
+func getWorkDir() (string, error) {
+	wd, err := os.Getwd()
+	if err != nil {
+		log.Fatalln(err)
+		return "", err
+	}
+	return wd, nil
+}
+
+func writeGormHelpers(wd string) {
+	if wd == "" {
+		wd, _ = getWorkDir()
+	}
+	parser := gormgen.NewParser()
+	parser.ParseDir(wd)
 }
 
 func writeAssets() (string, error) {

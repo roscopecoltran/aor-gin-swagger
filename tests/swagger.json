@@ -2186,11 +2186,17 @@
         "id": {
           "type": "string"
         },
-        "crud": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CrudOptions"
-          }
+        "allow_create": {
+          "type": "boolean"
+        },
+        "allow_read": {
+          "type": "boolean"
+        },
+        "allow_update": {
+          "type": "boolean"
+        },
+        "allow_delete": {
+          "type": "boolean"
         },
         "fields": {
           "type": "array",
@@ -2358,23 +2364,6 @@
         },
         "username": {
           "type": "string"
-        }
-      }
-    },
-    "CrudOptions": {
-      "type": "object",
-      "properties": {
-        "c": {
-          "type": "boolean"
-        },
-        "d": {
-          "type": "boolean"
-        },
-        "r": {
-          "type": "boolean"
-        },
-        "u": {
-          "type": "boolean"
         }
       }
     },

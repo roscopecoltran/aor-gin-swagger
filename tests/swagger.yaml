@@ -1442,33 +1442,39 @@ definitions:
     properties:
       id:
         type: string
-      crud:
-        type: array
-        items:
-          $ref: '#/definitions/CrudOptions'
-        # type: string
-        # type: array
-        # enum:
-        # - c
-        # - r
-        # - u
-        # - d
+      allow_create:
+        type: boolean
+        x-go-tag: "gorm:\"allow_create\""
+      allow_read:
+        type: boolean
+        x-go-tag: "gorm:\"allow_read\""
+      allow_update:
+        type: boolean
+        x-go-tag: "gorm:\"allow_update\""
+      allow_delete:
+        type: boolean
+        x-go-tag: "gorm:\"allow_delete\""
       fields:
         type: array
         items:
           $ref: '#/definitions/Field'
       label:
         type: string
+        x-go-tag: "gorm:\"label\""
       name:
         type: string
+        x-go-tag: "gorm:\"name\""
       redirect:
         type: string
         enum:
           - edit
           - show
           - list
+        # x-go-name: Redirect
+        x-go-tag: "gorm:\"redirect\""
       showInMenu:
         type: boolean
+        x-go-tag: "gorm:\"show_in_menu\""
   Field:
     type: object
     properties:
@@ -1571,19 +1577,6 @@ definitions:
         type: boolean
       username:
         type: string
-  CrudOptions:
-    type: object
-    properties:
-      c:
-        type: boolean
-      d:
-        type: boolean
-      r:
-        type: boolean
-      u:
-        type: boolean
-      d:
-        type: boolean
   Permission:
     type: object
     properties:
