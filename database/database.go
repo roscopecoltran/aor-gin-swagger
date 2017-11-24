@@ -10,7 +10,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/pressly/goose"
-	"github.com/roscopecoltran/admin-on-rest-server/server/config"
+	"github.com/roscopecoltran/aor-gin-swagger/config"
 )
 
 var DB *gorm.DB

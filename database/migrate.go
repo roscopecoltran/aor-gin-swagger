@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/fatih/structs"
-	"github.com/roscopecoltran/admin-on-rest-server/server/models"
 )
 
 func CreateTables(isTruncate bool, tables ...interface{}) {

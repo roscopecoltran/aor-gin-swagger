@@ -6,8 +6,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/roscopecoltran/admin-on-rest-server/server/config"
-	"github.com/roscopecoltran/admin-on-rest-server/server/models"
+	"github.com/roscopecoltran/aor-gin-swagger/config"
+	"github.com/roscopecoltran/aor-gin-swagger/models"
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"

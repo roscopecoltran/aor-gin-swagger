@@ -1,6 +1,4 @@
-package: github.com/roscopecoltran/gin-swagger
-ignore:
-- generated
+package: github.com/roscopecoltran/aor-gin-swagger
 import:
 - package: github.com/azumads/faker
 - package: github.com/buger/jsonparser
@@ -24,22 +22,10 @@ import:
   - dialects/mysql
   - dialects/postgres
   - dialects/sqlite
-- package: github.com/mikkeloscar/gin-swagger
+- package: github.com/pressly/goose
+- package: github.com/roscopecoltran/gin-swagger
   subpackages:
   - api
-  - example/models
-  - example/restapi
-  - example/restapi/operations/clusters
-  - example/restapi/operations/config_items
-  - example/restapi/operations/infrastructure_accounts
-  - example/restapi/operations/node_pools
-  - middleware
-- package: github.com/pressly/goose
-- package: github.com/roscopecoltran/admin-on-rest-server
-  subpackages:
-  - server/api
-  - server/config
-  - server/models
 - package: github.com/sirupsen/logrus
 - package: github.com/zalando/gin-oauth2
 - package: golang.org/x/oauth2

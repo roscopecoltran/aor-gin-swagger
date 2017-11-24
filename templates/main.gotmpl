@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/roscopecoltran/gin-swagger/config"
-	"github.com/roscopecoltran/gin-swagger/database"
+	"github.com/roscopecoltran/aor-gin-swagger/config"
+	"github.com/roscopecoltran/aor-gin-swagger/database"
 	{{range .DefaultImports}}{{printf "%q" .}}
 	{{end}}
 	{{range $key, $value := .Imports}}{{$key}} {{ printf "%q" $value}}

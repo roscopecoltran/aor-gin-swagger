@@ -13,7 +13,7 @@ import (
 	// "github.com/fatih/structs"
 	// "github.com/k0kubun/pp"
 	"github.com/iancoleman/strcase"
-	"github.com/roscopecoltran/gin-swagger/utils"
+	"github.com/roscopecoltran/aor-gin-swagger/utils"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 

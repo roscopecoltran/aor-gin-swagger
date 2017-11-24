@@ -3,3 +3,6 @@ vendor/
 ./gin-swagger-gorm
 ./aor-gin-swagger
 ./aor-gin-swagger-generator
+./gin-swagger-aor
+./bin/gin-swagger-aor
+./bin/*
