@@ -1,38 +1,34 @@
-package database
+package restapi
 
 import (
-
-	// DefaultImports
 	"github.com/roscopecoltran/gin-swagger/generated/aor-entity/models"
-
-	"github.com/roscopecoltran/admin-on-rest-server/server/models"
 )
 
 var (
-	DefaultTables = []interface{}{
-		&models.ListUsingGETOKBody{},
-		&models.JwtAuthenticationRequest{},
-		&models.FindEntityFieldsUsingGETOKBody{},
-		&models.GrantedAuthority{},
-		&models.JwtUserAuthorities{},
-		&models.User{},
-		&models.Apply{},
-		&models.GetRolesOKBody{},
+	RestApiTables = []interface{}{
 		&models.FindAllFieldsUsingGETOKBody{},
+		&models.ListUsingGET1OKBody{},
+		&models.FindEntityFieldsUsingGETOKBody{},
+		&models.IChoiceItem{},
+		&models.JwtAuthenticationRequest{},
+		&models.ListUsingGETOKBody{},
+		&models.Apply{},
 		&models.ListUsersGETOKBody{},
-		&models.RoleUsers{},
-		&models.UserRoles{},
-		&models.ChoiceItem{},
+		&models.Field{},
 		&models.JwtUser{},
 		&models.Permission{},
-		&models.Entity{},
-		&models.IChoiceItem{},
-		&models.GetSchemasUsingGETOKBody{},
-		&models.DataSource{},
 		&models.ResponseEntity{},
+		&models.GetSchemasUsingGETOKBody{},
+		&models.Entity{},
+		&models.UserRoles{},
+		&models.DataSource{},
 		&models.Role{},
-		&models.Field{},
+		&models.User{},
+		&models.ChoiceItem{},
+		&models.JwtUserAuthorities{},
 		&models.EntityFields{},
-		&models.ListUsingGET1OKBody{},
+		&models.GrantedAuthority{},
+		&models.RoleUsers{},
+		&models.GetRolesOKBody{},
 	}
 )

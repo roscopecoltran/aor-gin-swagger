@@ -1,2 +1,3 @@
 gin-swagger
 vendor/
+./gin-swagger-gorm

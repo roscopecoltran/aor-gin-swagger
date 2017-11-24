@@ -3,10 +3,8 @@ package main
 import (
 	"net/http"
 
-	// "github.com/roscopecoltran/gin-swagger/database"
 	"github.com/roscopecoltran/gin-swagger/api"
 
-	// DefaultImports
 	"github.com/roscopecoltran/gin-swagger/generated/aor-entity/models"
 	"github.com/roscopecoltran/gin-swagger/generated/aor-entity/restapi/operations/apply_controller"
 	"github.com/roscopecoltran/gin-swagger/generated/aor-entity/restapi/operations/authentication_rest_controller"
@@ -17,13 +15,9 @@ import (
 	"github.com/roscopecoltran/gin-swagger/generated/aor-entity/restapi/operations/schema_controller"
 	"github.com/roscopecoltran/gin-swagger/generated/aor-entity/restapi/operations/user_controller"
 
-	// Imports
-
-	"github.com/jinzhu/gorm"
-
-	// "github.com/gin-gonic/contrib/jwt"
-
 	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
+	// "github.com/k0kubun/pp"
 )
 
 func CreateOrUpdateJwtToken(db *gorm.DB, jwtUser *models.JwtUser) (bool, error) {
@@ -46,182 +40,182 @@ func (s *AorEntityServer) Healthy() bool {
 	return s.Health
 }
 
-func (s *addDataSourceUsingOPTIONSServer) AddDataSourceUsingOPTIONS(ctx *gin.Context, params *data_source_controller.AddDataSourceUsingOPTIONSParams) *api.Response {
+func (s *AorEntityServer) AddDataSourceUsingOPTIONS(ctx *gin.Context, params *data_source_controller.AddDataSourceUsingOPTIONSParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *addDataSourceUsingPOSTServer) AddDataSourceUsingPOST(ctx *gin.Context, params *data_source_controller.AddDataSourceUsingPOSTParams) *api.Response {
+func (s *AorEntityServer) AddDataSourceUsingPOST(ctx *gin.Context, params *data_source_controller.AddDataSourceUsingPOSTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *addEntityUsingOPTIONSServer) AddEntityUsingOPTIONS(ctx *gin.Context, params *schema_controller.AddEntityUsingOPTIONSParams) *api.Response {
+func (s *AorEntityServer) AddEntityUsingOPTIONS(ctx *gin.Context, params *schema_controller.AddEntityUsingOPTIONSParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *addEntityUsingPOSTServer) AddEntityUsingPOST(ctx *gin.Context, params *schema_controller.AddEntityUsingPOSTParams) *api.Response {
+func (s *AorEntityServer) AddEntityUsingPOST(ctx *gin.Context, params *schema_controller.AddEntityUsingPOSTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *addFieldUsingOPTIONSServer) AddFieldUsingOPTIONS(ctx *gin.Context, params *schema_controller.AddFieldUsingOPTIONSParams) *api.Response {
+func (s *AorEntityServer) AddFieldUsingOPTIONS(ctx *gin.Context, params *schema_controller.AddFieldUsingOPTIONSParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *addFieldUsingPOSTServer) AddFieldUsingPOST(ctx *gin.Context, params *schema_controller.AddFieldUsingPOSTParams) *api.Response {
+func (s *AorEntityServer) AddFieldUsingPOST(ctx *gin.Context, params *schema_controller.AddFieldUsingPOSTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *addPermissionUsingOPTIONSServer) AddPermissionUsingOPTIONS(ctx *gin.Context, params *permission_controller.AddPermissionUsingOPTIONSParams) *api.Response {
+func (s *AorEntityServer) AddPermissionUsingOPTIONS(ctx *gin.Context, params *permission_controller.AddPermissionUsingOPTIONSParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *addPermissionUsingPOSTServer) AddPermissionUsingPOST(ctx *gin.Context, params *permission_controller.AddPermissionUsingPOSTParams) *api.Response {
+func (s *AorEntityServer) AddPermissionUsingPOST(ctx *gin.Context, params *permission_controller.AddPermissionUsingPOSTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *addRoleUsingOPTIONSServer) AddRoleUsingOPTIONS(ctx *gin.Context, params *role_controller.AddRoleUsingOPTIONSParams) *api.Response {
+func (s *AorEntityServer) AddRoleUsingOPTIONS(ctx *gin.Context, params *role_controller.AddRoleUsingOPTIONSParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *addRoleUsingPOSTServer) AddRoleUsingPOST(ctx *gin.Context, params *role_controller.AddRoleUsingPOSTParams) *api.Response {
+func (s *AorEntityServer) AddRoleUsingPOST(ctx *gin.Context, params *role_controller.AddRoleUsingPOSTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *addUserUsingOPTIONSServer) AddUserUsingOPTIONS(ctx *gin.Context, params *user_controller.AddUserUsingOPTIONSParams) *api.Response {
+func (s *AorEntityServer) AddUserUsingOPTIONS(ctx *gin.Context, params *user_controller.AddUserUsingOPTIONSParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *addUserUsingPOSTServer) AddUserUsingPOST(ctx *gin.Context, params *user_controller.AddUserUsingPOSTParams) *api.Response {
+func (s *AorEntityServer) AddUserUsingPOST(ctx *gin.Context, params *user_controller.AddUserUsingPOSTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *applyUsingOPTIONSServer) ApplyUsingOPTIONS(ctx *gin.Context, params *apply_controller.ApplyUsingOPTIONSParams) *api.Response {
+func (s *AorEntityServer) ApplyUsingOPTIONS(ctx *gin.Context, params *apply_controller.ApplyUsingOPTIONSParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *applyUsingPOSTServer) ApplyUsingPOST(ctx *gin.Context, params *apply_controller.ApplyUsingPOSTParams) *api.Response {
+func (s *AorEntityServer) ApplyUsingPOST(ctx *gin.Context, params *apply_controller.ApplyUsingPOSTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *createAuthenticationTokenUsingOPTIONSServer) CreateAuthenticationTokenUsingOPTIONS(ctx *gin.Context, params *authentication_rest_controller.CreateAuthenticationTokenUsingOPTIONSParams) *api.Response {
+func (s *AorEntityServer) CreateAuthenticationTokenUsingOPTIONS(ctx *gin.Context, params *authentication_rest_controller.CreateAuthenticationTokenUsingOPTIONSParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *createAuthenticationTokenUsingPOSTServer) CreateAuthenticationTokenUsingPOST(ctx *gin.Context, params *authentication_rest_controller.CreateAuthenticationTokenUsingPOSTParams) *api.Response {
+func (s *AorEntityServer) CreateAuthenticationTokenUsingPOST(ctx *gin.Context, params *authentication_rest_controller.CreateAuthenticationTokenUsingPOSTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *dataMutationUsingDELETEServer) DataMutationUsingDELETE(ctx *gin.Context, params *data_controller.DataMutationUsingDELETEParams) *api.Response {
+func (s *AorEntityServer) DataMutationUsingDELETE(ctx *gin.Context, params *data_controller.DataMutationUsingDELETEParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *dataMutationUsingOPTIONSServer) DataMutationUsingOPTIONS(ctx *gin.Context, params *data_controller.DataMutationUsingOPTIONSParams) *api.Response {
+func (s *AorEntityServer) DataMutationUsingOPTIONS(ctx *gin.Context, params *data_controller.DataMutationUsingOPTIONSParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *dataMutationUsingPOSTServer) DataMutationUsingPOST(ctx *gin.Context, params *data_controller.DataMutationUsingPOSTParams) *api.Response {
+func (s *AorEntityServer) DataMutationUsingPOST(ctx *gin.Context, params *data_controller.DataMutationUsingPOSTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *dataMutationUsingPUTServer) DataMutationUsingPUT(ctx *gin.Context, params *data_controller.DataMutationUsingPUTParams) *api.Response {
+func (s *AorEntityServer) DataMutationUsingPUT(ctx *gin.Context, params *data_controller.DataMutationUsingPUTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *dataQueryUsingGETServer) DataQueryUsingGET(ctx *gin.Context, params *data_controller.DataQueryUsingGETParams) *api.Response {
+func (s *AorEntityServer) DataQueryUsingGET(ctx *gin.Context, params *data_controller.DataQueryUsingGETParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *editDataSourceUsingPUTServer) EditDataSourceUsingPUT(ctx *gin.Context, params *data_source_controller.EditDataSourceUsingPUTParams) *api.Response {
+func (s *AorEntityServer) EditDataSourceUsingPUT(ctx *gin.Context, params *data_source_controller.EditDataSourceUsingPUTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *editEntityUsingPUTServer) EditEntityUsingPUT(ctx *gin.Context, params *schema_controller.EditEntityUsingPUTParams) *api.Response {
+func (s *AorEntityServer) EditEntityUsingPUT(ctx *gin.Context, params *schema_controller.EditEntityUsingPUTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *editFieldUsingPUTServer) EditFieldUsingPUT(ctx *gin.Context, params *schema_controller.EditFieldUsingPUTParams) *api.Response {
+func (s *AorEntityServer) EditFieldUsingPUT(ctx *gin.Context, params *schema_controller.EditFieldUsingPUTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *editFieldUsingPUT_1Server) EditFieldUsingPUT1(ctx *gin.Context, params *user_controller.EditFieldUsingPUT1Params) *api.Response {
+func (s *AorEntityServer) EditFieldUsingPUT1(ctx *gin.Context, params *user_controller.EditFieldUsingPUT1Params) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *editPermissionUsingPUTServer) EditPermissionUsingPUT(ctx *gin.Context, params *permission_controller.EditPermissionUsingPUTParams) *api.Response {
+func (s *AorEntityServer) EditPermissionUsingPUT(ctx *gin.Context, params *permission_controller.EditPermissionUsingPUTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *editRoleUsingPUTServer) EditRoleUsingPUT(ctx *gin.Context, params *role_controller.EditRoleUsingPUTParams) *api.Response {
+func (s *AorEntityServer) EditRoleUsingPUT(ctx *gin.Context, params *role_controller.EditRoleUsingPUTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *findAllFieldsUsingGETServer) FindAllFieldsUsingGET(ctx *gin.Context, params *schema_controller.FindAllFieldsUsingGETParams) *api.Response {
+func (s *AorEntityServer) FindAllFieldsUsingGET(ctx *gin.Context, params *schema_controller.FindAllFieldsUsingGETParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *findEntityFieldsUsingGETServer) FindEntityFieldsUsingGET(ctx *gin.Context, params *schema_controller.FindEntityFieldsUsingGETParams) *api.Response {
+func (s *AorEntityServer) FindEntityFieldsUsingGET(ctx *gin.Context, params *schema_controller.FindEntityFieldsUsingGETParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *findOneFieldUsingGETServer) FindOneFieldUsingGET(ctx *gin.Context, params *schema_controller.FindOneFieldUsingGETParams) *api.Response {
+func (s *AorEntityServer) FindOneFieldUsingGET(ctx *gin.Context, params *schema_controller.FindOneFieldUsingGETParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *findOneUsingGETServer) FindOneUsingGET(ctx *gin.Context, params *data_controller.FindOneUsingGETParams) *api.Response {
+func (s *AorEntityServer) FindOneUsingGET(ctx *gin.Context, params *data_controller.FindOneUsingGETParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *findRoleUsingGETServer) FindRoleUsingGET(ctx *gin.Context, params *data_source_controller.FindRoleUsingGETParams) *api.Response {
+func (s *AorEntityServer) FindRoleUsingGET(ctx *gin.Context, params *data_source_controller.FindRoleUsingGETParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *findRoleUsingGET_1Server) FindRoleUsingGET1(ctx *gin.Context, params *role_controller.FindRoleUsingGET1Params) *api.Response {
+func (s *AorEntityServer) FindRoleUsingGET1(ctx *gin.Context, params *role_controller.FindRoleUsingGET1Params) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *findSchemaEntityGETServer) FindSchemaEntityGET(ctx *gin.Context, params *schema_controller.FindSchemaEntityGETParams) *api.Response {
+func (s *AorEntityServer) FindSchemaEntityGET(ctx *gin.Context, params *schema_controller.FindSchemaEntityGETParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *findUserUsingGETServer) FindUserUsingGET(ctx *gin.Context, params *permission_controller.FindUserUsingGETParams) *api.Response {
+func (s *AorEntityServer) FindUserUsingGET(ctx *gin.Context, params *permission_controller.FindUserUsingGETParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *findUserUsingGET_1Server) FindUserUsingGET1(ctx *gin.Context, params *user_controller.FindUserUsingGET1Params) *api.Response {
+func (s *AorEntityServer) FindUserUsingGET1(ctx *gin.Context, params *user_controller.FindUserUsingGET1Params) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *getAuthenticatedUserUsingGETServer) GetAuthenticatedUserUsingGET(ctx *gin.Context) *api.Response {
+func (s *AorEntityServer) GetAuthenticatedUserUsingGET(ctx *gin.Context) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *getRolesServer) GetRoles(ctx *gin.Context) *api.Response {
+func (s *AorEntityServer) GetRoles(ctx *gin.Context) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *getSchemasUsingGETServer) GetSchemasUsingGET(ctx *gin.Context) *api.Response {
+func (s *AorEntityServer) GetSchemasUsingGET(ctx *gin.Context) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *listUsersGETServer) ListUsersGET(ctx *gin.Context) *api.Response {
+func (s *AorEntityServer) ListUsersGET(ctx *gin.Context) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *listUsingGETServer) ListUsingGET(ctx *gin.Context) *api.Response {
+func (s *AorEntityServer) ListUsingGET(ctx *gin.Context) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *listUsingGET_1Server) ListUsingGET1(ctx *gin.Context, params *permission_controller.ListUsingGET1Params) *api.Response {
+func (s *AorEntityServer) ListUsingGET1(ctx *gin.Context, params *permission_controller.ListUsingGET1Params) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *refreshAndGetAuthenticationTokenUsingGETServer) RefreshAndGetAuthenticationTokenUsingGET(ctx *gin.Context) *api.Response {
+func (s *AorEntityServer) RefreshAndGetAuthenticationTokenUsingGET(ctx *gin.Context) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *resetCurrentDsUsingPUTServer) ResetCurrentDsUsingPUT(ctx *gin.Context, params *schema_controller.ResetCurrentDsUsingPUTParams) *api.Response {
+func (s *AorEntityServer) ResetCurrentDsUsingPUT(ctx *gin.Context, params *schema_controller.ResetCurrentDsUsingPUTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 
-func (s *syncSchemasUsingPUTServer) SyncSchemasUsingPUT(ctx *gin.Context, params *schema_controller.SyncSchemasUsingPUTParams) *api.Response {
+func (s *AorEntityServer) SyncSchemasUsingPUT(ctx *gin.Context, params *schema_controller.SyncSchemasUsingPUTParams) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }

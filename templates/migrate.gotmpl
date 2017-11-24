@@ -1,13 +1,8 @@
 package {{ .APIPackage }}
 
 import (
-	"fmt"
-
-	"github.com/fatih/structs"
-	// DefaultImports
 	{{range .DefaultImports}}{{printf "%q" .}}
 	{{end}}
-	"github.com/roscopecoltran/admin-on-rest-server/server/models"
 )
 
 var (

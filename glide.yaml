@@ -1,7 +1,12 @@
 package: github.com/roscopecoltran/gin-swagger
+ignore:
+- generated
 import:
 - package: github.com/azumads/faker
 - package: github.com/buger/jsonparser
+- package: github.com/dgrijalva/jwt-go
+  subpackages:
+  - request
 - package: github.com/fatih/structs
 - package: github.com/ghodss/yaml
 - package: github.com/gin-contrib/pprof
@@ -32,11 +37,11 @@ import:
 - package: github.com/pressly/goose
 - package: github.com/roscopecoltran/admin-on-rest-server
   subpackages:
+  - server/api
   - server/config
   - server/models
 - package: github.com/sirupsen/logrus
 - package: github.com/zalando/gin-oauth2
-- package: go.uber.org/zap
 - package: golang.org/x/oauth2
 - package: gopkg.in/alecthomas/kingpin.v2
 - package: gopkg.in/yaml.v2

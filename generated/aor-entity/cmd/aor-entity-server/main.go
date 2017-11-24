@@ -6,10 +6,7 @@ import (
 
 	"github.com/roscopecoltran/gin-swagger/config"
 	"github.com/roscopecoltran/gin-swagger/database"
-	// DefaultImports
-
 	"github.com/roscopecoltran/gin-swagger/generated/aor-entity/restapi"
-	// Imports
 )
 
 var (
@@ -18,8 +15,10 @@ var (
 
 func main() {
 
-	fmt.Printf("Listening on: %v\n", config.Config.Port)
-	fmt.Printf("Database status: %t\n", database.Status)
+	if config.Config.Debug {
+		fmt.Printf("Listening on: %v\n", config.Config.Port)
+		fmt.Printf("Database status: %t\n", database.Status)
+	}
 
 	err := apiConfig.Parse()
 	if err != nil {
@@ -27,7 +26,7 @@ func main() {
 	}
 
 	database.CreateTables(true, database.DefaultTables...)
-	svc := &AdminOnRestServer{Health: false} // , DataSource: database.DB}
+	svc := &AorEntityServer{Health: false}
 
 	api := restapi.NewAPI(svc, &apiConfig)
 

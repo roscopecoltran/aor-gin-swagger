@@ -11,7 +11,6 @@ func IsDirectory(path string) (bool, error) {
 		fmt.Println("error: ", err)
 		return false, err
 	}
-	fmt.Printf("IsDir? %t , dir=%s\n", fileInfo.IsDir(), path)
-	fmt.Println("fileInfo: ", fileInfo)
+	fmt.Printf("IsDir? %t, Dir=%s\n", fileInfo.IsDir(), path)
 	return fileInfo.IsDir(), err
 }

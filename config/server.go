@@ -49,7 +49,7 @@ type RpcConfig struct {
 type WsConfig struct {
 	Enabled bool   `env:"SERVER_API_WS_DISABLED" default:"true" json:"enabled" yaml:"enabled" toml:"enabled"`
 	Address string `env:"SERVER_API_WS_ADDRESS" description:"Rpc Server Address" default:"localhost:8901" json:"address" yaml:"address" toml:"address"`
-	SSL     bool   `env:"SERVER_API_WS_SSL" default:"false" json:"secured" yaml:"secured" toml:"secured"`
+	SSL     bool   `env:"SERVER_API_WS_SSL" default:"false" json:"ssl_mode" yaml:"ssl_mode" toml:"ssl_mode"`
 	Debug   bool   `env:"SERVER_API_WS_DEBUG" default:"false" json:"debug" yaml:"debug" toml:"debug"`
 }
 

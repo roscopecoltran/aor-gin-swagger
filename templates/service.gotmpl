@@ -7,20 +7,15 @@ import (
 	"github.com/roscopecoltran/gin-swagger/api"
 	"github.com/roscopecoltran/gin-swagger/config"
 
-	// DefaultImports
 	{{range .DefaultImports}}{{printf "%q" .}}
 	{{end}}
-	// Imports
 	{{range $key, $value := .Imports}}{{$key}} {{ printf "%q" $value}}
 	{{end}}
 
-	"github.com/jinzhu/gorm"
-	"github.com/k0kubun/pp"
-
-	jwt_lib "github.com/dgrijalva/jwt-go"
-	// "github.com/gin-gonic/contrib/jwt"
-
 	"github.com/gin-gonic/gin"
+	jwt_lib "github.com/dgrijalva/jwt-go"
+	"github.com/jinzhu/gorm"
+	// "github.com/k0kubun/pp"
 )
 
 func CreateOrUpdateJwtToken(db *gorm.DB, jwtUser *models.JwtUser) (bool, error) {
@@ -44,7 +39,7 @@ func (s *{{ .Name }}Server) Healthy() bool {
 }
 
 	{{range .Operations}}
-func (s *{{ .Name }}Server) {{ pascalize .Name }}(ctx *gin.Context{{ if .Params }},  params *{{.Package}}.{{ pascalize .Name }}Params{{ end }}) *api.Response {
+func (s *{{ $.Name }}Server) {{ pascalize .Name }}(ctx *gin.Context{{ if .Params }},  params *{{.Package}}.{{ pascalize .Name }}Params{{ end }}) *api.Response {
 	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
 }
 {{end}}

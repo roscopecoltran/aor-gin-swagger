@@ -25,6 +25,10 @@ layout:
       source: "{{ .TmpDir }}/templates/service.gotmpl"
       target: "{{`{{ joinFilePath .Target \"cmd\" (dasherize (pascalize .Name)) }}-server`}}"
       file_name: "service.go"
+    - name: doc
+      source: asset:serverDoc
+      target: "{{`{{ joinFilePath .Target .ServerPackage }}`}}"
+      file_name: "doc.go"
   models:
     - name: definition
       source: asset:model
