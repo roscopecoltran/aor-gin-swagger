@@ -1,0 +1,48 @@
+---
+model:
+  packages:
+    - name: {{ .Package }}
+      {{if .ObjectsFlag -}}
+      objects:
+      {{ range $defs := .Defs -}}
+      {{- if eq $defs.Usage "mo" -}}
+        {{- $defsName := $defs.Name }}
+        - name: {{ $defsName  }}
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+          {{- range $indprop := $defs.Indprop -}}
+          {{- $indpropName := $indprop.Name }}
+          {{- $indpropType := $indprop.Type }}
+            - name: {{$indpropName }}
+              type: {{$indpropType }}
+              apiaccess: readonly
+          {{end}}
+      {{- end -}}
+      {{end }}
+      {{end }}
+      {{ if .ApiTypeFlag -}}
+      apitypes:
+      {{ range $defs := .Defs -}}
+      {{- if eq $defs.Usage "type" -}}
+        {{- $defsName := $defs.Name }}
+        - name: {{ $defsName }}
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+          {{- range $indprop := $defs.Indprop -}}
+          {{- $indpropName := $indprop.Name -}}
+          {{- $indpropType := $indprop.Type }}
+            - name: {{$indpropName }}
+              type: {{$indpropType }}
+              apiaccess: readonly
+          {{end}}
+      {{end -}}
+      {{end}}
+      {{end }}

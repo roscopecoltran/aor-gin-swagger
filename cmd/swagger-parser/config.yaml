@@ -1,0 +1,13 @@
+---
+source_dir: ./tests/swagger.yaml
+package: HyperFlex
+objects:
+  - sourceName: about
+    targetName: About
+    usage: type
+  - sourceName: virtplatform/alarms
+    targetName: Alarm
+    usage: mo
+  - sourceName: appliances
+    targetName: Appliance
+    usage: type

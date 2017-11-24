@@ -1,0 +1,1560 @@
+---
+model:
+  packages:
+    - name: HyperFlex
+      objects:
+      
+        - name: StringStringPair
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: first
+              type: string
+              apiaccess: readonly
+          
+            - name: second
+              type: string
+              apiaccess: readonly
+          
+        - name: Alarm
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: triggeredTime
+              type: string
+              apiaccess: readonly
+          
+            - name: acknowledged
+              type: boolean
+              apiaccess: readonly
+          
+            - name: entityName
+              type: string
+              apiaccess: readonly
+          
+            - name: description
+              type: string
+              apiaccess: readonly
+          
+            - name: status
+              type: string
+              apiaccess: readonly
+          
+            - name: mor
+              type: StringStringPair
+              apiaccess: readonly
+          
+            - name: entity
+              type: StringStringPair
+              apiaccess: readonly
+          
+            - name: key
+              type: string
+              apiaccess: readonly
+          
+      
+      apitypes:
+      
+        - name: About
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: modelNumber
+              type: string
+              apiaccess: readonly
+          
+            - name: locale
+              type: string
+              apiaccess: readonly
+          
+            - name: pid
+              type: string
+              apiaccess: readonly
+          
+            - name: setPid
+              type: boolean
+              apiaccess: readonly
+          
+            - name: apiVersion
+              type: string
+              apiaccess: readonly
+          
+            - name: productVersion
+              type: string
+              apiaccess: readonly
+          
+            - name: name
+              type: string
+              apiaccess: readonly
+          
+            - name: fullName
+              type: string
+              apiaccess: readonly
+          
+            - name: serviceType
+              type: string
+              apiaccess: readonly
+          
+            - name: displayVersion
+              type: string
+              apiaccess: readonly
+          
+            - name: setProductVersion
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setModelNumber
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setBuild
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setDisplayVersion
+              type: boolean
+              apiaccess: readonly
+          
+            - name: build
+              type: string
+              apiaccess: readonly
+          
+            - name: setInstanceUuid
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setSerialNumber
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setLocale
+              type: boolean
+              apiaccess: readonly
+          
+            - name: instanceUuid
+              type: string
+              apiaccess: readonly
+          
+            - name: serialNumber
+              type: string
+              apiaccess: readonly
+          
+            - name: setApiVersion
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setName
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setFullName
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setServiceType
+              type: boolean
+              apiaccess: readonly
+          
+      
+        - name: IteratorStep
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+      
+        - name: EntityRef
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: setName
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setIdtype
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setConfignum
+              type: boolean
+              apiaccess: readonly
+          
+            - name: idtype
+              type: string
+              apiaccess: readonly
+          
+            - name: confignum
+              type: integer
+              apiaccess: readonly
+          
+            - name: setId
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setType
+              type: boolean
+              apiaccess: readonly
+          
+            - name: id
+              type: string
+              apiaccess: readonly
+          
+            - name: type
+              type: string
+              apiaccess: readonly
+          
+            - name: name
+              type: string
+              apiaccess: readonly
+          
+      
+        - name: StOperationInfo
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: state
+              type: string
+              apiaccess: readonly
+          
+            - name: setState
+              type: boolean
+              apiaccess: readonly
+          
+      
+        - name: IteratorStDisk
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+      
+        - name: AboutInfo
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: build
+              type: string
+              apiaccess: readonly
+          
+            - name: setInstanceUuid
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setName
+              type: boolean
+              apiaccess: readonly
+          
+            - name: modelNumber
+              type: string
+              apiaccess: readonly
+          
+            - name: name
+              type: string
+              apiaccess: readonly
+          
+            - name: productVersion
+              type: string
+              apiaccess: readonly
+          
+            - name: serialNumber
+              type: string
+              apiaccess: readonly
+          
+            - name: serviceType
+              type: string
+              apiaccess: readonly
+          
+            - name: setApiVersion
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setProductVersion
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setModelNumber
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setFullName
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setBuild
+              type: boolean
+              apiaccess: readonly
+          
+            - name: apiVersion
+              type: string
+              apiaccess: readonly
+          
+            - name: locale
+              type: string
+              apiaccess: readonly
+          
+            - name: setPid
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setLocale
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setServiceType
+              type: boolean
+              apiaccess: readonly
+          
+            - name: displayVersion
+              type: string
+              apiaccess: readonly
+          
+            - name: pid
+              type: string
+              apiaccess: readonly
+          
+            - name: setSerialNumber
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setDisplayVersion
+              type: boolean
+              apiaccess: readonly
+          
+            - name: instanceUuid
+              type: string
+              apiaccess: readonly
+          
+            - name: fullName
+              type: string
+              apiaccess: readonly
+          
+      
+        - name: StDisk
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: setPath
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setRuntimeState
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setProgressPct
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setEntityRef
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setCapacity
+              type: boolean
+              apiaccess: readonly
+          
+            - name: version
+              type: integer
+              apiaccess: readonly
+          
+            - name: path
+              type: string
+              apiaccess: readonly
+          
+            - name: setUsage
+              type: boolean
+              apiaccess: readonly
+          
+            - name: lastModifiedTime
+              type: integer
+              apiaccess: readonly
+          
+            - name: medium
+              type: string
+              apiaccess: readonly
+          
+            - name: usage
+              type: string
+              apiaccess: readonly
+          
+            - name: state
+              type: string
+              apiaccess: readonly
+          
+            - name: setMedium
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setVersion
+              type: boolean
+              apiaccess: readonly
+          
+            - name: entityRef
+              type: EntityRef
+              apiaccess: readonly
+          
+            - name: capacity
+              type: integer
+              apiaccess: readonly
+          
+            - name: usedCapacity
+              type: integer
+              apiaccess: readonly
+          
+            - name: setBlacklistCount
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setState
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setUsedCapacity
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setLastModifiedTime
+              type: boolean
+              apiaccess: readonly
+          
+            - name: runtimeState
+              type: string
+              apiaccess: readonly
+          
+            - name: progressPct
+              type: number
+              apiaccess: readonly
+          
+            - name: blacklistCount
+              type: integer
+              apiaccess: readonly
+          
+      
+        - name: StPlatformNode
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: setRetired
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setCompression
+              type: boolean
+              apiaccess: readonly
+          
+            - name: ip
+              type: string
+              apiaccess: readonly
+          
+            - name: dedup
+              type: boolean
+              apiaccess: readonly
+          
+            - name: disksIterator
+              type: IteratorStDisk
+              apiaccess: readonly
+          
+            - name: setName
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setIp
+              type: boolean
+              apiaccess: readonly
+          
+            - name: master
+              type: boolean
+              apiaccess: readonly
+          
+            - name: entityRef
+              type: EntityRef
+              apiaccess: readonly
+          
+            - name: setDataWriteThruEnabled
+              type: boolean
+              apiaccess: readonly
+          
+            - name: bootTime
+              type: integer
+              apiaccess: readonly
+          
+            - name: nsPrimary
+              type: boolean
+              apiaccess: readonly
+          
+            - name: dataWriteThruEnabled
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setNsPrimary
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setMaster
+              type: boolean
+              apiaccess: readonly
+          
+            - name: lastModifiedTime
+              type: integer
+              apiaccess: readonly
+          
+            - name: about
+              type: AboutInfo
+              apiaccess: readonly
+          
+            - name: retired
+              type: boolean
+              apiaccess: readonly
+          
+            - name: disksSize
+              type: integer
+              apiaccess: readonly
+          
+            - name: setAbout
+              type: boolean
+              apiaccess: readonly
+          
+            - name: disks
+              type: Collection(StDisk)
+              apiaccess: readonly
+          
+            - name: compression
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setState
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setEntityRef
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setDedup
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setBootTime
+              type: boolean
+              apiaccess: readonly
+          
+            - name: name
+              type: string
+              apiaccess: readonly
+          
+            - name: state
+              type: string
+              apiaccess: readonly
+          
+            - name: setDisks
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setVersion
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setLastModifiedTime
+              type: boolean
+              apiaccess: readonly
+          
+            - name: version
+              type: integer
+              apiaccess: readonly
+          
+      
+        - name: IpSettings
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: setStService
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setVlanId
+              type: boolean
+              apiaccess: readonly
+          
+            - name: addr
+              type: string
+              apiaccess: readonly
+          
+            - name: subnetMask
+              type: string
+              apiaccess: readonly
+          
+            - name: gateway
+              type: string
+              apiaccess: readonly
+          
+            - name: setAddr
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setSubnetMask
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setGateway
+              type: boolean
+              apiaccess: readonly
+          
+            - name: method
+              type: string
+              apiaccess: readonly
+          
+            - name: stService
+              type: string
+              apiaccess: readonly
+          
+            - name: vlanId
+              type: integer
+              apiaccess: readonly
+          
+            - name: setMethod
+              type: boolean
+              apiaccess: readonly
+          
+      
+        - name: StackTraceElement
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: methodName
+              type: string
+              apiaccess: readonly
+          
+            - name: fileName
+              type: string
+              apiaccess: readonly
+          
+            - name: lineNumber
+              type: integer
+              apiaccess: readonly
+          
+            - name: className
+              type: string
+              apiaccess: readonly
+          
+            - name: nativeMethod
+              type: boolean
+              apiaccess: readonly
+          
+      
+        - name: Throwable
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: stackTrace
+              type: Collection(StackTraceElement)
+              apiaccess: readonly
+          
+            - name: message
+              type: string
+              apiaccess: readonly
+          
+            - name: localizedMessage
+              type: string
+              apiaccess: readonly
+          
+            - name: suppressed
+              type: Collection(Throwable)
+              apiaccess: readonly
+          
+            - name: cause
+              type: Throwable
+              apiaccess: readonly
+          
+      
+        - name: StPlatformException
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: suppressed
+              type: Collection(Throwable)
+              apiaccess: readonly
+          
+            - name: cause
+              type: Throwable
+              apiaccess: readonly
+          
+            - name: stackTrace
+              type: Collection(StackTraceElement)
+              apiaccess: readonly
+          
+            - name: error
+              type: integer
+              apiaccess: readonly
+          
+            - name: setMessage
+              type: boolean
+              apiaccess: readonly
+          
+            - name: dataSize
+              type: integer
+              apiaccess: readonly
+          
+            - name: setData
+              type: boolean
+              apiaccess: readonly
+          
+            - name: localizedMessage
+              type: string
+              apiaccess: readonly
+          
+            - name: type
+              type: string
+              apiaccess: readonly
+          
+            - name: message
+              type: string
+              apiaccess: readonly
+          
+            - name: data
+              type: string
+              apiaccess: readonly
+          
+            - name: setType
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setError
+              type: boolean
+              apiaccess: readonly
+          
+      
+        - name: DynamicProperty
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: name
+              type: string
+              apiaccess: readonly
+          
+            - name: val
+              type: object
+              apiaccess: readonly
+          
+      
+        - name: KeyAnyValue
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: value
+              type: object
+              apiaccess: readonly
+          
+            - name: dynamicType
+              type: string
+              apiaccess: readonly
+          
+            - name: dynamicProperty
+              type: Collection(DynamicProperty)
+              apiaccess: readonly
+          
+            - name: key
+              type: string
+              apiaccess: readonly
+          
+      
+        - name: LocalizableMessage
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: arg
+              type: Collection(KeyAnyValue)
+              apiaccess: readonly
+          
+            - name: message
+              type: string
+              apiaccess: readonly
+          
+            - name: dynamicType
+              type: string
+              apiaccess: readonly
+          
+            - name: dynamicProperty
+              type: Collection(DynamicProperty)
+              apiaccess: readonly
+          
+            - name: key
+              type: string
+              apiaccess: readonly
+          
+      
+        - name: StException
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: message
+              type: string
+              apiaccess: readonly
+          
+            - name: setMessage
+              type: boolean
+              apiaccess: readonly
+          
+            - name: dataSize
+              type: integer
+              apiaccess: readonly
+          
+            - name: setData
+              type: boolean
+              apiaccess: readonly
+          
+            - name: set_DO_NOT_USE_localizedMessage
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setEntityRef
+              type: boolean
+              apiaccess: readonly
+          
+            - name: cause
+              type: StPlatformException
+              apiaccess: readonly
+          
+            - name: id
+              type: string
+              apiaccess: readonly
+          
+            - name: entityRef
+              type: EntityRef
+              apiaccess: readonly
+          
+            - name: severity
+              type: string
+              apiaccess: readonly
+          
+            - name: lcMessage
+              type: LocalizableMessage
+              apiaccess: readonly
+          
+            - name: setLcMessage
+              type: boolean
+              apiaccess: readonly
+          
+            - name: data
+              type: string
+              apiaccess: readonly
+          
+            - name: get_DO_NOT_USE_localizedMessage
+              type: string
+              apiaccess: readonly
+          
+            - name: setId
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setCause
+              type: boolean
+              apiaccess: readonly
+          
+            - name: suppressed
+              type: Collection(Throwable)
+              apiaccess: readonly
+          
+            - name: stackTrace
+              type: Collection(StackTraceElement)
+              apiaccess: readonly
+          
+            - name: setSeverity
+              type: boolean
+              apiaccess: readonly
+          
+            - name: localizedMessage
+              type: string
+              apiaccess: readonly
+          
+      
+        - name: Step
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: description
+              type: string
+              apiaccess: readonly
+          
+            - name: completion
+              type: integer
+              apiaccess: readonly
+          
+            - name: setEntity
+              type: boolean
+              apiaccess: readonly
+          
+            - name: parent
+              type: EntityRef
+              apiaccess: readonly
+          
+            - name: isValidation
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setState
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setLcDescription
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setDescription
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setCompletion
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setIsValidation
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setName
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setFault
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setParent
+              type: boolean
+              apiaccess: readonly
+          
+            - name: name
+              type: string
+              apiaccess: readonly
+          
+            - name: state
+              type: string
+              apiaccess: readonly
+          
+            - name: entity
+              type: EntityRef
+              apiaccess: readonly
+          
+            - name: fault
+              type: StException
+              apiaccess: readonly
+          
+            - name: lcDescription
+              type: LocalizableMessage
+              apiaccess: readonly
+          
+      
+        - name: IOVisor
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: setAbout
+              type: boolean
+              apiaccess: readonly
+          
+            - name: about
+              type: AboutInfo
+              apiaccess: readonly
+          
+            - name: state
+              type: string
+              apiaccess: readonly
+          
+            - name: setState
+              type: boolean
+              apiaccess: readonly
+          
+      
+        - name: StCtlVM
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: ip
+              type: string
+              apiaccess: readonly
+          
+            - name: name
+              type: string
+              apiaccess: readonly
+          
+            - name: role
+              type: string
+              apiaccess: readonly
+          
+            - name: mgmtClusterIp
+              type: string
+              apiaccess: readonly
+          
+            - name: setGuestState
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setRole
+              type: boolean
+              apiaccess: readonly
+          
+            - name: entityRef
+              type: EntityRef
+              apiaccess: readonly
+          
+            - name: moid
+              type: string
+              apiaccess: readonly
+          
+            - name: setPassthrough
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setStorageClusterIp
+              type: boolean
+              apiaccess: readonly
+          
+            - name: mgmtNetworkIp
+              type: string
+              apiaccess: readonly
+          
+            - name: storageNetworkIp
+              type: string
+              apiaccess: readonly
+          
+            - name: setVersion
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setStorageNetworkIp
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setMgmtClusterIp
+              type: boolean
+              apiaccess: readonly
+          
+            - name: guestState
+              type: string
+              apiaccess: readonly
+          
+            - name: passthrough
+              type: string
+              apiaccess: readonly
+          
+            - name: setName
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setGuestHostname
+              type: boolean
+              apiaccess: readonly
+          
+            - name: storageClusterIp
+              type: string
+              apiaccess: readonly
+          
+            - name: setMoid
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setEntityRef
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setIp
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setMgmtNetworkIp
+              type: boolean
+              apiaccess: readonly
+          
+            - name: guestHostname
+              type: string
+              apiaccess: readonly
+          
+            - name: version
+              type: string
+              apiaccess: readonly
+          
+      
+        - name: VirtNode
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: vMotionIp
+              type: IpSettings
+              apiaccess: readonly
+          
+            - name: moid
+              type: string
+              apiaccess: readonly
+          
+            - name: ioVisor
+              type: IOVisor
+              apiaccess: readonly
+          
+            - name: setIp
+              type: boolean
+              apiaccess: readonly
+          
+            - name: ip
+              type: IpSettings
+              apiaccess: readonly
+          
+            - name: name
+              type: string
+              apiaccess: readonly
+          
+            - name: setFw
+              type: boolean
+              apiaccess: readonly
+          
+            - name: stctlvm
+              type: StCtlVM
+              apiaccess: readonly
+          
+            - name: state
+              type: string
+              apiaccess: readonly
+          
+            - name: setName
+              type: boolean
+              apiaccess: readonly
+          
+            - name: fw
+              type: string
+              apiaccess: readonly
+          
+            - name: ipmiSettings
+              type: IpSettings
+              apiaccess: readonly
+          
+            - name: about
+              type: AboutInfo
+              apiaccess: readonly
+          
+            - name: setMoid
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setStctlvm
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setState
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setAbout
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setVMotionIp
+              type: boolean
+              apiaccess: readonly
+          
+            - name: entityRef
+              type: EntityRef
+              apiaccess: readonly
+          
+            - name: vib
+              type: string
+              apiaccess: readonly
+          
+            - name: vmotionIp
+              type: IpSettings
+              apiaccess: readonly
+          
+            - name: setIpmiSettings
+              type: boolean
+              apiaccess: readonly
+          
+            - name: bootTime
+              type: integer
+              apiaccess: readonly
+          
+            - name: setEnclosureSerialNumber
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setIoVisor
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setVib
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setEntityRef
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setBootTime
+              type: boolean
+              apiaccess: readonly
+          
+            - name: enclosureSerialNumber
+              type: string
+              apiaccess: readonly
+          
+      
+        - name: StNode
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: progressIterator
+              type: IteratorStep
+              apiaccess: readonly
+          
+            - name: clusterRef
+              type: EntityRef
+              apiaccess: readonly
+          
+            - name: setHost
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setClusterRef
+              type: boolean
+              apiaccess: readonly
+          
+            - name: opInfo
+              type: StOperationInfo
+              apiaccess: readonly
+          
+            - name: pnode
+              type: StPlatformNode
+              apiaccess: readonly
+          
+            - name: setState
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setProgress
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setUpgradeVersion
+              type: boolean
+              apiaccess: readonly
+          
+            - name: entityRef
+              type: EntityRef
+              apiaccess: readonly
+          
+            - name: state
+              type: string
+              apiaccess: readonly
+          
+            - name: storfsIp
+              type: IpSettings
+              apiaccess: readonly
+          
+            - name: setEntityRef
+              type: boolean
+              apiaccess: readonly
+          
+            - name: progressSize
+              type: integer
+              apiaccess: readonly
+          
+            - name: pNode
+              type: StPlatformNode
+              apiaccess: readonly
+          
+            - name: progress
+              type: Collection(Step)
+              apiaccess: readonly
+          
+            - name: setFwVersion
+              type: boolean
+              apiaccess: readonly
+          
+            - name: fwVersion
+              type: string
+              apiaccess: readonly
+          
+            - name: setPNode
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setStorfsIp
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setOpInfo
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setUpgradeState
+              type: boolean
+              apiaccess: readonly
+          
+            - name: host
+              type: VirtNode
+              apiaccess: readonly
+          
+            - name: upgradeState
+              type: string
+              apiaccess: readonly
+          
+            - name: upgradeVersion
+              type: string
+              apiaccess: readonly
+          
+      
+        - name: SlotStNodeMap
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: nodePosition
+              type: string
+              apiaccess: readonly
+          
+            - name: stNode
+              type: StNode
+              apiaccess: readonly
+          
+      
+        - name: PowerSupply
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: name
+              type: string
+              apiaccess: readonly
+          
+            - name: status
+              type: string
+              apiaccess: readonly
+          
+            - name: setName
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setStatus
+              type: boolean
+              apiaccess: readonly
+          
+      
+        - name: PhysicalDisk
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: setLogicalname
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setStatus
+              type: boolean
+              apiaccess: readonly
+          
+            - name: serialNumber
+              type: string
+              apiaccess: readonly
+          
+            - name: setSlotNumber
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setEntityRef
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setModelNumber
+              type: boolean
+              apiaccess: readonly
+          
+            - name: status
+              type: string
+              apiaccess: readonly
+          
+            - name: capacity
+              type: integer
+              apiaccess: readonly
+          
+            - name: setVendor
+              type: boolean
+              apiaccess: readonly
+          
+            - name: slotNumber
+              type: string
+              apiaccess: readonly
+          
+            - name: logicalname
+              type: string
+              apiaccess: readonly
+          
+            - name: setVersion
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setSerialNumber
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setCapacity
+              type: boolean
+              apiaccess: readonly
+          
+            - name: entityRef
+              type: EntityRef
+              apiaccess: readonly
+          
+            - name: modelNumber
+              type: string
+              apiaccess: readonly
+          
+            - name: version
+              type: string
+              apiaccess: readonly
+          
+            - name: vendor
+              type: string
+              apiaccess: readonly
+          
+      
+        - name: PhysicalNicInfo
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: device
+              type: string
+              apiaccess: readonly
+          
+            - name: mac
+              type: string
+              apiaccess: readonly
+          
+            - name: speedMb
+              type: integer
+              apiaccess: readonly
+          
+            - name: pci
+              type: string
+              apiaccess: readonly
+          
+            - name: setDevice
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setMac
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setSpeedMb
+              type: boolean
+              apiaccess: readonly
+          
+            - name: setPci
+              type: boolean
+              apiaccess: readonly
+          
+      
+        - name: Appliance
+          concrete: yes
+          apimethods:
+            - name: GET
+            - name: POST
+            - name: DELETE
+          properties:
+            - name: modelNumber
+              type: string
+              apiaccess: readonly
+          
+            - name: serialNumber
+              type: string
+              apiaccess: readonly
+          
+            - name: nodes
+              type: Collection(SlotStNodeMap)
+              apiaccess: readonly
+          
+            - name: ps
+              type: Collection(PowerSupply)
+              apiaccess: readonly
+          
+            - name: disks
+              type: Collection(PhysicalDisk)
+              apiaccess: readonly
+          
+            - name: pnics
+              type: Collection(PhysicalNicInfo)
+              apiaccess: readonly
+          
+      
+      

@@ -1,0 +1,4406 @@
+---
+swagger: '2.0'
+info:
+  description: REST APIs to access core functionalities in cluster
+  version: 1.0.0
+  title: HyperFlex Legacy REST API
+  termsOfService: '"termsOfService": "http://swagger.io/terms/"'
+  contact:
+    name: System Managerment API Team
+    url: http://www.springpathinc.com/support
+    email: techsupport@springpathinc.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: api.springpathinc.com
+basePath: "/rest"
+tags:
+- name: Cluster
+- name: Data Protection
+  description: Data Protection APIs
+- name: Installer
+  description: Deployment resource APIs
+- name: Virtual Platform
+  description: Virtplatform resource APIs
+schemes:
+- http
+- https
+paths:
+  "/about":
+    get:
+      tags:
+      - Cluster
+      summary: Show server version and product details
+      description: ''
+      operationId: getVersion
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/AboutInfo"
+  "/api/v1/vaai/vm/{serverId_vmId}/datanetworkip":
+    get:
+      tags:
+      - Cluster
+      summary: Get VM to ESX HX Data Networking IP mapping
+      description: ''
+      operationId: getVMToESXHXDataNetworkIpMapping
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: serverId_vmId
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/VmDataNetworkIpResult"
+  "/api/v1/vaai/vm/{serverId_vmId}/snapshot":
+    post:
+      tags:
+      - Cluster
+      summary: Create a new native snapshot of this virtual machine
+      description: ''
+      operationId: createVmVaaiSnapshot
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: serverId_vmId
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/CreateSnapshotResultDTO"
+  "/api/v1/vaai/vm/{serverId_vmId}/snapshot/{snapshotId}":
+    put:
+      tags:
+      - Cluster
+      summary: Delete Snapshot for VM with the given Id
+      description: ''
+      operationId: deleteVmVaaiSnapshot
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: serverId_vmId
+        in: path
+        required: true
+        type: string
+      - name: snapshotId
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/DeleteSnapshotResult"
+  "/appliances":
+    get:
+      tags:
+      - Cluster
+      summary: Shows all appliances that are part of this cluster
+      description: ''
+      operationId: getAppliances
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/ApplianceDTO"
+  "/clone/{vmId}":
+    post:
+      tags:
+      - Cluster
+      summary: Creates a specified number of clones of the VM. For every clone operation,
+        the returned status will refer to the VM on success, and an error message
+        failure
+      description: ''
+      operationId: cloneVM
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: vmId
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/VMCloneStatus"
+  "/cluster/messages":
+    get:
+      tags:
+      - Cluster
+      summary: Get a List of Messages about the operational state of the system.
+      description: ''
+      operationId: getMessages
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: query
+        required: false
+        type: string
+      - name: type
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/EntityNameEntityMessagesPair"
+  "/cluster/network/configure/{name}":
+    put:
+      tags:
+      - Cluster
+      summary: Configure Network settings
+      description: ''
+      operationId: configureNetworkSettingsInCluster
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: name
+        in: path
+        required: true
+        type: string
+      responses:
+        default:
+          description: successful operation
+  "/cluster/refresh":
+    post:
+      tags:
+      - Cluster
+      summary: Refresh Cluster status
+      description: ''
+      operationId: refreshClusterStatus
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+  "/cluster/time":
+    get:
+      tags:
+      - Cluster
+      summary: Server time details
+      description: ''
+      operationId: getServerTime
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/Time"
+  "/clusterVersionDetails":
+    post:
+      tags:
+      - Cluster
+      summary: Gets cluster version and service details
+      description: ''
+      operationId: getClusterVersionDetails
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/StClusterVersionDetails"
+  "/clusters":
+    get:
+      tags:
+      - Cluster
+      summary: Returns Storage Cluster list if present
+      description: ''
+      operationId: getClusters
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/StCluster"
+  "/datastores":
+    get:
+      tags:
+      - Cluster
+      summary: Show all the datastores
+      description: ''
+      operationId: getDatastores
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/StDatastore"
+    post:
+      tags:
+      - Cluster
+      summary: Update/Add datastore
+      description: ''
+      operationId: upsertDatastore
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/StDatastore"
+  "/datastores/{datastoreId}":
+    get:
+      tags:
+      - Cluster
+      summary: Find a datastore
+      description: ''
+      operationId: getDatastore
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: datastoreId
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/StDatastore"
+    post:
+      tags:
+      - Cluster
+      summary: Mount/Unmount datastore
+      description: ''
+      operationId: mountUnmountDatastore
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: datastoreId
+        in: path
+        required: true
+        type: string
+      - name: action
+        in: query
+        required: false
+        type: string
+      responses:
+        default:
+          description: successful operation
+    delete:
+      tags:
+      - Cluster
+      summary: Delete Datastore for the given Id
+      description: ''
+      operationId: deleteDatastore
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: datastoreId
+        in: path
+        required: true
+        type: string
+      responses:
+        default:
+          description: successful operation
+  "/job":
+    get:
+      tags:
+      - Cluster
+      summary: Show the status of a Job
+      description: ''
+      operationId: queryJob
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: jobid
+        in: query
+        required: false
+        type: string
+      - name: jobtype
+        in: query
+        required: false
+        type: string
+      - name: jobstate
+        in: query
+        required: false
+        type: integer
+        default: 0
+        format: int32
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/StJob"
+  "/network/smtp":
+    get:
+      tags:
+      - Cluster
+      summary: Retrieve the SMTP server information
+      description: ''
+      operationId: getSMTPConfiguration
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/StSMTPConfiguration"
+    post:
+      tags:
+      - Cluster
+      summary: Set the SMTP configuration
+      description: ''
+      operationId: setSMTPConfiguration
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        default:
+          description: successful operation
+    delete:
+      tags:
+      - Cluster
+      summary: Clear the SMTP configuration
+      description: ''
+      operationId: clearSMTPConfiguration
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        default:
+          description: successful operation
+  "/network/{serverType}":
+    get:
+      tags:
+      - Cluster
+      summary: List DNS/NTP server list
+      description: ''
+      operationId: getServersList
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: serverType
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              type: object
+  "/network/{serverType}/{operationType}":
+    post:
+      tags:
+      - Cluster
+      summary: Sets, clears, adds, or removes the DNS/NTP server list
+      description: ''
+      operationId: updateServerList
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: serverType
+        in: path
+        required: true
+        type: string
+      - name: operationType
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              type: object
+  "/networkconfig":
+    get:
+      tags:
+      - Cluster
+      summary: Show network configuration of the Storage Controller VM
+      description: ''
+      operationId: getNetworkConfiguration
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/StNetworkSettings"
+  "/postevent":
+    post:
+      tags:
+      - Cluster
+      summary: Post an event to vCenter Cluster
+      description: ''
+      operationId: postEvent
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+  "/security/whitelist":
+    get:
+      tags:
+      - Cluster
+      summary: Show all IP white listed entries in IP tables
+      description: ''
+      operationId: getIPWhitelistEntries
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              type: object
+    post:
+      tags:
+      - Cluster
+      summary: Add/Remove all IP white listed entries in IP tables
+      description: ''
+      operationId: updateIPWhitelistEntries
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: action
+        in: query
+        required: false
+        type: string
+        default: service
+      responses:
+        default:
+          description: successful operation
+    delete:
+      tags:
+      - Cluster
+      summary: Clear all IP white listed entries in IP tables
+      description: ''
+      operationId: clearIPWhitelistEntries
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        default:
+          description: successful operation
+  "/snapshots/{entityId}":
+    post:
+      tags:
+      - Cluster
+      summary: Create a new native snapshot of this virtual machine/folder/resourcePool
+      description: ''
+      operationId: createSnapshots
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: entityId
+        in: path
+        required: true
+        type: string
+      - name: type
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            uniqueItems: true
+            items:
+              type: object
+  "/summary":
+    get:
+      tags:
+      - Cluster
+      summary: Show storage summary
+      description: ''
+      operationId: getStorageSummary
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/StClusterSummary"
+  "/time":
+    get:
+      tags:
+      - Cluster
+      summary: Show server time
+      description: ''
+      operationId: getcurrentTime
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: string
+            format: date-time
+  "/timezone":
+    get:
+      tags:
+      - Cluster
+      summary: Show server timezone
+      description: ''
+      operationId: getTimeZone
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: string
+    post:
+      tags:
+      - Cluster
+      summary: Change server timezone
+      description: ''
+      operationId: setTimeZone
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+  "/upgrade/check":
+    post:
+      tags:
+      - Cluster
+      summary: Check cluster Upgrade service
+      description: ''
+      operationId: checkUpgradeService
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/ReleaseManifest"
+  "/upgrade/cluster":
+    get:
+      tags:
+      - Cluster
+      summary: Check cluster Upgrade Status
+      description: ''
+      operationId: clusterUpgradeStatus
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: status
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/StJob"
+    post:
+      tags:
+      - Cluster
+      summary: Upgrade Storage cluster
+      description: ''
+      operationId: clusterUpgradeService
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/StJob"
+  "/upgrade/cluster/validations":
+    post:
+      tags:
+      - Cluster
+      summary: Validate cluster Upgrade service
+      description: ''
+      operationId: checkClusterUpgradeValidations
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: string
+  "/upgrade/node":
+    post:
+      tags:
+      - Cluster
+      summary: Upgrade service on a node
+      description: ''
+      operationId: nodeUpgradeService
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+  "/usercontext":
+    get:
+      tags:
+      - Cluster
+      summary: Show user context
+      description: ''
+      operationId: getUserContext
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/UserContext"
+  "/virtplatform/alarms":
+    get:
+      tags:
+      - Virtual Platform
+      summary: Show All Alarms
+      description: ''
+      operationId: getAlarms
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Alarm"
+  "/virtplatform/alarms/acknowledge":
+    post:
+      tags:
+      - Virtual Platform
+      summary: Acknowledge Alarm
+      description: ''
+      operationId: acknowledgeAlarm
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        default:
+          description: successful operation
+  "/virtplatform/alarms/reset":
+    post:
+      tags:
+      - Virtual Platform
+      summary: Resetting Alarm to green
+      description: ''
+      operationId: resetAlarm
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        default:
+          description: successful operation
+  "/virtplatform/cluster":
+    get:
+      tags:
+      - Virtual Platform
+      summary: Show Virtual Cluster
+      description: ''
+      operationId: getVirtCluster
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/Cluster"
+  "/virtplatform/customspecs":
+    get:
+      tags:
+      - Virtual Platform
+      summary: Show all Custom Specifications
+      description: ''
+      operationId: getCustomSpecs
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/CustomSpec"
+  "/virtplatform/events":
+    get:
+      tags:
+      - Virtual Platform
+      summary: Show All Events
+      description: ''
+      operationId: getEvents
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: start
+        in: query
+        description: startIndex for retrieving next chunk of Events
+        required: false
+        type: integer
+        format: int32
+      - name: size
+        in: query
+        description: Number of the events to be retrieved per page
+        required: false
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Event"
+  "/virtplatform/resourcepools":
+    get:
+      tags:
+      - Virtual Platform
+      summary: Show All Resource Pools
+      description: ''
+      operationId: getResourcePools
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/ResourcePool"
+  "/virtplatform/resourcepools/{resourcePoolId}":
+    get:
+      tags:
+      - Virtual Platform
+      summary: Show Resource Pool Details
+      description: ''
+      operationId: getResourcePool
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: resourcePoolId
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/ResourcePool"
+  "/virtplatform/snapshots/{vmId}":
+    get:
+      tags:
+      - Virtual Platform
+      summary: Show Snapshot Details
+      description: ''
+      operationId: getSnapshot
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: vmId
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/VirtualMachineSnapshotInfo"
+  "/virtplatform/vmfolders":
+    get:
+      tags:
+      - Virtual Platform
+      summary: Show All Folders
+      description: ''
+      operationId: getVMFolders
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Folder"
+  "/virtplatform/vmfolders/{folderId}":
+    get:
+      tags:
+      - Virtual Platform
+      summary: Show Folder Details
+      description: ''
+      operationId: getVMFolder
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: folderId
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/Folder"
+  "/virtplatform/vms":
+    get:
+      tags:
+      - Virtual Platform
+      summary: Show All Virtual Machines
+      description: ''
+      operationId: getVirtualMachines
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: query
+        required: false
+        type: string
+      - name: entityType
+        in: query
+        required: false
+        type: string
+        default: VIRTCLUSTER
+      - name: forceRefresh
+        in: query
+        required: false
+        type: boolean
+      responses:
+        '200':
+          description: successful operation
+  "/virtplatform/vms/{vmId}":
+    get:
+      tags:
+      - Virtual Platform
+      summary: Show Virtual Machine Details
+      description: ''
+      operationId: getVirtualMachine
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: vmId
+        in: path
+        required: true
+        type: string
+      - name: id
+        in: query
+        required: false
+        type: string
+      - name: entityType
+        in: query
+        required: false
+        type: string
+        default: VIRTCLUSTER
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/VirtualMachine"
+    post:
+      tags:
+      - Virtual Platform
+      summary: Power On/Off/Suspend Virtual Machine
+      description: ''
+      operationId: powerOnOffVM
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: vmId
+        in: path
+        required: true
+        type: string
+      - name: action
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/TaskInfo"
+definitions:
+  AboutInfo:
+    type: object
+    properties:
+      instanceUuid:
+        type: string
+      apiVersion:
+        type: string
+      productVersion:
+        type: string
+      modelNumber:
+        type: string
+      serialNumber:
+        type: string
+      name:
+        type: string
+      fullName:
+        type: string
+      build:
+        type: string
+      locale:
+        type: string
+      serviceType:
+        type: string
+      displayVersion:
+        type: string
+      pid:
+        type: string
+      setInstanceUuid:
+        type: boolean
+        default: false
+      setApiVersion:
+        type: boolean
+        default: false
+      setProductVersion:
+        type: boolean
+        default: false
+      setModelNumber:
+        type: boolean
+        default: false
+      setSerialNumber:
+        type: boolean
+        default: false
+      setName:
+        type: boolean
+        default: false
+      setFullName:
+        type: boolean
+        default: false
+      setBuild:
+        type: boolean
+        default: false
+      setLocale:
+        type: boolean
+        default: false
+      setServiceType:
+        type: boolean
+        default: false
+      setDisplayVersion:
+        type: boolean
+        default: false
+      setPid:
+        type: boolean
+        default: false
+  ApplianceDTO:
+    type: object
+    properties:
+      modelNumber:
+        type: string
+      serialNumber:
+        type: string
+      nodes:
+        type: array
+        items:
+          "$ref": "#/definitions/SlotStNodeMap"
+      ps:
+        type: array
+        uniqueItems: true
+        items:
+          "$ref": "#/definitions/PowerSupply"
+      disks:
+        type: array
+        uniqueItems: true
+        items:
+          "$ref": "#/definitions/PhysicalDisk"
+      pnics:
+        type: array
+        uniqueItems: true
+        items:
+          "$ref": "#/definitions/PhysicalNicInfo"
+  Cluster:
+    type: object
+    properties:
+      name:
+        type: string
+      id:
+        type: string
+      effectiveCpu:
+        type: integer
+        format: int32
+      effectiveMemory:
+        type: integer
+        format: int64
+      totalCpu:
+        type: integer
+        format: int32
+      totalMemory:
+        type: integer
+        format: int64
+      overallStatus:
+        type: string
+      numHosts:
+        type: integer
+        format: int32
+      numCpuCores:
+        type: integer
+        format: int32
+  CommandOutput:
+    type: object
+    properties:
+      error:
+        type: boolean
+        default: false
+      output:
+        type: object
+  DynamicProperty:
+    type: object
+    properties:
+      name:
+        type: string
+      val:
+        type: object
+  EntityRef:
+    type: object
+    properties:
+      id:
+        type: string
+      type:
+        type: string
+        enum:
+        - DISK
+        - PNODE
+        - NODE
+        - CLUSTER
+        - DATASTORE
+        - VIRTNODE
+        - VIRTCLUSTER
+        - VIRTDATASTORE
+        - VIRTMACHINE
+        - PDISK
+        - PDATASTORE
+        - VIRTMACHINESNAPSHOT
+        - FOLDER
+        - RESOURCEPOOL
+        - FILE
+        - VIRTDATACENTER
+        - REPLICATION_APPLIANCE
+        - REPLICATION_JOB
+        - IP_POOL
+        - REPLICATION_INFO
+        - DP_VM_SNAPSHOT
+        - DP_VMGROUP_SNAPSHOT
+        - DP_VM
+        - DP_VMGROUP
+        - DP_VM_CONFIG
+        - DP_VM_SNAPSHOT_POINT
+        - CLUSTER_PAIR
+      name:
+        type: string
+      idtype:
+        type: string
+        enum:
+        - VCMOID
+        - VMBIOSUUID
+        - VMDSPATH
+      confignum:
+        type: integer
+        format: int64
+      setName:
+        type: boolean
+        default: false
+      setId:
+        type: boolean
+        default: false
+      setType:
+        type: boolean
+        default: false
+      setIdtype:
+        type: boolean
+        default: false
+      setConfignum:
+        type: boolean
+        default: false
+  Folder:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+  IOVisor:
+    type: object
+    properties:
+      about:
+        "$ref": "#/definitions/AboutInfo"
+      state:
+        type: string
+        enum:
+        - ONLINE
+        - OFFLINE
+        - INMAINTENANCE
+        - INPROGRESS
+      setState:
+        type: boolean
+        default: false
+      setAbout:
+        type: boolean
+        default: false
+  IpSettings:
+    type: object
+    properties:
+      method:
+        type: string
+        enum:
+        - DHCP
+        - STATIC
+        - IP_POOL
+      addr:
+        type: string
+      subnetMask:
+        type: string
+      gateway:
+        type: string
+      stService:
+        type: string
+        enum:
+        - STCTL
+        - ZK
+        - HYPERVISOR
+        - IPMI
+        - MGMT
+        - CLUSTER
+        - VMOTION
+        - STCTL_MGMT
+        - VM
+        - REPLICATION
+      vlanId:
+        type: integer
+        format: int32
+      setMethod:
+        type: boolean
+        default: false
+      setAddr:
+        type: boolean
+        default: false
+      setSubnetMask:
+        type: boolean
+        default: false
+      setGateway:
+        type: boolean
+        default: false
+      setStService:
+        type: boolean
+        default: false
+      setVlanId:
+        type: boolean
+        default: false
+  IteratorAppliance:
+    type: object
+  IteratorEntityRef:
+    type: object
+  IteratorLocalizableValue:
+    type: object
+  IteratorPowerSupply:
+    type: object
+  IteratorStDisk:
+    type: object
+  IteratorStNode:
+    type: object
+  IteratorStPortGroupSettings:
+    type: object
+  IteratorStep:
+    type: object
+  IteratorString:
+    type: object
+  JsonObject:
+    type: object
+    properties:
+      message:
+        type: string
+        xml:
+          attribute: true
+      messageId:
+        type: integer
+        format: int32
+        xml:
+          attribute: true
+      object:
+        type: object
+    xml:
+      name: JsonObject
+  KeyAnyValue:
+    type: object
+    properties:
+      dynamicType:
+        type: string
+      dynamicProperty:
+        type: array
+        items:
+          "$ref": "#/definitions/DynamicProperty"
+      key:
+        type: string
+      value:
+        type: object
+  LocalizableMessage:
+    type: object
+    properties:
+      dynamicType:
+        type: string
+      dynamicProperty:
+        type: array
+        items:
+          "$ref": "#/definitions/DynamicProperty"
+      key:
+        type: string
+      arg:
+        type: array
+        items:
+          "$ref": "#/definitions/KeyAnyValue"
+      message:
+        type: string
+  LocalizableValue:
+    type: object
+    properties:
+      position:
+        type: integer
+        format: int32
+      ltype:
+        type: string
+        enum:
+        - UNKNOWN
+        - NUMBER
+        - STRING
+        - NAME
+        - EMAIL
+        - HOSTNAME
+        - DATETIME
+        - TIMEDELTA
+        - BYTESIZE
+      key:
+        type: string
+      value:
+        type: string
+      setPosition:
+        type: boolean
+        default: false
+      setLtype:
+        type: boolean
+        default: false
+      setKey:
+        type: boolean
+        default: false
+      setValue:
+        type: boolean
+        default: false
+  LocalizedMethodFault:
+    type: object
+    properties:
+      dynamicType:
+        type: string
+      dynamicProperty:
+        type: array
+        items:
+          "$ref": "#/definitions/DynamicProperty"
+      fault:
+        "$ref": "#/definitions/MethodFault"
+      localizedMessage:
+        type: string
+  ManagedObjectReference:
+    type: object
+    properties:
+      val:
+        type: string
+      type:
+        type: string
+      get_value:
+        type: string
+  MethodFault:
+    type: object
+    properties:
+      cause:
+        "$ref": "#/definitions/Throwable"
+      stackTrace:
+        type: array
+        items:
+          "$ref": "#/definitions/StackTraceElement"
+      detail:
+        "$ref": "#/definitions/Throwable"
+      dynamicType:
+        type: string
+      dynamicProperty:
+        type: array
+        items:
+          "$ref": "#/definitions/DynamicProperty"
+      faultCause:
+        "$ref": "#/definitions/LocalizedMethodFault"
+      faultMessage:
+        type: array
+        items:
+          "$ref": "#/definitions/LocalizableMessage"
+      message:
+        type: string
+      localizedMessage:
+        type: string
+      suppressed:
+        type: array
+        items:
+          "$ref": "#/definitions/Throwable"
+  PhysicalDisk:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      modelNumber:
+        type: string
+      vendor:
+        type: string
+      serialNumber:
+        type: string
+      version:
+        type: string
+      slotNumber:
+        type: string
+      status:
+        type: string
+      capacity:
+        type: integer
+        format: int64
+      logicalname:
+        type: string
+      setVendor:
+        type: boolean
+        default: false
+      setVersion:
+        type: boolean
+        default: false
+      setSlotNumber:
+        type: boolean
+        default: false
+      setModelNumber:
+        type: boolean
+        default: false
+      setSerialNumber:
+        type: boolean
+        default: false
+      setEntityRef:
+        type: boolean
+        default: false
+      setCapacity:
+        type: boolean
+        default: false
+      setLogicalname:
+        type: boolean
+        default: false
+      setStatus:
+        type: boolean
+        default: false
+  PhysicalNicInfo:
+    type: object
+    properties:
+      device:
+        type: string
+      mac:
+        type: string
+      speedMb:
+        type: integer
+        format: int32
+      pci:
+        type: string
+      setDevice:
+        type: boolean
+        default: false
+      setMac:
+        type: boolean
+        default: false
+      setSpeedMb:
+        type: boolean
+        default: false
+      setPci:
+        type: boolean
+        default: false
+  PowerSupply:
+    type: object
+    properties:
+      name:
+        type: string
+      status:
+        type: string
+      setName:
+        type: boolean
+        default: false
+      setStatus:
+        type: boolean
+        default: false
+  RebalanceStatus:
+    type: object
+    properties:
+      rebalanceEnabled:
+        type: boolean
+        default: false
+      rebalanceStatus:
+        "$ref": "#/definitions/StPlatformRebalanceStatus"
+      setRebalanceEnabled:
+        type: boolean
+        default: false
+      setRebalanceStatus:
+        type: boolean
+        default: false
+  ResourcePool:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      cpuLimit:
+        type: integer
+        format: int64
+      memoryLimit:
+        type: integer
+        format: int64
+      memoryReservation:
+        type: integer
+        format: int64
+      cpuReservation:
+        type: integer
+        format: int64
+      sharesCount:
+        type: integer
+        format: int32
+      cpuAllocType:
+        type: string
+      sharesLevel:
+        type: string
+  StASUPConfiguration:
+    type: object
+    properties:
+      enabled:
+        type: boolean
+        default: false
+      recipientList:
+        type: array
+        items:
+          type: string
+      setEnabled:
+        type: boolean
+        default: false
+      recipientListSize:
+        type: integer
+        format: int32
+      recipientListIterator:
+        "$ref": "#/definitions/IteratorString"
+      setRecipientList:
+        type: boolean
+        default: false
+  StCluster:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      config:
+        "$ref": "#/definitions/StClusterConfig"
+      state:
+        type: string
+        enum:
+        - UNKNOWN
+        - ONLINE
+        - OFFLINE
+        - DEGRADED
+        - WARNING
+        - FAILED
+        - INPROGRESS
+        - ENOSPACE
+        - READONLY
+      stNodes:
+        type: array
+        uniqueItems: true
+        items:
+          "$ref": "#/definitions/EntityRef"
+      about:
+        "$ref": "#/definitions/AboutInfo"
+      cluster:
+        "$ref": "#/definitions/StPlatformCluster"
+      vCluster:
+        "$ref": "#/definitions/VirtCluster"
+      progress:
+        type: array
+        items:
+          "$ref": "#/definitions/Step"
+      upgradeState:
+        type: string
+        enum:
+        - OK
+        - INPROGRESS
+        - WAITING
+        - FAILED
+      upgradeVersion:
+        type: string
+      message:
+        type: string
+      securityInfo:
+        "$ref": "#/definitions/StClusterSecurityInfo"
+      setMessage:
+        type: boolean
+        default: false
+      setConfig:
+        type: boolean
+        default: false
+      setState:
+        type: boolean
+        default: false
+      stNodesSize:
+        type: integer
+        format: int32
+      stNodesIterator:
+        "$ref": "#/definitions/IteratorEntityRef"
+      setStNodes:
+        type: boolean
+        default: false
+      setAbout:
+        type: boolean
+        default: false
+      setCluster:
+        type: boolean
+        default: false
+      vcluster:
+        "$ref": "#/definitions/VirtCluster"
+      setVCluster:
+        type: boolean
+        default: false
+      progressSize:
+        type: integer
+        format: int32
+      progressIterator:
+        "$ref": "#/definitions/IteratorStep"
+      setProgress:
+        type: boolean
+        default: false
+      setUpgradeState:
+        type: boolean
+        default: false
+      setUpgradeVersion:
+        type: boolean
+        default: false
+      setSecurityInfo:
+        type: boolean
+        default: false
+      setEntityRef:
+        type: boolean
+        default: false
+  StClusterConfig:
+    type: object
+    properties:
+      name:
+        type: string
+      ip:
+        "$ref": "#/definitions/IpSettings"
+      mgmtIp:
+        "$ref": "#/definitions/IpSettings"
+      vCenterDatacenter:
+        type: string
+      vCenterDatacenterId:
+        type: string
+      vCenterClusterName:
+        type: string
+      vCenterClusterId:
+        type: string
+      vCenterURL:
+        type: string
+      nodeIPSettings:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            "$ref": "#/definitions/IpSettings"
+      dnsServers:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+      ntpServer:
+        type: string
+      size:
+        type: integer
+        format: int32
+      clusterUuid:
+        type: string
+      vClusterConfig:
+        "$ref": "#/definitions/VirtClusterConfig"
+      vCenterSSOURL:
+        type: string
+      dataReplicationFactor:
+        type: integer
+        format: int32
+      clusterAccessPolicy:
+        type: string
+      userDatastore:
+        "$ref": "#/definitions/StDatastoreConfig"
+      workloadType:
+        type: string
+        enum:
+        - AUTO_RESERVED
+        - VDI
+        - VSI
+      setName:
+        type: boolean
+        default: false
+      vcenterSSOURL:
+        type: string
+      setVCenterSSOURL:
+        type: boolean
+        default: false
+      vcenterDatacenter:
+        type: string
+      setVCenterDatacenter:
+        type: boolean
+        default: false
+      setMgmtIp:
+        type: boolean
+        default: false
+      setIp:
+        type: boolean
+        default: false
+      vcenterDatacenterId:
+        type: string
+      setVCenterDatacenterId:
+        type: boolean
+        default: false
+      vcenterClusterName:
+        type: string
+      setVCenterClusterName:
+        type: boolean
+        default: false
+      vcenterClusterId:
+        type: string
+      setVCenterClusterId:
+        type: boolean
+        default: false
+      vcenterURL:
+        type: string
+      setVCenterURL:
+        type: boolean
+        default: false
+      nodeIPSettingsSize:
+        type: integer
+        format: int32
+      setNodeIPSettings:
+        type: boolean
+        default: false
+      dnsServersSize:
+        type: integer
+        format: int32
+      dnsServersIterator:
+        "$ref": "#/definitions/IteratorString"
+      setDnsServers:
+        type: boolean
+        default: false
+      setNtpServer:
+        type: boolean
+        default: false
+      setSize:
+        type: boolean
+        default: false
+      setClusterUuid:
+        type: boolean
+        default: false
+      vclusterConfig:
+        "$ref": "#/definitions/VirtClusterConfig"
+      setVClusterConfig:
+        type: boolean
+        default: false
+      setDataReplicationFactor:
+        type: boolean
+        default: false
+      setClusterAccessPolicy:
+        type: boolean
+        default: false
+      setUserDatastore:
+        type: boolean
+        default: false
+      setWorkloadType:
+        type: boolean
+        default: false
+  StClusterCreationProgress:
+    type: object
+    properties:
+      creation_id:
+        type: string
+      creation_date:
+        type: integer
+        format: int64
+      creation_status:
+        type: string
+        enum:
+        - INPROGRESS
+        - COMPLETE
+        - FAILED
+      launch_addr:
+        type: string
+      cluster:
+        "$ref": "#/definitions/StCluster"
+      fault:
+        "$ref": "#/definitions/StException"
+      appliance_list:
+        type: array
+        uniqueItems: true
+        items:
+          "$ref": "#/definitions/ApplianceDTO"
+      vcserver_url:
+        type: string
+      network_settings:
+        "$ref": "#/definitions/StNetworkSettings"
+      asup_config:
+        "$ref": "#/definitions/StASUPConfiguration"
+      nodes:
+        type: array
+        uniqueItems: true
+        items:
+          "$ref": "#/definitions/StNode"
+      setCluster:
+        type: boolean
+        default: false
+      setCreation_id:
+        type: boolean
+        default: false
+      setCreation_date:
+        type: boolean
+        default: false
+      setCreation_status:
+        type: boolean
+        default: false
+      setLaunch_addr:
+        type: boolean
+        default: false
+      setFault:
+        type: boolean
+        default: false
+      appliance_listSize:
+        type: integer
+        format: int32
+      appliance_listIterator:
+        "$ref": "#/definitions/IteratorAppliance"
+      setAppliance_list:
+        type: boolean
+        default: false
+      setVcserver_url:
+        type: boolean
+        default: false
+      setNetwork_settings:
+        type: boolean
+        default: false
+      setAsup_config:
+        type: boolean
+        default: false
+      nodesSize:
+        type: integer
+        format: int32
+      nodesIterator:
+        "$ref": "#/definitions/IteratorStNode"
+      setNodes:
+        type: boolean
+        default: false
+  StClusterSecurityInfo:
+    type: object
+    properties:
+      securityState:
+        type: string
+        enum:
+        - NOT_CAPABLE
+        - CAPABLE
+        - ENABLED
+      setSecurityState:
+        type: boolean
+        default: false
+  StClusterSummary:
+    type: object
+    properties:
+      name:
+        type: string
+      boottime:
+        type: integer
+        format: int64
+      state:
+        type: string
+        enum:
+        - UNKNOWN
+        - ONLINE
+        - OFFLINE
+        - DEGRADED
+        - WARNING
+        - FAILED
+        - INPROGRESS
+        - ENOSPACE
+        - READONLY
+      clusterAccessPolicy:
+        type: string
+        enum:
+        - INVALID
+        - STRICT
+        - LENIENT
+      dataReplicationFactor:
+        type: string
+        enum:
+        - ONE_COPY
+        - TWO_COPIES
+        - THREE_COPIES
+      dataReplicationCompliance:
+        type: string
+        enum:
+        - UNKNOWN
+        - COMPLIANT
+        - NON_COMPLIANT
+      spaceStatus:
+        type: string
+      totalCapacity:
+        type: integer
+        format: int64
+      usedCapacity:
+        type: integer
+        format: int64
+      freeCapacity:
+        type: integer
+        format: int64
+      compressionSavings:
+        type: number
+        format: double
+      deduplicationSavings:
+        type: number
+        format: double
+      totalSavings:
+        type: number
+        format: double
+      activeNodes:
+        type: string
+      address:
+        type: string
+      resiliencyDetails:
+        type: object
+        additionalProperties:
+          type: string
+      uptime:
+        type: string
+      downtime:
+        type: string
+      resiliencyInfo:
+        type: array
+        items:
+          "$ref": "#/definitions/StPlatformClusterResiliencyInfo"
+      healingInfo:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            "$ref": "#/definitions/StPlatformClusterHealingInfo"
+      setDataReplicationCompliance:
+        type: boolean
+        default: false
+      setSpaceStatus:
+        type: boolean
+        default: false
+      setTotalCapacity:
+        type: boolean
+        default: false
+      setCompressionSavings:
+        type: boolean
+        default: false
+      setDeduplicationSavings:
+        type: boolean
+        default: false
+      setTotalSavings:
+        type: boolean
+        default: false
+      setAddress:
+        type: boolean
+        default: false
+      setName:
+        type: boolean
+        default: false
+      setState:
+        type: boolean
+        default: false
+      setDataReplicationFactor:
+        type: boolean
+        default: false
+      setClusterAccessPolicy:
+        type: boolean
+        default: false
+      setBoottime:
+        type: boolean
+        default: false
+      setUsedCapacity:
+        type: boolean
+        default: false
+      setFreeCapacity:
+        type: boolean
+        default: false
+      resiliencyDetailsSize:
+        type: integer
+        format: int32
+      setResiliencyDetails:
+        type: boolean
+        default: false
+      setActiveNodes:
+        type: boolean
+        default: false
+      setUptime:
+        type: boolean
+        default: false
+      setDowntime:
+        type: boolean
+        default: false
+      setResiliencyInfo:
+        type: boolean
+        default: false
+      setHealingInfo:
+        type: boolean
+        default: false
+  StClusterVersionDetails:
+    type: object
+    properties:
+      clusterVersion:
+        type: string
+      clusterUpgradeState:
+        type: string
+        enum:
+        - OK
+        - INPROGRESS
+        - WAITING
+        - FAILED
+      clusterUpgradeFailedReason:
+        type: string
+      hypervisorVersion:
+        type: string
+      ucsmVersion:
+        type: string
+      nodeServiceDetails:
+        type: object
+        additionalProperties:
+          "$ref": "#/definitions/StNodeServices"
+      setUcsmVersion:
+        type: boolean
+        default: false
+      nodeServiceDetailsSize:
+        type: integer
+        format: int32
+      setNodeServiceDetails:
+        type: boolean
+        default: false
+      setClusterVersion:
+        type: boolean
+        default: false
+      setClusterUpgradeState:
+        type: boolean
+        default: false
+      setClusterUpgradeFailedReason:
+        type: boolean
+        default: false
+      setHypervisorVersion:
+        type: boolean
+        default: false
+  StCtlVM:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      moid:
+        type: string
+      ip:
+        type: string
+      name:
+        type: string
+      guestState:
+        type: string
+      guestHostname:
+        type: string
+      role:
+        type: string
+        enum:
+        - UNSPECIFIED
+        - STORAGE
+        - COMPUTE
+        - CACHE
+        - ALL
+      version:
+        type: string
+      passthrough:
+        type: string
+        enum:
+        - UNKNOWN
+        - RDM
+        - PCI
+      mgmtNetworkIp:
+        type: string
+      storageNetworkIp:
+        type: string
+      mgmtClusterIp:
+        type: string
+      storageClusterIp:
+        type: string
+      setMoid:
+        type: boolean
+        default: false
+      setVersion:
+        type: boolean
+        default: false
+      setName:
+        type: boolean
+        default: false
+      setEntityRef:
+        type: boolean
+        default: false
+      setIp:
+        type: boolean
+        default: false
+      setGuestState:
+        type: boolean
+        default: false
+      setGuestHostname:
+        type: boolean
+        default: false
+      setRole:
+        type: boolean
+        default: false
+      setPassthrough:
+        type: boolean
+        default: false
+      setMgmtNetworkIp:
+        type: boolean
+        default: false
+      setStorageNetworkIp:
+        type: boolean
+        default: false
+      setMgmtClusterIp:
+        type: boolean
+        default: false
+      setStorageClusterIp:
+        type: boolean
+        default: false
+  StDatastore:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      stPlatDatastore:
+        "$ref": "#/definitions/StPlatformDatastore"
+      virtDatastore:
+        "$ref": "#/definitions/VirtDatastore"
+      setVirtDatastore:
+        type: boolean
+        default: false
+      setStPlatDatastore:
+        type: boolean
+        default: false
+      setEntityRef:
+        type: boolean
+        default: false
+  StDatastoreConfig:
+    type: object
+    properties:
+      name:
+        type: string
+      capacity:
+        type: integer
+        format: int64
+      numMirrors:
+        type: integer
+        format: int32
+      systemDatastore:
+        type: boolean
+        default: false
+      numStripes:
+        type: integer
+        format: int32
+      dataBlockSize:
+        type: integer
+        format: int32
+      setName:
+        type: boolean
+        default: false
+      setCapacity:
+        type: boolean
+        default: false
+      setNumMirrors:
+        type: boolean
+        default: false
+      setSystemDatastore:
+        type: boolean
+        default: false
+      setNumStripes:
+        type: boolean
+        default: false
+      setDataBlockSize:
+        type: boolean
+        default: false
+  StDisk:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      medium:
+        type: string
+        enum:
+        - UNKNOWN
+        - ROTATIONAL
+        - SOLIDSTATE
+      usage:
+        type: string
+        enum:
+        - UNKNOWN
+        - CACHING
+        - PERSISTENCE
+      state:
+        type: string
+        enum:
+        - INVALID
+        - READY
+        - UPDATED
+        - DELETED
+        - TIMEOUT
+        - UNPUBLISHED
+        - CLAIMED
+        - AVAILABLE
+        - IGNORED
+        - BLACKLISTED
+        - REPAIRING
+        - UNKNOWN
+      capacity:
+        type: integer
+        format: int64
+      usedCapacity:
+        type: integer
+        format: int64
+      lastModifiedTime:
+        type: integer
+        format: int64
+      version:
+        type: integer
+        format: int64
+      path:
+        type: string
+      runtimeState:
+        type: string
+        enum:
+        - NONE
+        - FORMAT
+        - REPAIR
+        - UNCLAIM
+        - OPEN
+        - SCRUB
+      progressPct:
+        type: number
+        format: double
+      blacklistCount:
+        type: integer
+        format: int32
+      setMedium:
+        type: boolean
+        default: false
+      setUsage:
+        type: boolean
+        default: false
+      setPath:
+        type: boolean
+        default: false
+      setRuntimeState:
+        type: boolean
+        default: false
+      setProgressPct:
+        type: boolean
+        default: false
+      setBlacklistCount:
+        type: boolean
+        default: false
+      setVersion:
+        type: boolean
+        default: false
+      setState:
+        type: boolean
+        default: false
+      setEntityRef:
+        type: boolean
+        default: false
+      setCapacity:
+        type: boolean
+        default: false
+      setUsedCapacity:
+        type: boolean
+        default: false
+      setLastModifiedTime:
+        type: boolean
+        default: false
+  StException:
+    type: object
+    properties:
+      cause:
+        "$ref": "#/definitions/StPlatformException"
+      stackTrace:
+        type: array
+        items:
+          "$ref": "#/definitions/StackTraceElement"
+      id:
+        type: string
+        enum:
+        - UNKNOWN
+        - INTERNAL_ERROR
+        - SYSTEM_ERROR
+        - INVALID_ARGUMENT
+        - NO_CONNECTION
+        - NO_PERMISSION
+        - NOT_IMPLEMENTED
+        - NOT_SUPPORTED
+        - METHOD_NOT_FOUND
+        - NOT_FOUND
+        - DUPLICATE_NAME
+        - MISSING_ARGUMENT
+        - ALREADY_EXISTS
+        - CLUSTER_NOT_CONFIGURED
+        - CLUSTER_ALREADY_CONFIGURED
+        - CLUSTER_INSUFFICIENT_NUMBER_OF_NODES
+        - CLUSTER_CREATION_IN_PROGRESS
+        - CLUSTER_INVALID_STATE
+        - CLUSTER_DRS_DISABLED
+        - CLUSTER_HA_ENABLED
+        - CLUSTER_DRS_DISABLED_AND_HA_ENABLED
+        - CLUSTER_EVENT_WATCHER_FAILED
+        - CLUSTER_NO_MORE_FAILURE_TOLERABLE
+        - VIRTUAL_CENTER_NOT_REGISTERED
+        - HOST_INVALID_STATE
+        - VIRTUAL_CENTER_REGISTRATION_FAILURE
+        - ESX_AGENT_MANAGER_ERROR
+        - VIRTUAL_CENTER_NOT_REACHABLE
+        - VIRTUAL_CENTER_SSO_NOT_REACHABLE
+        - VIRTUAL_CENTER_DATACENTER_NOT_FOUND
+        - VIRTUAL_CENTER_CLUSTER_NOT_FOUND
+        - VIRTUAL_CENTER_HOST_NOT_FOUND
+        - VIRTUAL_CENTER_HOST_DISCONNECTED
+        - VIRTUAL_CENTER_HOST_NOT_IN_CLUSTER
+        - VIRTUAL_CENTER_FOLDER_NOT_FOUND
+        - VIRTUAL_CENTER_RESOURCE_POOL_NOT_FOUND
+        - VIRTUAL_CENTER_NETWORK_NOT_FOUND
+        - NODE_NOT_FOUND
+        - NODE_ALREADY_CONFIGURED
+        - NODE_ADDRESS_IN_USE
+        - NODE_OFFLINE
+        - NODE_UNREACHABLE
+        - NODE_UNKNOWN_HOST
+        - NODE_LOGIN_FAILED
+        - NODE_IN_USE
+        - NODE_MAINTENANCE_MODE_FAILED
+        - NODE_SHUTDOWN_FAILED
+        - NODE_LOGIN_UNINITIALIZED
+        - DATASTORE_NOT_FOUND
+        - DATASTORE_ALREADY_EXISTS
+        - DATASTORE_WITH_SNAPSHOTS
+        - DATASTORE_IN_USE
+        - DATASTORE_MOUNT_FAILED
+        - DATASTORE_UNMOUNT_FAILED
+        - DATASTORE_DUPLICATE_NAME
+        - DATASTORE_INACCESSIBLE
+        - DATASTORE_NATIVE_SNAP_CLONE_SUPPORT
+        - DISK_NOT_FOUND
+        - DISK_ALREADY_EXISTS
+        - DISK_IN_USE
+        - VM_CLONE_ERROR
+        - VM_SNAPSHOT_ERROR
+        - VM_NON_NATIVE_SNAPSHOT_EXISTS
+        - VM_WITH_PENDING_QUESTION
+        - VM_HARDWARE_VERSION_NOT_SUPPORTED
+        - VM_CRASH_CONSISTENT_RESUME_TIMED_OUT
+        - VM_APP_CONSISTENT_RESUME_TIMED_OUT
+        - VM_NOT_FOUND_ON_HOST
+        - STORFS_OUT_OF_SPACE
+        - STORFS_OUT_OF_BOUNDS
+        - STORFS_PRIMARY_NODE_NOT_FOUND
+        - STORFS_PREPARE_SHUTDOWN_TIMEOUT
+        - STORFS_SPACE_WARNING
+        - SCVMCLIENT_START_FAILED
+        - SCVMCLIENT_STOP_FAILED
+        - CLEANER_IN_PROGRESS
+        - STORFS_NODE_NOT_CLUSTER_READY
+        - UPGRADE_ERROR
+        - DOWNLOAD_ERROR
+        - DOWNGRADE_ERROR
+        - VERSION_INCOMPATIBLE
+        - UPGRADE_NOT_FOUND
+        - UPGRADE_IN_PROGRESS
+        - FILE_CHECKSUM_MISMATCH
+        - NODE_IN_MAINTENANCE_MODE
+        - UPGRADE_VALIDATION_ERROR
+        - UPGRADE_NOT_SUPPORTED
+        - NODE_INCOMPATIBLE
+        - NODE_MISCONFIGURED_HOSTNAME
+        - NODE_MISCONFIGURED_NTPSERVER
+        - NODE_MISCONFIGURED_NETWORK
+        - NODE_MISCONFIGURED_DNSSERVER
+        - NODE_MISCONFIGURED_OTHER
+        - NODE_MISCONFIGURED_SSH
+        - DEPLOYMENT_IN_PROGRESS
+        - HW_BOM_CHECK_FAILURE
+        - HW_BOM_CHECK_WARNING
+        - IP_UNREACHABLE
+        - IP_INVALID
+        - PORT_UNREACHABLE
+        - AUTHENTICATION_FAILURE
+        - CLUSTER_PAIR_DR_VERSION_ERROR
+        - CLUSTER_PAIR_COMPATIBILITY_CHECK_FAILS
+        - CLUSTER_PAIR_CLUSTER_UNAVAILABLE
+        - CLUSTER_PAIR_FAIL
+        - CLUSTER_PAIR_RETRY
+        - CLUSTER_PAIR_NOT_FOUND
+        - CLUSTER_PAIR_PAIRING_INCOMPLETE
+        - CLUSTER_PAIR_ONE_TO_MANY_DATASTORE_PAIR
+        - CLUSTER_PAIR_INVALID_DATASTORE_PAIR
+        - CLUSTER_PAIR_INVALID_DATASTORE_PAIR_OPERATION
+        - CLUSTER_PAIR_DATASTORE_PAIR_FAIL
+        - DR_VMXPATH_NOT_FOUND
+        - DR_NOT_IMPLEMENTED
+        - DR_NOT_VALID_STATE
+        - DR_ALREADY_EXISTS
+        - VM_REPL_OP_FAILED
+        - VM_REPL_OP_RETRY
+        - VM_REPL_OP_RESULT_UNKNOWN
+        - VM_REPL_OP_INVALID_ACTION
+        - VM_REPL_JOB_FAILED
+        - VM_REPL_JOB_ALREADY_EXISTS
+        - VM_REPL_JOB_NOT_FOUND
+        - VM_REPL_JOB_METADATA_NOT_FOUND
+        - VM_REPL_JOB_INVALID_STATE_TRANSITION
+        - VM_REPL_SNAPSHOT_ALREADY_REPLICATED
+        - VM_REPL_SNAPSHOT_PARENT_NOT_REPLICATED
+        - DATA_SVC_ST_MGR_NOT_READY
+        - DP_REPL_NETWORK_CONFIG_FAILED
+        - DP_REPL_CONFIG_UPDATE_INVENTORY_FAILED
+        - DP_REPL_CONFIG_FETCH_INVENTORY_FAILED
+        - IP_POOL_OBJECT_NOT_FOUND
+        - IP_POOL_OBJECT_UPDATE_INVENTORY_FAILED
+        - IP_POOL_ADD_NEW_RANGE_TO_EXISTING_POOL_FAILED
+        - IP_POOL_FETCH_FREE_IPS_FAILED
+        - IP_POOL_FETCH_NETMASK_FAILED
+        - SED_CMD_EXEC_ERROR
+        - VM_ALREADY_PROTECTED
+        - VM_SNAPSHOT_NOT_REPLICATED
+        - INVENTORY_FAIL
+        - INVENTORY_CONFIG_MISMATCH
+        - INVENTORY_ALREADY_EXISTS
+        - INVENTORY_NOT_FOUND
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      message:
+        type: string
+      data:
+        type: object
+        additionalProperties:
+          type: string
+      get_DO_NOT_USE_localizedMessage:
+        type: string
+      severity:
+        type: string
+        enum:
+        - WARNING
+        - ERROR
+        - INFO
+      lcMessage:
+        "$ref": "#/definitions/LocalizableMessage"
+      setMessage:
+        type: boolean
+        default: false
+      dataSize:
+        type: integer
+        format: int32
+      setData:
+        type: boolean
+        default: false
+      set_DO_NOT_USE_localizedMessage:
+        type: boolean
+        default: false
+      setSeverity:
+        type: boolean
+        default: false
+      setLcMessage:
+        type: boolean
+        default: false
+      setId:
+        type: boolean
+        default: false
+      setCause:
+        type: boolean
+        default: false
+      setEntityRef:
+        type: boolean
+        default: false
+      localizedMessage:
+        type: string
+      suppressed:
+        type: array
+        items:
+          "$ref": "#/definitions/Throwable"
+  StJob:
+    type: object
+    properties:
+      jobid:
+        type: string
+      state:
+        type: string
+        enum:
+        - NEW
+        - STARTING
+        - RUNNING
+        - SUSPENDED
+        - SHUTTING_DOWN
+        - COMPLETED
+        - TERMINATED
+        - CANCELLED
+        - EXCEPTION
+        - STALLED
+      time_submitted_millis:
+        type: integer
+        format: int64
+      time_started_millis:
+        type: integer
+        format: int64
+      time_elapsed_millis:
+        type: integer
+        format: int64
+      out_parameters:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: string
+      job_steps:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            "$ref": "#/definitions/Step"
+      suspend_on_exit:
+        type: boolean
+        default: false
+      method_name:
+        type: string
+      description:
+        type: string
+      tag:
+        type: string
+      owner:
+        type: string
+      message:
+        type: string
+      is_cancel_requested:
+        type: boolean
+        default: false
+      is_canceled:
+        type: boolean
+        default: false
+      percent_complete:
+        type: integer
+        format: int32
+      lifetime_after_exit_millis:
+        type: integer
+        format: int64
+      summary_step_state:
+        type: string
+        enum:
+        - NOTSTARTED
+        - INPROGRESS
+        - SUCCEEDED
+        - FAILED
+      lcDescription:
+        "$ref": "#/definitions/LocalizableMessage"
+      lcMessage:
+        "$ref": "#/definitions/LocalizableMessage"
+      setMessage:
+        type: boolean
+        default: false
+      setLcMessage:
+        type: boolean
+        default: false
+      setState:
+        type: boolean
+        default: false
+      setJobid:
+        type: boolean
+        default: false
+      setTime_submitted_millis:
+        type: boolean
+        default: false
+      setTime_started_millis:
+        type: boolean
+        default: false
+      setTime_elapsed_millis:
+        type: boolean
+        default: false
+      out_parametersSize:
+        type: integer
+        format: int32
+      setOut_parameters:
+        type: boolean
+        default: false
+      job_stepsSize:
+        type: integer
+        format: int32
+      setJob_steps:
+        type: boolean
+        default: false
+      setSuspend_on_exit:
+        type: boolean
+        default: false
+      setMethod_name:
+        type: boolean
+        default: false
+      setDescription:
+        type: boolean
+        default: false
+      setTag:
+        type: boolean
+        default: false
+      setOwner:
+        type: boolean
+        default: false
+      setIs_cancel_requested:
+        type: boolean
+        default: false
+      setIs_canceled:
+        type: boolean
+        default: false
+      setPercent_complete:
+        type: boolean
+        default: false
+      setLifetime_after_exit_millis:
+        type: boolean
+        default: false
+      setSummary_step_state:
+        type: boolean
+        default: false
+      setLcDescription:
+        type: boolean
+        default: false
+  StNetworkSettings:
+    type: object
+    properties:
+      nodeIPSettings:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            "$ref": "#/definitions/IpSettings"
+      dnsServers:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+      ntpServers:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+      smtpServer:
+        type: string
+      fromAddress:
+        type: string
+      timezone:
+        type: string
+      enableAutoSupport:
+        type: boolean
+        default: false
+      dnsSearch:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+      vNetworkMgmt:
+        "$ref": "#/definitions/StVirtualNetworkSetting"
+      vNetworkData:
+        "$ref": "#/definitions/StVirtualNetworkSetting"
+      recipientAddress:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+      vNetworkVMotion:
+        "$ref": "#/definitions/StVirtualNetworkSetting"
+      vNetworkVM:
+        "$ref": "#/definitions/StVirtualNetworkSetting"
+      vNetworkiSCSI:
+        "$ref": "#/definitions/StVirtualNetworkSetting"
+      setFromAddress:
+        type: boolean
+        default: false
+      setTimezone:
+        type: boolean
+        default: false
+      setEnableAutoSupport:
+        type: boolean
+        default: false
+      dnsSearchSize:
+        type: integer
+        format: int32
+      dnsSearchIterator:
+        "$ref": "#/definitions/IteratorString"
+      setDnsSearch:
+        type: boolean
+        default: false
+      vnetworkMgmt:
+        "$ref": "#/definitions/StVirtualNetworkSetting"
+      setVNetworkMgmt:
+        type: boolean
+        default: false
+      vnetworkData:
+        "$ref": "#/definitions/StVirtualNetworkSetting"
+      setVNetworkData:
+        type: boolean
+        default: false
+      recipientAddressSize:
+        type: integer
+        format: int32
+      recipientAddressIterator:
+        "$ref": "#/definitions/IteratorString"
+      setRecipientAddress:
+        type: boolean
+        default: false
+      vnetworkVMotion:
+        "$ref": "#/definitions/StVirtualNetworkSetting"
+      setVNetworkVMotion:
+        type: boolean
+        default: false
+      vnetworkVM:
+        "$ref": "#/definitions/StVirtualNetworkSetting"
+      setVNetworkVM:
+        type: boolean
+        default: false
+      vnetworkiSCSI:
+        "$ref": "#/definitions/StVirtualNetworkSetting"
+      setVNetworkiSCSI:
+        type: boolean
+        default: false
+      nodeIPSettingsSize:
+        type: integer
+        format: int32
+      setNodeIPSettings:
+        type: boolean
+        default: false
+      dnsServersSize:
+        type: integer
+        format: int32
+      dnsServersIterator:
+        "$ref": "#/definitions/IteratorString"
+      setDnsServers:
+        type: boolean
+        default: false
+      ntpServersSize:
+        type: integer
+        format: int32
+      ntpServersIterator:
+        "$ref": "#/definitions/IteratorString"
+      setNtpServers:
+        type: boolean
+        default: false
+      setSmtpServer:
+        type: boolean
+        default: false
+  SlotStNodeMap:
+    type: object
+    properties:
+      nodePosition:
+        type: string
+      stNode:
+        "$ref": "#/definitions/StNode"
+  StNode:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      state:
+        type: string
+        enum:
+        - ONLINE
+        - OFFLINE
+        - INMAINTENANCE
+        - INPROGRESS
+      pNode:
+        "$ref": "#/definitions/StPlatformNode"
+      host:
+        "$ref": "#/definitions/VirtNode"
+      storfsIp:
+        "$ref": "#/definitions/IpSettings"
+      clusterRef:
+        "$ref": "#/definitions/EntityRef"
+      upgradeState:
+        type: string
+        enum:
+        - OK
+        - INPROGRESS
+        - WAITING
+        - FAILED
+      progress:
+        type: array
+        items:
+          "$ref": "#/definitions/Step"
+      opInfo:
+        "$ref": "#/definitions/StOperationInfo"
+      upgradeVersion:
+        type: string
+      fwVersion:
+        type: string
+      pnode:
+        "$ref": "#/definitions/StPlatformNode"
+      setPNode:
+        type: boolean
+        default: false
+      setHost:
+        type: boolean
+        default: false
+      setStorfsIp:
+        type: boolean
+        default: false
+      setClusterRef:
+        type: boolean
+        default: false
+      setOpInfo:
+        type: boolean
+        default: false
+      setFwVersion:
+        type: boolean
+        default: false
+      setState:
+        type: boolean
+        default: false
+      progressSize:
+        type: integer
+        format: int32
+      progressIterator:
+        "$ref": "#/definitions/IteratorStep"
+      setProgress:
+        type: boolean
+        default: false
+      setUpgradeState:
+        type: boolean
+        default: false
+      setUpgradeVersion:
+        type: boolean
+        default: false
+      setEntityRef:
+        type: boolean
+        default: false
+  StNodeServices:
+    type: object
+    properties:
+      version:
+        type: string
+      state:
+        type: string
+        enum:
+        - OK
+        - INPROGRESS
+        - WAITING
+        - FAILED
+      reason:
+        type: string
+      StServices:
+        type: object
+        additionalProperties:
+          "$ref": "#/definitions/StServiceDetails"
+      setVersion:
+        type: boolean
+        default: false
+      setReason:
+        type: boolean
+        default: false
+      stServicesSize:
+        type: integer
+        format: int32
+      stServices:
+        type: object
+        additionalProperties:
+          "$ref": "#/definitions/StServiceDetails"
+      setStServices:
+        type: boolean
+        default: false
+      setState:
+        type: boolean
+        default: false
+  StOperationInfo:
+    type: object
+    properties:
+      state:
+        type: string
+        enum:
+        - NONE
+        - ADDING
+        - REMOVING
+        - MODIFYING
+        - ACCESSING
+      setState:
+        type: boolean
+        default: false
+  Event:
+    type: object
+    properties:
+      createdTime:
+        type: string
+      key:
+        type: integer
+        format: int32
+      message:
+        type: string
+      username:
+        type: string
+      category:
+        type: string
+  CustomSpec:
+    type: object
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+      lastUpdateTime:
+        type: string
+      typeStr:
+        type: string
+  Alarm:
+    type: object
+    properties:
+      key:
+        type: string
+      triggeredTime:
+        type: string
+      acknowledged:
+        type: boolean
+      entityName:
+        type: string
+      description:
+        type: string
+      status:
+        type: string
+      mor:
+        "$ref": "#/definitions/StringStringPair"
+      entity:
+        "$ref": "#/definitions/StringStringPair"
+  ReleaseManifest:
+    type: object
+    properties:
+      release:
+        type: string
+      manifest:
+        type: array
+        items:
+          "$ref": "#/definitions/StringStringPair"
+  VersionAndState:
+    type: object
+    properties:
+      isCurrent:
+        type: boolean
+      setState:
+        type: string
+  StPlatformCluster:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      config:
+        "$ref": "#/definitions/StPlatformClusterConfig"
+      state:
+        type: string
+        enum:
+        - UNKNOWN
+        - ONLINE
+        - OFFLINE
+        - DEGRADED
+        - WARNING
+        - FAILED
+        - INPROGRESS
+        - ENOSPACE
+        - READONLY
+      healthState:
+        type: string
+        enum:
+        - UNKNOWN
+        - HEALTHY
+        - AVERAGE
+        - MARGINAL
+        - CRITICAL
+        - UNHEALTHY
+      boottime:
+        type: integer
+        format: int64
+      rawCapacity:
+        type: integer
+        format: int64
+      capacity:
+        type: integer
+        format: int64
+      usedCapacity:
+        type: integer
+        format: int64
+      freeCapacity:
+        type: integer
+        format: int64
+      nodes:
+        type: array
+        uniqueItems: true
+        items:
+          "$ref": "#/definitions/EntityRef"
+      compliance:
+        type: string
+        enum:
+        - UNKNOWN
+        - COMPLIANT
+        - NON_COMPLIANT
+      resiliencyDetails:
+        type: object
+        additionalProperties:
+          type: string
+      activeNodes:
+        type: integer
+        format: int32
+      uptime:
+        type: integer
+        format: int64
+      downtime:
+        type: integer
+        format: int64
+      resiliencyInfo:
+        "$ref": "#/definitions/StPlatformClusterResiliencyInfo"
+      healingInfo:
+        "$ref": "#/definitions/StPlatformClusterHealingInfo"
+      allFlash:
+        type: boolean
+        default: false
+      setConfig:
+        type: boolean
+        default: false
+      setState:
+        type: boolean
+        default: false
+      setEntityRef:
+        type: boolean
+        default: false
+      nodesSize:
+        type: integer
+        format: int32
+      nodesIterator:
+        "$ref": "#/definitions/IteratorEntityRef"
+      setNodes:
+        type: boolean
+        default: false
+      setHealthState:
+        type: boolean
+        default: false
+      setBoottime:
+        type: boolean
+        default: false
+      setRawCapacity:
+        type: boolean
+        default: false
+      setCapacity:
+        type: boolean
+        default: false
+      setUsedCapacity:
+        type: boolean
+        default: false
+      setFreeCapacity:
+        type: boolean
+        default: false
+      setCompliance:
+        type: boolean
+        default: false
+      resiliencyDetailsSize:
+        type: integer
+        format: int32
+      setResiliencyDetails:
+        type: boolean
+        default: false
+      setActiveNodes:
+        type: boolean
+        default: false
+      setUptime:
+        type: boolean
+        default: false
+      setDowntime:
+        type: boolean
+        default: false
+      setResiliencyInfo:
+        type: boolean
+        default: false
+      setHealingInfo:
+        type: boolean
+        default: false
+      setAllFlash:
+        type: boolean
+        default: false
+  StPlatformClusterConfig:
+    type: object
+    properties:
+      ip:
+        type: string
+      size:
+        type: integer
+        format: int32
+      clusterUuid:
+        type: string
+      dataReplicationFactor:
+        type: string
+        enum:
+        - ONE_COPY
+        - TWO_COPIES
+        - THREE_COPIES
+      clusterAccessPolicy:
+        type: string
+        enum:
+        - INVALID
+        - STRICT
+        - LENIENT
+      workloadType:
+        type: string
+        enum:
+        - AUTO_RESERVED
+        - VDI
+        - VSI
+      setIp:
+        type: boolean
+        default: false
+      setSize:
+        type: boolean
+        default: false
+      setClusterUuid:
+        type: boolean
+        default: false
+      setDataReplicationFactor:
+        type: boolean
+        default: false
+      setClusterAccessPolicy:
+        type: boolean
+        default: false
+      setWorkloadType:
+        type: boolean
+        default: false
+  StPlatformClusterHealingInfo:
+    type: object
+    properties:
+      inProgress:
+        type: boolean
+        default: false
+      estimatedCompletionTimeInSeconds:
+        type: integer
+        format: int64
+      percentComplete:
+        type: integer
+        format: int32
+      messages:
+        type: array
+        items:
+          type: string
+      setInProgress:
+        type: boolean
+        default: false
+      messagesSize:
+        type: integer
+        format: int32
+      messagesIterator:
+        "$ref": "#/definitions/IteratorString"
+      setMessages:
+        type: boolean
+        default: false
+      setEstimatedCompletionTimeInSeconds:
+        type: boolean
+        default: false
+      setPercentComplete:
+        type: boolean
+        default: false
+  StPlatformClusterResiliencyInfo:
+    type: object
+    properties:
+      state:
+        type: string
+        enum:
+        - UNKNOWN
+        - HEALTHY
+        - WARNING
+      nodeFailuresTolerable:
+        type: integer
+        format: int32
+      ssdFailuresTolerable:
+        type: integer
+        format: int32
+      hddFailuresTolerable:
+        type: integer
+        format: int32
+      messages:
+        type: array
+        items:
+          type: string
+      setState:
+        type: boolean
+        default: false
+      setNodeFailuresTolerable:
+        type: boolean
+        default: false
+      setSsdFailuresTolerable:
+        type: boolean
+        default: false
+      setHddFailuresTolerable:
+        type: boolean
+        default: false
+      messagesSize:
+        type: integer
+        format: int32
+      messagesIterator:
+        "$ref": "#/definitions/IteratorString"
+      setMessages:
+        type: boolean
+        default: false
+  StPlatformDatastore:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      config:
+        "$ref": "#/definitions/StPlatformDatastoreConfig"
+      creationTime:
+        type: integer
+        format: int64
+      lastAccessTime:
+        type: integer
+        format: int64
+      lastModifiedTime:
+        type: integer
+        format: int64
+      totalCapacity:
+        type: integer
+        format: int64
+      freeCapacity:
+        type: integer
+        format: int64
+      unsharedUsedBytes:
+        type: integer
+        format: int64
+      unCompressedUsedBytes:
+        type: integer
+        format: int64
+      parent:
+        "$ref": "#/definitions/EntityRef"
+      setCreationTime:
+        type: boolean
+        default: false
+      setLastAccessTime:
+        type: boolean
+        default: false
+      setUnsharedUsedBytes:
+        type: boolean
+        default: false
+      setUnCompressedUsedBytes:
+        type: boolean
+        default: false
+      setTotalCapacity:
+        type: boolean
+        default: false
+      setConfig:
+        type: boolean
+        default: false
+      setEntityRef:
+        type: boolean
+        default: false
+      setFreeCapacity:
+        type: boolean
+        default: false
+      setParent:
+        type: boolean
+        default: false
+      setLastModifiedTime:
+        type: boolean
+        default: false
+  StPlatformDatastoreConfig:
+    type: object
+    properties:
+      name:
+        type: string
+      capacity:
+        type: integer
+        format: int64
+      numMirrors:
+        type: integer
+        format: int32
+      systemDatastore:
+        type: boolean
+        default: false
+      numStripes:
+        type: integer
+        format: int32
+      dataBlockSize:
+        type: integer
+        format: int32
+      setName:
+        type: boolean
+        default: false
+      setCapacity:
+        type: boolean
+        default: false
+      setNumMirrors:
+        type: boolean
+        default: false
+      setSystemDatastore:
+        type: boolean
+        default: false
+      setNumStripes:
+        type: boolean
+        default: false
+      setDataBlockSize:
+        type: boolean
+        default: false
+  StPlatformEnospaceInfo:
+    type: object
+    properties:
+      bytesToResume:
+        type: integer
+        format: int64
+      bytesReclaimable:
+        type: integer
+        format: int64
+      bytesToClear:
+        type: integer
+        format: int64
+      freeBytes:
+        type: integer
+        format: int64
+      state:
+        type: string
+        enum:
+        - CLUSTER_ENOSPACE_NONE
+        - CLUSTER_ENOSPACE_SET
+        - CLUSTER_ENOSPACE_WARN
+        - CLUSTER_ENOSPACE_ALERT
+        - CLUSTER_ENOSPACE_CLEAR
+      rebalanceInProgress:
+        type: boolean
+        default: false
+      flusherInProgress:
+        type: boolean
+        default: false
+      cleanerInProgress:
+        type: boolean
+        default: false
+      diskEnospc:
+        type: boolean
+        default: false
+      setBytesToResume:
+        type: boolean
+        default: false
+      setBytesReclaimable:
+        type: boolean
+        default: false
+      setBytesToClear:
+        type: boolean
+        default: false
+      setFreeBytes:
+        type: boolean
+        default: false
+      setRebalanceInProgress:
+        type: boolean
+        default: false
+      setFlusherInProgress:
+        type: boolean
+        default: false
+      setCleanerInProgress:
+        type: boolean
+        default: false
+      setDiskEnospc:
+        type: boolean
+        default: false
+      setState:
+        type: boolean
+        default: false
+  StPlatformException:
+    type: object
+    properties:
+      cause:
+        "$ref": "#/definitions/Throwable"
+      stackTrace:
+        type: array
+        items:
+          "$ref": "#/definitions/StackTraceElement"
+      type:
+        type: string
+        enum:
+        - UNKNOWN
+        - INVALID_OPERATION
+        - CLUSTER
+        - STFS
+        - CLEANER
+        - NODE_MANAGER
+        - PLATFORM
+        - DATASTORE
+        - INVENTORY
+        - SERVER
+        - REBALANCE
+        - ENOSPACE
+        - REPLICATION
+      error:
+        type: integer
+        format: int32
+      message:
+        type: string
+      data:
+        type: object
+        additionalProperties:
+          type: string
+      setMessage:
+        type: boolean
+        default: false
+      dataSize:
+        type: integer
+        format: int32
+      setData:
+        type: boolean
+        default: false
+      setType:
+        type: boolean
+        default: false
+      setError:
+        type: boolean
+        default: false
+      localizedMessage:
+        type: string
+      suppressed:
+        type: array
+        items:
+          "$ref": "#/definitions/Throwable"
+  StPlatformNode:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      disks:
+        type: array
+        uniqueItems: true
+        items:
+          "$ref": "#/definitions/StDisk"
+      lastModifiedTime:
+        type: integer
+        format: int64
+      version:
+        type: integer
+        format: int64
+      name:
+        type: string
+      ip:
+        type: string
+      about:
+        "$ref": "#/definitions/AboutInfo"
+      state:
+        type: string
+        enum:
+        - INVALID
+        - READY
+        - UNPUBLISHED
+        - DELETED
+        - BLACKLISTED
+        - WHITELISTED
+        - INMAINTENANCE
+      bootTime:
+        type: integer
+        format: int64
+      retired:
+        type: boolean
+        default: false
+      nsPrimary:
+        type: boolean
+        default: false
+      master:
+        type: boolean
+        default: false
+      compression:
+        type: boolean
+        default: false
+      dedup:
+        type: boolean
+        default: false
+      dataWriteThruEnabled:
+        type: boolean
+        default: false
+      disksSize:
+        type: integer
+        format: int32
+      setDisks:
+        type: boolean
+        default: false
+      disksIterator:
+        "$ref": "#/definitions/IteratorStDisk"
+      setVersion:
+        type: boolean
+        default: false
+      setName:
+        type: boolean
+        default: false
+      setState:
+        type: boolean
+        default: false
+      setAbout:
+        type: boolean
+        default: false
+      setEntityRef:
+        type: boolean
+        default: false
+      setIp:
+        type: boolean
+        default: false
+      setLastModifiedTime:
+        type: boolean
+        default: false
+      setBootTime:
+        type: boolean
+        default: false
+      setRetired:
+        type: boolean
+        default: false
+      setNsPrimary:
+        type: boolean
+        default: false
+      setMaster:
+        type: boolean
+        default: false
+      setCompression:
+        type: boolean
+        default: false
+      setDedup:
+        type: boolean
+        default: false
+      setDataWriteThruEnabled:
+        type: boolean
+        default: false
+  StPlatformRebalanceStatus:
+    type: object
+    properties:
+      rebalanceState:
+        type: string
+        enum:
+        - CLUSTER_REBALANCE_NOT_RUNNING
+        - CLUSTER_REBALANCE_ONGOING
+        - CLUSTER_REBALANCE_NOT_MASTER
+        - CLUSTER_REBALANCE_NOT_SUPPORTED
+        - CLUSTER_REBALANCE_FAILED
+      percentComplete:
+        type: integer
+        format: int32
+      setRebalanceState:
+        type: boolean
+        default: false
+      setPercentComplete:
+        type: boolean
+        default: false
+  StPortGroupSettings:
+    type: object
+    properties:
+      name:
+        type: string
+      type:
+        type: string
+        enum:
+        - VMKERNEL
+        - VM
+      vlanId:
+        type: integer
+        format: int32
+      setName:
+        type: boolean
+        default: false
+      setType:
+        type: boolean
+        default: false
+      setVlanId:
+        type: boolean
+        default: false
+  StSMTPConfiguration:
+    type: object
+    properties:
+      smtpServer:
+        type: string
+      fromAddress:
+        type: string
+      setFromAddress:
+        type: boolean
+        default: false
+      setSmtpServer:
+        type: boolean
+        default: false
+  StServiceDetails:
+    type: object
+    properties:
+      version:
+        type: string
+      state:
+        type: string
+      message:
+        type: string
+      setVersion:
+        type: boolean
+        default: false
+      setMessage:
+        type: boolean
+        default: false
+      setState:
+        type: boolean
+        default: false
+  StVirtualNetworkSetting:
+    type: object
+    properties:
+      stService:
+        type: string
+        enum:
+        - STCTL
+        - ZK
+        - HYPERVISOR
+        - IPMI
+        - MGMT
+        - CLUSTER
+        - VMOTION
+        - STCTL_MGMT
+        - VM
+        - REPLICATION
+      vSwitch:
+        type: string
+      isVDSConfiguration:
+        type: boolean
+        default: false
+      controllerPortGroupName:
+        type: string
+      hypervisorPortGroupName:
+        type: string
+      vlanId:
+        type: integer
+        format: int32
+      pNic:
+        type: string
+      portGroupSettings:
+        type: array
+        items:
+          "$ref": "#/definitions/StPortGroupSettings"
+      vswitch:
+        type: string
+      setVSwitch:
+        type: boolean
+        default: false
+      setIsVDSConfiguration:
+        type: boolean
+        default: false
+      setControllerPortGroupName:
+        type: boolean
+        default: false
+      setHypervisorPortGroupName:
+        type: boolean
+        default: false
+      pnic:
+        type: string
+      setPNic:
+        type: boolean
+        default: false
+      portGroupSettingsSize:
+        type: integer
+        format: int32
+      portGroupSettingsIterator:
+        "$ref": "#/definitions/IteratorStPortGroupSettings"
+      setPortGroupSettings:
+        type: boolean
+        default: false
+      setStService:
+        type: boolean
+        default: false
+      setVlanId:
+        type: boolean
+        default: false
+  StackTraceElement:
+    type: object
+    properties:
+      methodName:
+        type: string
+      fileName:
+        type: string
+      lineNumber:
+        type: integer
+        format: int32
+      className:
+        type: string
+      nativeMethod:
+        type: boolean
+        default: false
+  Step:
+    type: object
+    properties:
+      name:
+        type: string
+      state:
+        type: string
+        enum:
+        - NOTSTARTED
+        - INPROGRESS
+        - SUCCEEDED
+        - FAILED
+      description:
+        type: string
+      entity:
+        "$ref": "#/definitions/EntityRef"
+      fault:
+        "$ref": "#/definitions/StException"
+      completion:
+        type: integer
+        format: int32
+      parent:
+        "$ref": "#/definitions/EntityRef"
+      isValidation:
+        type: boolean
+        default: false
+      lcDescription:
+        "$ref": "#/definitions/LocalizableMessage"
+      setName:
+        type: boolean
+        default: false
+      setState:
+        type: boolean
+        default: false
+      setFault:
+        type: boolean
+        default: false
+      setDescription:
+        type: boolean
+        default: false
+      setLcDescription:
+        type: boolean
+        default: false
+      setEntity:
+        type: boolean
+        default: false
+      setCompletion:
+        type: boolean
+        default: false
+      setParent:
+        type: boolean
+        default: false
+      setIsValidation:
+        type: boolean
+        default: false
+  TaskInfo:
+    type: object
+    properties:
+      dynamicType:
+        type: string
+      dynamicProperty:
+        type: array
+        items:
+          "$ref": "#/definitions/DynamicProperty"
+      key:
+        type: string
+      task:
+        "$ref": "#/definitions/ManagedObjectReference"
+      description:
+        "$ref": "#/definitions/LocalizableMessage"
+      name:
+        type: string
+      descriptionId:
+        type: string
+      entity:
+        "$ref": "#/definitions/ManagedObjectReference"
+      entityName:
+        type: string
+      locked:
+        type: array
+        items:
+          "$ref": "#/definitions/ManagedObjectReference"
+      state:
+        type: string
+        enum:
+        - queued
+        - running
+        - success
+        - error
+      cancelled:
+        type: boolean
+        default: false
+      cancelable:
+        type: boolean
+        default: false
+      error:
+        "$ref": "#/definitions/LocalizedMethodFault"
+      result:
+        type: object
+      progress:
+        type: integer
+        format: int32
+      reason:
+        "$ref": "#/definitions/TaskReason"
+      queueTime:
+        type: string
+        format: date-time
+      startTime:
+        type: string
+        format: date-time
+      completeTime:
+        type: string
+        format: date-time
+      eventChainId:
+        type: integer
+        format: int32
+      changeTag:
+        type: string
+      parentTaskKey:
+        type: string
+      rootTaskKey:
+        type: string
+  TaskReason:
+    type: object
+    properties:
+      dynamicType:
+        type: string
+      dynamicProperty:
+        type: array
+        items:
+          "$ref": "#/definitions/DynamicProperty"
+  Throwable:
+    type: object
+    properties:
+      cause:
+        "$ref": "#/definitions/Throwable"
+      stackTrace:
+        type: array
+        items:
+          "$ref": "#/definitions/StackTraceElement"
+      message:
+        type: string
+      localizedMessage:
+        type: string
+      suppressed:
+        type: array
+        items:
+          "$ref": "#/definitions/Throwable"
+  Time:
+    type: object
+    properties:
+      time:
+        type: string
+        format: date-time
+      timeZone:
+        type: string
+      unixTime:
+        type: integer
+        format: int64
+  UserContext:
+    type: object
+    properties:
+      username:
+        type: string
+      authorization:
+        type: string
+  VcServer:
+    type: object
+    properties:
+      address:
+        type: string
+  VmDataNetworkIpResult:
+    type: object
+    properties:
+      dataNetworkIp:
+        type: string
+  CreateSnapshotResultDTO:
+    type: object
+    required:
+    - snapshotId
+    properties:
+      snapshotId:
+        type: string
+  DeleteSnapshotResult:
+    type: object
+    properties:
+      snapshotId:
+        type: string
+  VirtCluster:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      state:
+        type: string
+        enum:
+        - UNKNOWN
+        - ONLINE
+        - OFFLINE
+        - DEGRADED
+        - WARNING
+        - FAILED
+        - INPROGRESS
+        - ENOSPACE
+        - READONLY
+      boottime:
+        type: integer
+        format: int64
+      virtNodes:
+        type: array
+        uniqueItems: true
+        items:
+          "$ref": "#/definitions/EntityRef"
+      virtDatastores:
+        type: array
+        uniqueItems: true
+        items:
+          "$ref": "#/definitions/EntityRef"
+      setState:
+        type: boolean
+        default: false
+      setEntityRef:
+        type: boolean
+        default: false
+      setBoottime:
+        type: boolean
+        default: false
+      virtNodesSize:
+        type: integer
+        format: int32
+      virtNodesIterator:
+        "$ref": "#/definitions/IteratorEntityRef"
+      setVirtNodes:
+        type: boolean
+        default: false
+      virtDatastoresSize:
+        type: integer
+        format: int32
+      virtDatastoresIterator:
+        "$ref": "#/definitions/IteratorEntityRef"
+      setVirtDatastores:
+        type: boolean
+        default: false
+  VirtClusterConfig:
+    type: object
+    properties:
+      haEnabled:
+        type: boolean
+        default: false
+      drsEnabled:
+        type: boolean
+        default: false
+      setHaEnabled:
+        type: boolean
+        default: false
+      setDrsEnabled:
+        type: boolean
+        default: false
+  VirtDatastore:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      url:
+        type: string
+      status:
+        type: object
+        additionalProperties:
+          "$ref": "#/definitions/VirtMountpointStatus"
+      mountSummary:
+        type: string
+        enum:
+        - MOUNTED
+        - UNMOUNTED
+        - MOUNT_FAILURE
+        - UNMOUNT_FAILURE
+      accessibilitySummary:
+        type: string
+        enum:
+        - ACCESSIBLE
+        - NOT_ACCESSIBLE
+        - PARTIALLY_ACCESSIBLE
+      mor:
+        type: string
+      setUrl:
+        type: boolean
+        default: false
+      statusSize:
+        type: integer
+        format: int32
+      setMountSummary:
+        type: boolean
+        default: false
+      setAccessibilitySummary:
+        type: boolean
+        default: false
+      setMor:
+        type: boolean
+        default: false
+      setEntityRef:
+        type: boolean
+        default: false
+      setStatus:
+        type: boolean
+        default: false
+  VirtMountpointStatus:
+    type: object
+    properties:
+      accessible:
+        type: boolean
+        default: false
+      reasonInaccessible:
+        type: string
+      mounted:
+        type: boolean
+        default: false
+      setAccessible:
+        type: boolean
+        default: false
+      setReasonInaccessible:
+        type: boolean
+        default: false
+      setMounted:
+        type: boolean
+        default: false
+  VirtNode:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      ip:
+        "$ref": "#/definitions/IpSettings"
+      vMotionIp:
+        "$ref": "#/definitions/IpSettings"
+      ipmiSettings:
+        "$ref": "#/definitions/IpSettings"
+      name:
+        type: string
+      about:
+        "$ref": "#/definitions/AboutInfo"
+      state:
+        type: string
+        enum:
+        - ONLINE
+        - OFFLINE
+        - INMAINTENANCE
+        - INPROGRESS
+      bootTime:
+        type: integer
+        format: int64
+      enclosureSerialNumber:
+        type: string
+      moid:
+        type: string
+      stctlvm:
+        "$ref": "#/definitions/StCtlVM"
+      ioVisor:
+        "$ref": "#/definitions/IOVisor"
+      vib:
+        type: string
+      fw:
+        type: string
+      setEnclosureSerialNumber:
+        type: boolean
+        default: false
+      setMoid:
+        type: boolean
+        default: false
+      setStctlvm:
+        type: boolean
+        default: false
+      setIoVisor:
+        type: boolean
+        default: false
+      setVib:
+        type: boolean
+        default: false
+      setFw:
+        type: boolean
+        default: false
+      setName:
+        type: boolean
+        default: false
+      setState:
+        type: boolean
+        default: false
+      setAbout:
+        type: boolean
+        default: false
+      setEntityRef:
+        type: boolean
+        default: false
+      setIp:
+        type: boolean
+        default: false
+      setBootTime:
+        type: boolean
+        default: false
+      vmotionIp:
+        "$ref": "#/definitions/IpSettings"
+      setVMotionIp:
+        type: boolean
+        default: false
+      setIpmiSettings:
+        type: boolean
+        default: false
+  VirtualMachine:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      guestId:
+        type: string
+      guestFullName:
+        type: string
+      guestState:
+        type: string
+      guestFamily:
+        type: string
+      ipAddress:
+        type: string
+      powerState:
+        type: string
+      connectionState:
+        type: string
+      provisionedSize:
+        type: integer
+        format: int64
+      usedSize:
+        type: integer
+        format: int64
+      hostName:
+        type: string
+      memoryUsage:
+        type: integer
+        format: int32
+      cpuUsage:
+        type: integer
+        format: int32
+      storages:
+        type: array
+        items:
+          type: string
+      resourcePool:
+        type: string
+      numCpu:
+        type: integer
+        format: int32
+      memoryMB:
+        type: integer
+        format: int32
+      network:
+        type: array
+        items:
+          type: string
+      vmPathName:
+        type: string
+      folder:
+        type: string
+      version:
+        type: string
+  VMCloneStatus:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      stException:
+        "$ref": "#/definitions/StException"
+  StringStringPair:
+    type: object
+    properties:
+      first:
+        type: string
+      second:
+        type: string
+  EntityRefStPlatformCleanerSchedulePair:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      stPlatformCleanerSchedule:
+        "$ref": "#/definitions/StPlatformCleanerSchedule"
+  StPlatformCleanerSchedule:
+    type: object
+    properties:
+      policyActive:
+        type: boolean
+      startTime:
+        type: integer
+        format: int32
+      endTime:
+        type: integer
+        format: int32
+  Message:
+    type: object
+    properties:
+      messageString:
+        type: string
+      severity:
+        type: string
+        enum:
+        - WARNING
+        - ERROR
+        - INFO
+      localizedMessage:
+        "$ref": "#/definitions/LocalizableMessage"
+  EntityMessages:
+    type: object
+    properties:
+      entity:
+        "$ref": "#/definitions/EntityRef"
+      messages:
+        type: array
+        items:
+          "$ref": "#/definitions/Message"
+  EntityNameEntityMessagesPair:
+    type: object
+    properties:
+      entityName:
+        type: string
+      entityMessages:
+        type: array
+        items:
+          "$ref": "#/definitions/EntityMessages"
+  EntityRefStCleanerStatSetPair:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      stCleanerStat:
+        type: array
+        items:
+          "$ref": "#/definitions/StCleanerStat"
+  StCleanerStat:
+    type: object
+    properties:
+      ftVnodeNumber:
+        type: integer
+        format: int32
+      priorNumLiveKeys:
+        type: integer
+        format: int64
+      curNumLiveKeys:
+        type: integer
+        format: int64
+      priorNumDeadKeys:
+        type: integer
+        format: int64
+      curNumDeadKeys:
+        type: integer
+        format: int64
+      priorNumSegments:
+        type: integer
+        format: int64
+      curNumSegments:
+        type: integer
+        format: int64
+      deletedNumSegments:
+        type: integer
+        format: int64
+      uniqueBytes:
+        type: integer
+        format: int64
+      uniqueVBAs:
+        type: integer
+        format: int64
+      uniqueVBABytes:
+        type: integer
+        format: int64
+      totalAddressedVBABytes:
+        type: integer
+        format: int64
+  EntityRefServerStatePair:
+    type: object
+    properties:
+      entityRef:
+        "$ref": "#/definitions/EntityRef"
+      stPlatformCleanerSchedule:
+        type: string
+        enum:
+        - ONLINE
+        - OFFLINE
+  VirtualMachineSnapshotInfo:
+    type: object
+    properties:
+      dynamicType:
+        type: string
+      dynamicProperty:
+        type: array
+        items:
+          "$ref": "#/definitions/DynamicProperty"
+      currentSnapshot:
+        "$ref": "#/definitions/ManagedObjectReference"
+      rootSnapshotList:
+        type: array
+        items:
+          "$ref": "#/definitions/VirtualMachineSnapshotTree"
+  StVmIncomingSnapshot:
+    type: object
+    properties:
+      replicationSource:
+        "$ref": "#/definitions/EntityRef"
+      srcVmUuid:
+        type: string
+      srcVmName:
+        type: string
+      srcVmxPath:
+        type: string
+        format: date-time
+      snapShots:
+        type: array
+        items:
+          "$ref": "#/definitions/StSnapshotPoint"
+      status:
+        type: array
+        items:
+          "$ref": "#/definitions/StException"
+  StSnapshotPoint:
+    type: object
+    properties:
+      replicationSource:
+        type: string
+  VirtualMachineSnapshotTree:
+    type: object
+    properties:
+      dynamicType:
+        type: string
+      dynamicProperty:
+        type: array
+        items:
+          "$ref": "#/definitions/DynamicProperty"
+      snapshot:
+        "$ref": "#/definitions/ManagedObjectReference"
+      vm:
+        "$ref": "#/definitions/ManagedObjectReference"
+      name:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+        format: int32
+      createTime:
+        type: string
+        format: date-time
+      state:
+        type: string
+        enum:
+        - poweredOff
+        - poweredOn
+        - suspended
+      quiesced:
+        type: boolean
+        default: false
+      backupManifest:
+        type: string
+      childSnapshotList:
+        type: array
+        items:
+          "$ref": "#/definitions/VirtualMachineSnapshotTree"
+      replaySupported:
+        type: boolean
+        default: false

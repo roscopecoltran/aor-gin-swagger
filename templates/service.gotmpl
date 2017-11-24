@@ -1,0 +1,50 @@
+package main
+
+import (
+	"net/http"
+	"time"
+
+	"github.com/roscopecoltran/gin-swagger/api"
+	"github.com/roscopecoltran/gin-swagger/config"
+
+	// DefaultImports
+	{{range .DefaultImports}}{{printf "%q" .}}
+	{{end}}
+	// Imports
+	{{range $key, $value := .Imports}}{{$key}} {{ printf "%q" $value}}
+	{{end}}
+
+	"github.com/jinzhu/gorm"
+	"github.com/k0kubun/pp"
+
+	jwt_lib "github.com/dgrijalva/jwt-go"
+	// "github.com/gin-gonic/contrib/jwt"
+
+	"github.com/gin-gonic/gin"
+)
+
+func CreateOrUpdateJwtToken(db *gorm.DB, jwtUser *models.JwtUser) (bool, error) {
+	// Get existing by remote ID and service ID
+	var existing models.JwtUser
+	if db.Where("user_name = ? AND email = ?", jwtUser.Username, jwtUser.Email).First(&existing).RecordNotFound() {
+		err := db.Create(jwtUser).Error
+		return err == nil, err
+	}
+	jwtUser.ID = existing.ID
+	jwtUser.CreatedAt = existing.CreatedAt
+	return false, db.Save(jwtUser).Error
+}
+
+type {{ .Name }}Server struct {
+	Health bool
+}
+
+func (s *{{ .Name }}Server) Healthy() bool {
+	return s.Health
+}
+
+	{{range .Operations}}
+func (s *{{ .Name }}Server) {{ pascalize .Name }}(ctx *gin.Context{{ if .Params }},  params *{{.Package}}.{{ pascalize .Name }}Params{{ end }}) *api.Response {
+	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+}
+{{end}}

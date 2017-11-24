@@ -1,7 +1,8 @@
+# https://github.com/go-swagger/go-swagger/blob/master/docs/use/template_layout.md
 layout:
   application:
     - name: configure
-      source: "{{ .TmpDir }}/templates/config.gotmpl"
+      source: "{{ .TmpDir }}/templates/restapi.gotmpl"
       target: "{{`{{ joinFilePath .Target .ServerPackage }}`}}"
       file_name: "config.go"
     - name: embedded_spec
@@ -12,6 +13,18 @@ layout:
       source: "{{ .TmpDir }}/templates/api.gotmpl"
       target: "{{`{{ joinFilePath .Target .ServerPackage }}`}}"
       file_name: "api.go"
+    - name: main
+      source: "{{ .TmpDir }}/templates/main.gotmpl"
+      target: "{{`{{ joinFilePath .Target \"cmd\" (dasherize (pascalize .Name)) }}-server`}}"
+      file_name: "main.go"
+    - name: migrate
+      source: "{{ .TmpDir }}/templates/migrate.gotmpl"
+      target: "{{`{{ joinFilePath .Target .ServerPackage }}`}}"
+      file_name: "migrate.go"
+    - name: service
+      source: "{{ .TmpDir }}/templates/service.gotmpl"
+      target: "{{`{{ joinFilePath .Target \"cmd\" (dasherize (pascalize .Name)) }}-server`}}"
+      file_name: "service.go"
   models:
     - name: definition
       source: asset:model

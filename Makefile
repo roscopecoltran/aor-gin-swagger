@@ -1,6 +1,6 @@
 .PHONY: build test generate clean
 
-BINARY       ?= gin-swagger
+BINARY       ?= gin-swagger-gorm
 SOURCES      = $(shell find . -name '*.go')
 GOPKGS       = $(shell go list ./... | grep -v /vendor/)
 TEMPLATES    = $(shell find templates/ -type f -name '*.gotmpl')
@@ -8,6 +8,11 @@ BUILD_FLAGS  ?= -v
 LDFLAGS      ?= -X main.version=$(VERSION) -w -s
 
 default: build
+
+deps:
+	go get -v -u github.com/go-swagger/go-swagger/cmd/swagger
+	go get -v github.com/Masterminds/glide
+	glide install --strip-vendor
 
 clean:
 	@rm $(BINARY)

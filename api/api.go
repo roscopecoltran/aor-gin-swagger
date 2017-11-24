@@ -5,6 +5,7 @@ package api
 type Response struct {
 	Code int
 	Body interface{}
+	// Headers []string / map[string]string
 }
 
 // Problem defines the Problem JSON type defined by RFC 7807 - media type

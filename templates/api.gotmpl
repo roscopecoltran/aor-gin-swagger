@@ -8,17 +8,28 @@ import (
 	"syscall"
 	"time"
 	"strings"
+	"fmt"
 
 	"golang.org/x/oauth2"
 
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
+
 	ginoauth2 "github.com/zalando/gin-oauth2"
-	"github.com/mikkeloscar/gin-swagger/middleware"
-	"github.com/mikkeloscar/gin-swagger/api"
+
+	"github.com/roscopecoltran/swagger-gin/api"
+	"github.com/roscopecoltran/swagger-gin/config"
+	"github.com/roscopecoltran/swagger-gin/database"
+	"github.com/roscopecoltran/swagger-gin/middleware"
+
+	// zap	
+	// logrus
 	log "github.com/sirupsen/logrus"
+
+	// DefaultImports
 	{{range .DefaultImports}}{{printf "%q" .}}
 	{{end}}
+	// Imports
 	{{range $key, $value := .Imports}}{{$key}} {{ printf "%q" $value}}
 	{{end}}
 )
@@ -93,6 +104,21 @@ func configureRoutes(service Service, enableAuth bool, tokenURL string) *Routes 
 	engine := gin.New()
 	engine.Use(gin.Recovery())
 	engine.Use(middleware.LogrusLogger())
+
+	svcConfig := config.Config
+
+	if svcConfig.API.CORS.Enabled {
+		engine.Use(middleware.CORS())
+	}
+
+	if svcConfig.DB.Enabled {
+		engine.Use(middleware.DatabaseContext(database.DB))
+	}
+
+	if svcConfig.API.JWT.Enabled {
+		fmt.Printf("UseJWT? %t \n", svcConfig.API.JWT.Enabled)
+		fmt.Println("SecretKey: ", svcConfig.API.JWT.SecretKey)
+	}
 	routes := &Routes{Engine: engine}
 
 	{{range .Operations}}routes.{{ pascalize .Name }}.RouterGroup = routes.Group("")
@@ -215,4 +241,69 @@ func (a *API) RunWithSigHandler(shutdown ...func() error) error {
 
 	return nil
 }
+
+// VARS DEBUG
+// Name: {{ .Name }}
+// Name: {{ .Name }}
+// Name: {{ .Name }}
+// Name: {{ .Name }}
+// Name: {{ .Name }}
+// Name: {{ .Name }}
+// Name: {{ .Name }}
+// Name: {{ .Name }}
+
+// CUSTOM_FILE START - service.go
+
+func CreateOrUpdateJwtToken(db *gorm.DB, jwtUser *models.JwtUser) (bool, error) {
+	// Get existing by remote ID and service ID
+	var existing models.JwtUser
+	if db.Where("user_name = ? AND email = ?", jwtUser.Username, jwtUser.Email).First(&existing).RecordNotFound() {
+		err := db.Create(jwtUser).Error
+		return err == nil, err
+	}
+	jwtUser.ID = existing.ID
+	jwtUser.CreatedAt = existing.CreatedAt
+	return false, db.Save(jwtUser).Error
+}
+
+type {{ .Name }}Server struct {
+	Health bool
+}
+
+func (s *{{ .Name }}Server) Healthy() bool {
+	return s.Health
+}
+
+	{{range .Operations}}
+func (s *{{ .Name }}Server) {{ pascalize .Name }}(ctx *gin.Context{{ if .Params }},  params *{{.Package}}.{{ pascalize .Name }}Params{{ end }}) *api.Response {
+	return &api.Response{Code: http.StatusNotImplemented, Body: "Not Implemented"}
+}
+{{end}}
+
+// CUSTOM_FILE END - service.go
+
+// CUSTOM_FILE START - migrate.go
+
+var (
+	DefaultTables = []interface{}{
+	{{range .Models}}&models.{{ pascalize .Name }}{},
+	{{end}}
+	}
+)
+
+func CreateTables(isTruncate bool, tables ...interface{}) {
+	for _, table := range tables {
+		if isTruncate {
+			if err := DB.DropTableIfExists(table).Error; err != nil {
+				panic(err)
+			}
+		}
+		fmt.Printf("AutoMigrate, table: %s\n", structs.Name(table))
+		DB.AutoMigrate(table)
+	}
+}
+
+
+// CUSTOM_FILE - migrate.go
+
 // vim: ft=go

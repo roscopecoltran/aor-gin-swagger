@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mikkeloscar/gin-swagger/api"
+	"github.com/roscopecoltran/admin-on-rest-server/server/api"
 )
 
 // ContentTypes is a middleware that checks the request Content-Type header and
