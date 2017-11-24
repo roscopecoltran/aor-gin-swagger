@@ -13,6 +13,7 @@ import (
 	// "github.com/fatih/structs"
 	// "github.com/k0kubun/pp"
 	"github.com/MohamedBassem/gormgen"
+	"github.com/NYTimes/openapi2proto"
 	"github.com/iancoleman/strcase"
 	"github.com/roscopecoltran/aor-gin-swagger/utils"
 	"gopkg.in/alecthomas/kingpin.v2"
@@ -34,6 +35,8 @@ var (
 		Application        string
 		SwaggerPath        string
 		OutputDir          string
+		GenerateProtobuf   bool
+		AnnotateProtobuf   bool
 		DatabaseMiddleware bool
 		GenerateServer     bool
 		Verbose            bool
@@ -57,6 +60,12 @@ func init() {
 
 	kingpin.Flag("generate-server", "Generate server command files.").
 		Short('S').BoolVar(&config.GenerateServer)
+
+	kingpin.Flag("generate-proto", "Generate Protobuf v3 schema and gRPC service definition files.").
+		Short('G').BoolVar(&config.GenerateProtobuf)
+
+	kingpin.Flag("annotate-proto", "Annotate Protobuf v3 schema and gRPC service definition filess.").
+		Short('A').BoolVar(&config.AnnotateProtobuf)
 
 	kingpin.Flag("database-middleware", "Add a gin database middleware.").
 		Short('D').BoolVar(&config.DatabaseMiddleware)
@@ -83,10 +92,28 @@ func main() {
 		utils.ConvertSwaggerFile(config.SwaggerPath)
 	}
 
+	if config.GenerateProtobuf {
+		api, err := openapi2proto.LoadDefinition(config.SwaggerPath)
+		if err != nil {
+			log.Fatal("unable to load spec: ", err)
+		}
+
+		out, err := openapi2proto.GenerateProto(api, config.AnnotateProtobuf)
+		if err != nil {
+			log.Fatal("unable to generate protobuf: ", err)
+		}
+
+		_, err = os.Stdout.Write(out)
+		if err != nil {
+			log.Fatal("unable to write output to stdout: ", err)
+		}
+	}
+
 	err := run(config.Application, config.SwaggerPath, config.DatabaseMiddleware)
 	if err != nil {
 		log.Fatalf("failed to run swagger: %s", err)
 	}
+
 }
 
 func run(application, swagger string, databaseMiddleware bool) error {

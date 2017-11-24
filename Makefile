@@ -32,6 +32,7 @@ deps: glide
 	go get -v -u github.com/roscopecoltran/go-swagger/cmd/swagger
 	go get -v github.com/Masterminds/glide
 	go get -v github.com/gin-contrib/pprof
+	go get -v github.com/NYTimes/openapi2proto
 
 glide:
 	glide install --strip-vendor
