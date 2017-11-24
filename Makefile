@@ -3,7 +3,7 @@
 EXAMPLE_NAME ?= aor-entity
 EXAMPLE_SPECS ?= ./tests/swagger.json
 
-BINARY       ?= gin-swagger-gorm
+BINARY       ?= aor-gin-swagger-generator
 SOURCES      = $(shell find . -name '*.go')
 GOPKGS       = $(shell go list ./... | grep -v /vendor/)
 TEMPLATES    = $(shell find templates/ -type f -name '*.gotmpl')

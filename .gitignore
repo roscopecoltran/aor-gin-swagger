@@ -1,3 +1,5 @@
 gin-swagger
 vendor/
 ./gin-swagger-gorm
+./aor-gin-swagger
+./aor-gin-swagger-generator
