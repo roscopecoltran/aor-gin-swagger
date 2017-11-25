@@ -7,7 +7,7 @@ import (
 
 	"encoding/json"
 	"github.com/buger/jsonparser"
-	"github.com/roscopecoltran/aor-gin-swagger/utils"
+	"github.com/roscopecoltran/aor-gin-swagger/generator/utils"
 	"strings"
 	"text/template"
 )

@@ -1,0 +1,145 @@
+package controllers
+
+import (
+	"{{.PackageName}}/helpers"
+	"{{.PackageName}}/models"
+	"github.com/gin-gonic/gin"
+	"gopkg.in/mgo.v2/bson"
+	"net/http"
+)
+
+var (
+	// Err{{.ModelName}}NotFound is returned when the {{.InstanceName}} was not found.
+	Err{{.ModelName}}NotFound     = helpers.NewResponseError(http.StatusNotFound, "{{.InstanceName}} not found")
+
+	// ErrCannotDelete{{.ModelName}} is returned when the {{.InstanceName}} can't be deleted.
+	ErrCannotDelete{{.ModelName}} = helpers.NewResponseError(http.StatusNotFound, "cannot delete {{.InstanceName}}")
+)
+
+// {{.ControllerName}}Controller is the {{.ModelName}} controller.
+type {{.ControllerName}}Controller struct {
+	Router *gin.Engine
+}
+
+func (controller *{{.ControllerName}}Controller) create{{.ModelName}}(c *gin.Context) {
+	c.Request.ParseForm()
+
+	{{.InstanceName}} := &models.{{.ModelName}}{}
+	{{.InstanceName}}.SetAttributes(c.Request.Form)
+
+	defer {{.InstanceName}}.Save()
+	if len({{.InstanceName}}.ErrorMessages()) == 0 {
+		helpers.JSONResponseObject(c, http.StatusOK, {{.InstanceName}})
+	} else {
+		helpers.JSONResponse(c, http.StatusBadRequest, {{.InstanceName}}.ErrorMessages())
+	}
+}
+
+func (controller *{{.ControllerName}}Controller) list{{.ModelNamePlural}}(c *gin.Context) {
+	session := models.New{{.ModelName}}DBSession()
+	defer session.Close()
+
+	query := session.Query(bson.M{})
+	query.Sort("-created_at").Limit(20)
+
+	{{.InstanceNamePlural}}, _ := models.Load{{.ModelNamePlural}}(query)
+	{{.InstanceNamePlural}}Response := make([]helpers.ResponseMap, len({{.InstanceNamePlural}}))
+	for i, {{.InstanceNamePlural}} := range {{.InstanceNamePlural}} {
+		{{.InstanceNamePlural}}Response[i] = {{.InstanceNamePlural}}.ToResponseMap()
+	}
+
+	helpers.JSONResponseArray(c, http.StatusOK, {{.InstanceNamePlural}}Response)
+}
+
+// TODO: template for new
+func (controller *{{.ControllerName}}Controller) new{{.ModelName}}(c *gin.Context) {
+        c.HTML(http.StatusOK, "{{.InstanceNamePlural}}/new.tmpl", gin.H{
+                "title": "{{.InstanceName}}",
+        })
+}
+
+func (controller *{{.ControllerName}}Controller) get{{.ModelName}}(c *gin.Context) {
+	{{.InstanceName}}, err := find{{.ModelName}}ByID(c)
+
+	if err != nil {
+		helpers.JSONResponseError(c, err)
+		return
+	}
+
+    helpers.JSONResponseObject(c, http.StatusOK, {{.InstanceName}})
+}
+
+func (controller *{{.ControllerName}}Controller) update{{.ModelName}}(c *gin.Context) {
+	{{.InstanceName}}, err := find{{.ModelName}}ByID(c)
+
+	if err != nil {
+		helpers.JSONResponseError(c, err)
+		return
+	}
+
+	{{.InstanceName}}.SetAttributes(c.Request.Form)
+
+	defer {{.InstanceName}}.Save()
+	if len({{.InstanceName}}.ErrorMessages()) == 0 {
+		helpers.JSONResponseObject(c, http.StatusOK, {{.InstanceName}})
+	} else {
+		helpers.JSONResponse(c, http.StatusBadRequest, {{.InstanceName}}.ErrorMessages())
+	}
+}
+
+// TODO: template for edit
+func (controller *{{.ControllerName}}Controller) edit{{.ModelName}}(c *gin.Context) {
+	{{.InstanceName}}, err := find{{.ModelName}}ByID(c)
+
+        if err != nil {
+                helpers.JSONResponseError(c, err)
+                return
+        }
+
+        c.HTML(http.StatusOK, "{{.InstanceNamePlural}}/edit.tmpl", gin.H{
+                "title": "{{.InstanceName}}",
+                "body": {{.InstanceName}},
+        })
+}
+
+func (controller *{{.ControllerName}}Controller) delete{{.ModelName}}(c *gin.Context) {
+	{{.InstanceName}}, err := find{{.ModelName}}ByID(c)
+
+	if err != nil {
+		helpers.JSONResponseError(c, err)
+		return
+	}
+
+	if err := {{.InstanceName}}.Delete(); err == nil {
+		helpers.JSONResponse(c, http.StatusOK, helpers.ResponseMap{})
+		return
+	}
+
+	helpers.JSONResponseError(c, ErrCannotDelete{{.ModelName}})
+}
+
+// Setup sets up routes for the {{.ModelName}} controller.
+func (controller *{{.ControllerName}}Controller) Setup() {
+	v1 := controller.Router.Group("{{.RoutePath}}")
+	{
+		v1.POST("", controller.create{{.ModelName}})
+		v1.GET("", controller.list{{.ModelNamePlural}})
+		// v1.GET("/new", controller.new{{.ModelNamePlural}})
+		v1.GET("/:{{.InstanceName | Underscore}}_id", controller.get{{.ModelName}})
+		v1.GET("/:{{.InstanceName | Underscore}}_id/edit", controller.edit{{.ModelName}})
+		v1.PUT("/:{{.InstanceName | Underscore}}_id", controller.update{{.ModelName}})
+		v1.DELETE("/:{{.InstanceName | Underscore}}_id", controller.delete{{.ModelName}})
+	}
+
+	/*
+	controller.Router.POST("/{{.RoutePath}}", controller.create{{.ModelName}})
+	controller.Router.GET("/{{.RoutePath}}", controller.list{{.ModelNamePlural}})
+	// controller.Router.GET("/shops/new", controller.newShop)
+	controller.Router.GET("/{{.RoutePath}}/:{{.InstanceName | Underscore}}_id", controller.get{{.ModelName}})
+	controller.Router.GET("/{{.RoutePath}}/:{{.InstanceName | Underscore}}_id/edit", controller.edit{{.ModelName}})
+	controller.Router.PUT("/{{.RoutePath}}/:{{.InstanceName | Underscore}}_id", controller.update{{.ModelName}})
+	controller.Router.DELETE("/{{.RoutePath}}/:{{.InstanceName | Underscore}}_id", controller.delete{{.ModelName}})
+	*/
+}
+
+// vi:syntax=go

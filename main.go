@@ -15,7 +15,7 @@ import (
 	"github.com/MohamedBassem/gormgen"
 	"github.com/NYTimes/openapi2proto"
 	"github.com/iancoleman/strcase"
-	"github.com/roscopecoltran/aor-gin-swagger/utils"
+	"github.com/roscopecoltran/aor-gin-swagger/generator/utils"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
